@@ -34,6 +34,15 @@ EXERCICES — Module 09 : tests & qualité (approche TDD)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER :   python3 exercices.py
   Un test qui échoue lève une AssertionError et arrête le programme : c'est
   le « rouge » à transformer en « vert ».
@@ -45,28 +54,42 @@ EXERCICES — Module 09 : tests & qualité (approche TDD)
 
 
 def est_palindrome(mot):
-    """Renvoie True si `mot` se lit pareil à l'endroit et à l'envers.
-    Ex : est_palindrome("kayak") -> True ; est_palindrome("python") -> False
-    Indice : on peut inverser une chaîne avec mot[::-1].
+    """OBJECTIF : renvoyer True si `mot` se lit pareil à l'endroit et à l'envers,
+    False sinon.
+
+    Exemples : est_palindrome("kayak")  ->  True       est_palindrome("python")  ->  False
+
+    Comment t'y prendre :
+      - mot[::-1] renvoie le mot à l'envers (ex. "kayak"[::-1] == "kayak") ;
+      - renvoie le résultat du test  mot == mot[::-1].
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def inverser(texte):
-    """Renvoie `texte` à l'envers.
-    Ex : inverser("abc") -> "cba"
+    """OBJECTIF : renvoyer `texte` à l'envers.
+
+    Exemple : inverser("abc")  ->  "cba"
+
+    Comment t'y prendre :
+      - le découpage [::-1] inverse une chaîne ;
+      - renvoie  texte[::-1].
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def factorielle(n):
-    """Renvoie n! = 1 × 2 × ... × n.   factorielle(0) vaut 1.
-    Ex : factorielle(5) -> 120
+    """OBJECTIF : renvoyer n! = 1 × 2 × … × n.  Cas particulier : factorielle(0) vaut 1.
+
+    Exemple : factorielle(5)  ->  120   (car 1 × 2 × 3 × 4 × 5 = 120)
+
+    Comment t'y prendre :
+      1. pars d'un résultat à 1 ;
+      2. parcours les nombres de 2 à n : for i in range(2, n + 1) ;
+      3. multiplie le résultat par i à chaque tour (resultat *= i) ;
+      4. renvoie le résultat (si n vaut 0 ou 1, la boucle ne tourne pas → 1, parfait).
     """
-    # TODO : une boucle, ou la récursivité
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

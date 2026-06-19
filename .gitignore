@@ -131,6 +131,11 @@ dmypy.json
 # Fichiers de démo générés par les scripts (recréés à l'exécution)
 **/exemples/
 
+# Ton travail perso sur les exercices (jamais suivi par git → "git pull" sans conflit).
+# Travaille dans une COPIE : cp exercices.py exercices_perso.py
+*_perso.py
+mon_travail/
+
 # Binaires compilés (C, C++, Go, Asm) — on ne versionne que le code source
 *.o
 *.out

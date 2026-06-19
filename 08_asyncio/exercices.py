@@ -38,6 +38,15 @@ EXERCICES — Module 08 : asyncio
   pareil, mais un point d'attente s'écrit avec « await » (ex. « await
   asyncio.sleep(0) »). L'indice de chaque fonction te dit quoi « await ».
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -50,21 +59,31 @@ import asyncio
 
 
 async def addition_async(a, b):
-    """Fonction ASYNCHRONE qui renvoie a + b.
-    Doit contenir un `await asyncio.sleep(0)` (simule un point d'attente),
-    puis renvoyer la somme.
+    """OBJECTIF : une fonction ASYNCHRONE (async) qui renvoie a + b.
+
+    Exemple : await addition_async(2, 3)  ->  5
+
+    Comment t'y prendre :
+      1. écris d'abord un point d'attente : await asyncio.sleep(0)
+         (ça simule une pause ; obligatoire ici pour s'entraîner au `await`) ;
+      2. ensuite, return a + b.
     """
-    # TODO : await asyncio.sleep(0) puis return a + b
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 async def executer_tout(coroutines):
-    """Reçoit une LISTE de coroutines, les lance toutes ENSEMBLE et renvoie
-    la liste de leurs résultats (dans l'ordre).
-    Indice : asyncio.gather(*coroutines) — n'oublie pas le `await` et l'étoile `*`.
+    """OBJECTIF : recevoir une LISTE de coroutines, les lancer toutes ENSEMBLE,
+    et renvoyer la liste de leurs résultats (dans l'ordre).
+
+    Exemple : await executer_tout([addition_async(1, 1), addition_async(10, 5)])  ->  [2, 15]
+
+    Comment t'y prendre :
+      - asyncio.gather(*coroutines) lance toutes les coroutines en parallèle ;
+        l'étoile `*` « déballe » la liste en arguments séparés ;
+      - n'oublie pas le `await` devant (on attend que tout soit fini) ;
+      - renvoie  await asyncio.gather(*coroutines).
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

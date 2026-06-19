@@ -34,6 +34,15 @@ EXERCICES — Module 03 : fonctions & modules
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -44,43 +53,61 @@ EXERCICES — Module 03 : fonctions & modules
 
 
 def salutation(nom, politesse="Bonjour"):
-    """Renvoie une salutation. `politesse` a une valeur par défaut.
-    Ex : salutation("Ada")               -> "Bonjour Ada !"
-         salutation("Ada", "Salut")      -> "Salut Ada !"
+    """OBJECTIF : renvoyer une salutation. Le paramètre `politesse` a une valeur
+    PAR DÉFAUT ("Bonjour") : si on ne le précise pas, c'est celle-là qui sert.
+
+    Exemples : salutation("Ada")           ->  "Bonjour Ada !"
+               salutation("Ada", "Salut")  ->  "Salut Ada !"
+
+    Comment t'y prendre :
+      - construis le texte avec une f-string : f"{politesse} {nom} !" ;
+      - renvoie-la.
     """
-    # TODO : utilise une f-string
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def moyenne(*notes):
-    """Accepte un nombre VARIABLE de notes et renvoie leur moyenne.
-    Renvoie 0 si aucune note (pour éviter la division par zéro).
-    Ex : moyenne(10, 20)     -> 15.0
-         moyenne()           -> 0
+    """OBJECTIF : accepter un nombre VARIABLE de notes et renvoyer leur moyenne.
+    Renvoyer 0 s'il n'y a aucune note (sinon division par zéro = plantage).
+
+    Exemples : moyenne(10, 20)  ->  15.0        moyenne()  ->  0
+
+    Comment t'y prendre :
+      - grâce à l'étoile, `notes` est un tuple de toutes les valeurs reçues ;
+      - si ce tuple est vide (if not notes:), renvoie 0 ;
+      - sinon, renvoie sum(notes) / len(notes)  (la somme divisée par le nombre).
     """
-    # TODO : *notes ramasse les arguments dans un tuple ; pense au cas vide
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def applique(fonction, liste):
-    """Applique `fonction` à chaque élément de `liste` et renvoie la liste des résultats.
-    Ex : applique(lambda x: x * 2, [1, 2, 3]) -> [2, 4, 6]
-    (Oui, une fonction peut recevoir une autre fonction en argument ! Voir le
-     cours, section 6 : "Une fonction peut en recevoir une autre".)
+    """OBJECTIF : appliquer `fonction` à CHAQUE élément de `liste` et renvoyer
+    la liste des résultats. (Oui : une fonction peut recevoir une AUTRE fonction
+    en argument — voir le cours, section 6.)
+
+    Exemple : applique(lambda x: x * 2, [1, 2, 3])  ->  [2, 4, 6]
+
+    Comment t'y prendre :
+      1. crée une liste vide : resultat = [] ;
+      2. parcours `liste` avec une boucle for ;
+      3. pour chaque x, appelle fonction(x) et ajoute le retour : resultat.append(fonction(x)) ;
+      4. renvoie resultat.
+      (Au module 06, tu apprendras à écrire tout ça en une seule ligne.)
     """
-    # TODO : crée une liste vide, parcours `liste` avec une boucle for, applique
-    #        fonction(x) à chaque élément et ajoute le résultat avec .append().
-    #        (Au module 06 tu apprendras à l'écrire en une seule ligne.)
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def compter_mots(phrase):
-    """Renvoie le nombre de mots d'une phrase (mots séparés par des espaces).
-    Ex : compter_mots("le chat dort") -> 3
-    Indice : la méthode .split() découpe une chaîne en liste de mots.
+    """OBJECTIF : renvoyer le nombre de mots d'une phrase (mots séparés par des espaces).
+
+    Exemple : compter_mots("le chat dort")  ->  3
+
+    Comment t'y prendre :
+      - phrase.split() découpe la phrase en une LISTE de mots ;
+      - len(...) compte combien il y en a ;
+      - renvoie len(phrase.split()).
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

@@ -30,6 +30,12 @@ EXERCICES — Module 07 : débugger (TROUVE ET CORRIGE LES BUGS)
      Ils ne le seront pas tous dans la vraie vie, mais ici c'est pour
      t'apprendre à reconnaître les erreurs classiques.
 
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne corrige pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ BLOQUÉ ? Réessaie vraiment d'abord. En dernier recours, ouvre
   solutions.py (le corrigé, avec l'explication de chaque bug).
 """

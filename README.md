@@ -62,6 +62,18 @@ appliqué** (automatisation) pour mettre les concepts en pratique.
   à compléter, avec une **auto-correction** intégrée — tu lances, tu vois ✅/❌ en direct) et un
   `solutions.py` commenté. C'est **le** moyen de passer de « je lis du code » à « j'écris du
   code ». Commence par [`01_les_bases/exercices.py`](./01_les_bases/exercices.py).
+
+  > 💾 **Pour ne jamais perdre ton travail lors d'un `git pull`** : ne code pas directement dans
+  > `exercices.py` (il est suivi par git, donc une mise à jour du guide entrerait en conflit avec
+  > tes réponses). **Travaille dans une copie** — elle est ignorée par git :
+  > ```bash
+  > cd 01_les_bases
+  > cp exercices.py exercices_perso.py     # ta copie perso (jamais suivie par git)
+  > python3 exercices_perso.py             # tu codes et tu testes dans la copie
+  > ```
+  > Les fichiers `*_perso.py` (et le dossier `mon_travail/`) sont dans le `.gitignore` : tu peux
+  > faire `git pull` quand tu veux sans rien perdre. *(Déjà des réponses écrites dans
+  > `exercices.py` ? Avant le prochain `git pull` : `git stash` → `git pull` → `git stash pop`.)*
 - **[15_construire_un_script/](./15_construire_un_script/)** : écrire un script de zéro en
   **raisonnant** (compter des fichiers, convertir JSON → SQL) — commenté pas à pas.
 - **[projets/](./projets/)** : mini-projets concrets (ranger des fichiers, carnet de contacts, suivi météo).

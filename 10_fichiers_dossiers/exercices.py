@@ -34,6 +34,15 @@ EXERCICES — Module 10 : fichiers & dossiers (pathlib, json)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -47,31 +56,47 @@ import json
 
 
 def lister_noms(dossier):
-    """Renvoie la liste TRIÉE des noms de fichiers/dossiers présents dans `dossier`.
-    `dossier` est un chemin (str ou Path).
-    Ex : si le dossier contient a.txt et b.txt -> ["a.txt", "b.txt"]
-    Indice : Path(dossier).iterdir() ; l'attribut .name donne le nom court.
+    """OBJECTIF : renvoyer la liste TRIÉE des noms des fichiers/dossiers présents
+    dans `dossier` (un chemin, str ou Path).
+
+    Exemple : si le dossier contient a.txt et b.txt  ->  ["a.txt", "b.txt"]
+
+    Comment t'y prendre :
+      1. Path(dossier).iterdir() donne chaque élément du dossier (un Path) ;
+      2. l'attribut .name donne le nom court (ex. "a.txt") ;
+      3. construis la liste des .name, puis renvoie-la triée avec sorted(...).
     """
-    # TODO : parcours iterdir(), récupère .name, renvoie une liste triée
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def compter_par_extension(dossier):
-    """Renvoie un dict {extension: nombre} pour les fichiers de `dossier`.
-    Ex : pour a.txt, b.txt, c.csv -> {".txt": 2, ".csv": 1}
-    Indice : l'attribut .suffix d'un Path donne l'extension (ex. ".txt").
+    """OBJECTIF : renvoyer un dict {extension: nombre} comptant les fichiers de
+    `dossier` par extension.
+
+    Exemple : pour a.txt, b.txt, c.csv  ->  {".txt": 2, ".csv": 1}
+
+    Comment t'y prendre :
+      1. crée un dict vide : compte = {} ;
+      2. parcours Path(dossier).iterdir() ; l'attribut .suffix donne l'extension (".txt") ;
+      3. incrémente : compte[ext] = compte.get(ext, 0) + 1
+         (.get(ext, 0) renvoie 0 si l'extension n'a pas encore été vue) ;
+      4. renvoie compte.
     """
-    # TODO : utilise un dict et .get(ext, 0) + 1
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def sauver_puis_charger_json(chemin, donnees):
-    """Écrit `donnees` (un dict) en JSON dans `chemin`, puis le recharge et le renvoie.
-    Ex : sauver_puis_charger_json("/tmp/x.json", {"a": 1}) -> {"a": 1}
-    Indice : json.dump(obj, fichier) pour écrire, json.load(fichier) pour lire.
+    """OBJECTIF : écrire `donnees` (un dict) au format JSON dans `chemin`, puis
+    le recharger depuis le fichier et le renvoyer.
+
+    Exemple : sauver_puis_charger_json("/tmp/x.json", {"a": 1})  ->  {"a": 1}
+
+    Comment t'y prendre :
+      1. ÉCRIRE : with open(chemin, "w", encoding="utf-8") as f:  puis  json.dump(donnees, f) ;
+      2. LIRE   : with open(chemin, "r", encoding="utf-8") as f:  puis  resultat = json.load(f) ;
+      3. renvoie resultat.
     """
-    # TODO : un with open(..., "w") + json.dump, puis un with open(..., "r") + json.load
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════
