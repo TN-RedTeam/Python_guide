@@ -4,12 +4,34 @@
 """
 EXERCICES — Module 07 : débugger (TROUVE ET CORRIGE LES BUGS)
 
-Ici, c'est différent : les fonctions ci-dessous CONTIENNENT DES BUGS.
-  1. Lance :   python3 exercices.py   → tu verras des ❌.
-  2. Pour chaque ❌, trouve POURQUOI le résultat est faux.
-     Outils : ajoute des print(...), ou pose un breakpoint() et inspecte.
-  3. Corrige le code jusqu'à obtenir 100 % de ✅.
-  4. Corrigé expliqué dans solutions.py.
+══════════════════════════════════════════════════════════════════════
+ C'EST QUOI CE FICHIER ? (différent des autres modules !)
+ Ici, PAS de trous à remplir. Les fonctions sont DÉJÀ écrites, mais elles
+ CONTIENNENT DES BUGS volontaires. Ton travail : les trouver et corriger,
+ jusqu'à ce que tous les tests passent au ✅.
+══════════════════════════════════════════════════════════════════════
+
+▶ AVANT DE COMMENCER :
+    1. Lis le cours du module       →  README.md  (dans ce dossier)
+    2. Observe l'exemple commenté   →  demo_debug.py
+
+▶ LA MÉTHODE, ÉTAPE PAR ÉTAPE :
+    1. Lance :   python3 exercices.py   →  tu verras des ❌.
+    2. Pour chaque ❌, lis ce que le test ATTENDAIT et ce que la fonction a
+       renvoyé. L'écart entre les deux te met sur la piste du bug.
+    3. Comprends POURQUOI c'est faux. Deux outils :
+         • ajoute un print(...) pour voir une valeur au milieu du calcul ;
+         • ou pose un breakpoint() pour mettre le programme en pause et
+           inspecter les variables (commandes : n = ligne suivante, c =
+           continuer, p nom = afficher une variable, q = quitter).
+    4. Corrige la ligne fautive, relance, et recommence jusqu'à 100 % de ✅.
+
+  💡 Astuce : certains bugs sont signalés par un commentaire « 🐞 BUG ».
+     Ils ne le seront pas tous dans la vraie vie, mais ici c'est pour
+     t'apprendre à reconnaître les erreurs classiques.
+
+▶ BLOQUÉ ? Réessaie vraiment d'abord. En dernier recours, ouvre
+  solutions.py (le corrigé, avec l'explication de chaque bug).
 """
 
 
