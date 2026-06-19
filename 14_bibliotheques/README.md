@@ -177,6 +177,26 @@ pip install requests
 
 Si tu utilises un environnement virtuel, vérifie qu'il est **activé** avant d'installer.
 
+### Vérifier depuis Python si un module est disponible (sans planter)
+
+`pip list` répond depuis le **terminal**. Mais on peut aussi le demander **depuis le code**, par
+exemple pour afficher un message clair au lieu d'un `ModuleNotFoundError`. L'outil de la
+bibliothèque standard, c'est `importlib.util.find_spec` :
+
+```python
+import importlib.util
+
+def est_disponible(nom_module):
+    # find_spec renvoie une "fiche" si le module existe, ou None s'il est introuvable
+    return importlib.util.find_spec(nom_module) is not None
+
+print(est_disponible("json"))       # True  (json fait partie de Python)
+print(est_disponible("requests"))   # True seulement si tu l'as installé
+```
+
+> 🔑 `find_spec(nom)` **ne fait que chercher** le module, sans l'importer ni l'exécuter : il
+> renvoie `None` quand le module n'existe pas. C'est exactement ce que tu coderas dans l'exercice.
+
 ---
 
 ## 🏁 S'entraîner
