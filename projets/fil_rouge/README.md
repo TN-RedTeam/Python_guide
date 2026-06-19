@@ -24,16 +24,16 @@ Lance-les dans l'ordre et **compare** : à chaque étape, demande-toi *« qu'est
 et quel problème ça résout ? »* (la réponse est en commentaire à la fin de chaque fichier).
 
 ```bash
-python3 python/projets/fil_rouge/etape_1_une_depense.py
-python3 python/projets/fil_rouge/etape_2_liste.py
-python3 python/projets/fil_rouge/etape_3_fonctions.py
-python3 python/projets/fil_rouge/etape_4_sauvegarde.py     # relance-le plusieurs fois !
+python3 projets/fil_rouge/etape_1_une_depense.py
+python3 projets/fil_rouge/etape_2_liste.py
+python3 projets/fil_rouge/etape_3_fonctions.py
+python3 projets/fil_rouge/etape_4_sauvegarde.py     # relance-le plusieurs fois !
 
 # L'appli finale :
-python3 python/projets/fil_rouge/etape_5_cli.py ajouter --montant 12.5 --categorie courses
-python3 python/projets/fil_rouge/etape_5_cli.py ajouter --montant 40 --categorie transport
-python3 python/projets/fil_rouge/etape_5_cli.py lister
-python3 python/projets/fil_rouge/etape_5_cli.py rapport
+python3 projets/fil_rouge/etape_5_cli.py ajouter --montant 12.5 --categorie courses
+python3 projets/fil_rouge/etape_5_cli.py ajouter --montant 40 --categorie transport
+python3 projets/fil_rouge/etape_5_cli.py lister
+python3 projets/fil_rouge/etape_5_cli.py rapport
 ```
 
 ---

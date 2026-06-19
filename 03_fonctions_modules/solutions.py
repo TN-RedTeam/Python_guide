@@ -22,7 +22,12 @@ def moyenne(*notes):
 
 def applique(fonction, liste):
     """Applique une fonction à chaque élément."""
-    return [fonction(x) for x in liste]   # compréhension : appelle fonction(x) pour chaque x
+    resultats = []
+    for x in liste:
+        resultats.append(fonction(x))   # on APPELLE la fonction reçue, sur chaque élément
+    return resultats
+    # 💡 Au module 06, tu pourras l'écrire en une seule ligne (compréhension de liste) :
+    #    return [fonction(x) for x in liste]
 
 
 def compter_mots(phrase):

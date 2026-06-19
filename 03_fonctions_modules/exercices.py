@@ -65,9 +65,12 @@ def moyenne(*notes):
 def applique(fonction, liste):
     """Applique `fonction` à chaque élément de `liste` et renvoie la liste des résultats.
     Ex : applique(lambda x: x * 2, [1, 2, 3]) -> [2, 4, 6]
-    (Oui, une fonction peut recevoir une autre fonction en argument !)
+    (Oui, une fonction peut recevoir une autre fonction en argument ! Voir le
+     cours, section 6 : "Une fonction peut en recevoir une autre".)
     """
-    # TODO : une compréhension de liste
+    # TODO : crée une liste vide, parcours `liste` avec une boucle for, applique
+    #        fonction(x) à chaque élément et ajoute le résultat avec .append().
+    #        (Au module 06 tu apprendras à l'écrire en une seule ligne.)
     ...
 
 

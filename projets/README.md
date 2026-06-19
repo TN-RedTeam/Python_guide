@@ -40,10 +40,10 @@ lancement).
 - **Modules mobilisés** : 02 (collections), 04 (fichiers), 12 (argparse).
 - **Lancer** :
   ```bash
-  python3 python/projets/carnet_contacts.py ajouter --nom Alice --tel 0612345678
-  python3 python/projets/carnet_contacts.py lister
-  python3 python/projets/carnet_contacts.py chercher --nom alice
-  python3 python/projets/carnet_contacts.py --help
+  python3 projets/carnet_contacts.py ajouter --nom Alice --tel 0612345678
+  python3 projets/carnet_contacts.py lister
+  python3 projets/carnet_contacts.py chercher --nom alice
+  python3 projets/carnet_contacts.py --help
   ```
 - **Idées d'extension** : ajouter un champ « adresse » ; une commande `modifier` ; trier la
   liste par nom dans `lister`.
@@ -58,7 +58,7 @@ date de dernière modification. La corvée de tri manuel transformée en une com
 - **Modules mobilisés** : 02 (collections), 10 (fichiers & dossiers).
 - **Lancer** :
   ```bash
-  python3 python/projets/organiser_par_date.py
+  python3 projets/organiser_par_date.py
   ```
 - **Idées d'extension** : ranger par **extension** plutôt que par date ; afficher un résumé
   « combien de fichiers par dossier » à la fin.
@@ -75,7 +75,7 @@ scripts les plus utiles du monde réel.
 - **Modules mobilisés** : 01, 02, 04, 12 (le format de log).
 - **Lancer** :
   ```bash
-  python3 python/projets/analyseur_logs.py
+  python3 projets/analyseur_logs.py
   ```
 - **Idées d'extension** : n'afficher que les lignes `ERROR` ; compter les erreurs **par heure** ;
   recevoir le chemin du `.log` en argument avec `argparse`.
@@ -91,8 +91,8 @@ nombre à générer).
 - **Modules mobilisés** : 01/02 (texte & listes), 12 (argparse). Aucune dépendance.
 - **Lancer** :
   ```bash
-  python3 python/projets/generateur_mdp.py --longueur 24 --symboles
-  python3 python/projets/generateur_mdp.py --longueur 12 --sans-chiffres --nombre 5
+  python3 projets/generateur_mdp.py --longueur 24 --symboles
+  python3 projets/generateur_mdp.py --longueur 12 --sans-chiffres --nombre 5
   ```
 - **Idées d'extension** : garantir **au moins un** chiffre et un symbole ; estimer la « force »
   du mot de passe ; copier directement dans le presse-papier.
@@ -108,9 +108,9 @@ supprimer. Le grand frère du carnet de contacts, avec une notion d'**état**.
 - **Modules mobilisés** : 02 (collections), 04 (fichiers), 12 (argparse). Aucune dépendance.
 - **Lancer** :
   ```bash
-  python3 python/projets/todo.py ajouter --texte "Réviser Python"
-  python3 python/projets/todo.py lister
-  python3 python/projets/todo.py terminer --numero 1
+  python3 projets/todo.py ajouter --texte "Réviser Python"
+  python3 projets/todo.py lister
+  python3 projets/todo.py terminer --numero 1
   ```
 - **Idées d'extension** : une commande `nettoyer` qui supprime les tâches faites ; des
   **priorités** ; n'afficher que les tâches non terminées.
@@ -123,10 +123,10 @@ et enregistre un **rapport CSV**.
 - **Ce que tu y apprends** : appeler une API web avec `requests`, gérer les erreurs réseau
   proprement (le script ne plante pas sans Internet), écrire un CSV avec `csv.DictWriter`.
 - **Modules mobilisés** : 11 (web & APIs), 10 (CSV/JSON).
-- **Prérequis** : une connexion Internet + `requests` (`pip install -r python/requirements.txt`).
+- **Prérequis** : une connexion Internet + `requests` (`pip install -r requirements.txt`).
 - **Lancer** :
   ```bash
-  python3 python/projets/suivi_meteo.py
+  python3 projets/suivi_meteo.py
   ```
 - **Idées d'extension** : ajouter des villes ; ajouter une colonne « humidité » ; enregistrer en
   JSON en plus du CSV.

@@ -106,11 +106,21 @@ Un outil ne remplace pas le raisonnement. Face à un bug :
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement « chasse aux bugs »** : [`exercices.py`](./exercices.py) contient des
-> fonctions **buggées** à réparer (lance-le, lis les ❌, corrige). Corrigé **expliqué** dans
-> [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : ici c'est une **chasse aux bugs**. Le fichier contient des
+fonctions **déjà écrites mais buggées** : lance-le, lis les ❌, trouve et corrige chaque bug
+jusqu'à tout passer au vert. C'est **LE** fichier où tu travailles pour ce module.
+
+```bash
+python3 07_debugger/exercices.py
+```
+
+Le corrigé **expliqué** (chaque bug commenté) est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal, sans correction automatique)
 
 1. **Lance** [`demo_debug.py`](./demo_debug.py) : il contient un bug subtil.
 2. **Pose un `breakpoint()`** avant la ligne suspecte et inspecte la variable `total` (avec `p

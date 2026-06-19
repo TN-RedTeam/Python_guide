@@ -262,46 +262,34 @@ modulo, f-string. Relis-le jusqu'à comprendre **chaque** symbole.
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (tu
-> lances le fichier, il affiche ✅/❌ pour chaque fonction). Corrigé commenté dans
-> [`solutions.py`](./solutions.py) — à n'ouvrir qu'après avoir vraiment essayé.
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter (dont **FizzBuzz** et le
+**compte à rebours**), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où
+tu écris ton code pour ce module.
+
+```bash
+python3 01_les_bases/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`bases.py`](./bases.py), puis modifie les valeurs pour observer les
    changements (mets `vie = 10`, change le score…).
-2. **Table de multiplication** : écris une boucle qui affiche la table de 7 (de `7 x 1` à `7 x 10`).
-3. **Compte à rebours** : avec un `while`, affiche `10, 9, 8, … 1, Partez !`.
-4. **FizzBuzz (le classique des entretiens)** : pour les nombres de 1 à 20, affiche `Fizz` si
-   le nombre est divisible par 3, `Buzz` s'il est divisible par 5, `FizzBuzz` si les deux, sinon
-   le nombre lui-même.
+2. **Table de multiplication (à coder toi-même)** : écris une boucle qui affiche la table de 7
+   (de `7 x 1` à `7 x 10`).
 
 <details>
-<summary>💡 Solution — exercice 2 (table de 7)</summary>
+<summary>💡 Solution — table de 7</summary>
 
 ```python
 for i in range(1, 11):           # 1 à 10 inclus
     print(f"7 x {i} = {7 * i}")
 ```
-</details>
-
-<details>
-<summary>💡 Solution — exercice 4 (FizzBuzz)</summary>
-
-```python
-for n in range(1, 21):
-    if n % 3 == 0 and n % 5 == 0:    # divisible par 3 ET par 5 → on teste ce cas EN PREMIER
-        print("FizzBuzz")
-    elif n % 3 == 0:
-        print("Fizz")
-    elif n % 5 == 0:
-        print("Buzz")
-    else:
-        print(n)
-```
-> 🧠 **Pourquoi tester `and` en premier ?** Si on testait `n % 3 == 0` avant, le nombre 15
-> (divisible par les deux) afficherait `Fizz` et on n'arriverait jamais au cas `FizzBuzz`.
-> **L'ordre des conditions compte** : du plus spécifique au plus général.
 </details>
 
 ➡️ **Prochaine étape** : [module 02 — les collections](../02_collections/) (listes, dictionnaires…).

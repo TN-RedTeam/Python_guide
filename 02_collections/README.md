@@ -136,6 +136,31 @@ print(pilote.keys())     # toutes les clés
 print(pilote.values())   # toutes les valeurs
 ```
 
+### N'afficher que certaines paires (filtrer pendant le parcours)
+
+Très souvent, on **parcourt** avec `.items()` et on ajoute un `if` pour ne traiter que les
+paires qui nous intéressent. C'est le motif le plus courant pour « afficher une valeur précise » :
+
+```python
+stock = {"pommes": 5, "poires": 0, "kiwis": 3}
+
+# 1) Afficher CHAQUE produit et sa quantité (clé + valeur) :
+for produit, quantite in stock.items():
+    print(f"{produit} : {quantite}")
+
+# 2) N'afficher QUE les produits en rupture (quantité égale à 0) :
+for produit, quantite in stock.items():
+    if quantite == 0:                       # le filtre : on ne garde que ce cas
+        print(f"⚠️ {produit} est en rupture")
+```
+
+> 🔑 **Le réflexe à retenir** : `.items()` te donne `(clé, valeur)` à chaque tour, et le `if`
+> (vu au [module 01](../01_les_bases/)) choisit **sur quoi** agir. « Parcourir tout, n'agir que
+> sur ce qui remplit la condition » : tu réutiliseras ce motif partout.
+>
+> 💡 Et si tu veux UNE valeur précise dont tu connais la clé, pas besoin de boucle :
+> `stock["poires"]` te la donne directement (revois `dico[clé]` et `.get()` plus haut).
+
 ---
 
 ## 3. Les tuples (`tuple`) — un groupe figé
@@ -208,19 +233,30 @@ set     { }   unique, non ordonné                     → dédoublonner, ensemb
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter (compter des occurrences,
+dédoublonner, inverser un dictionnaire…), avec **correction automatique** (✅/❌ en direct).
+C'est **LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 02_collections/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`collections_demo.py`](./collections_demo.py), puis modifie les valeurs.
-2. **Inventaire** : crée un dictionnaire `stock = {"pommes": 5, "poires": 0}`. Affiche chaque
-   produit et sa quantité avec `.items()`, puis affiche uniquement ceux en rupture (quantité 0).
-3. **Dédoublonnage** : à partir de `notes = [12, 15, 12, 18, 15]`, obtiens la liste des notes
-   distinctes, triées.
+2. **Inventaire (à coder toi-même)** : crée un dictionnaire `stock = {"pommes": 5, "poires": 0}`.
+   Affiche chaque produit et sa quantité avec `.items()`, puis affiche uniquement ceux en
+   rupture (quantité 0). *(Le motif est expliqué plus haut, section « N'afficher que certaines
+   paires ».)*
 
 <details>
-<summary>💡 Solution — exercice 2 (inventaire)</summary>
+<summary>💡 Solution — inventaire</summary>
 
 ```python
 stock = {"pommes": 5, "poires": 0, "kiwis": 3}
@@ -231,16 +267,6 @@ print("En rupture :")
 for produit, quantite in stock.items():
     if quantite == 0:
         print(f"  - {produit}")
-```
-</details>
-
-<details>
-<summary>💡 Solution — exercice 3 (dédoublonnage trié)</summary>
-
-```python
-notes = [12, 15, 12, 18, 15]
-distinctes = sorted(set(notes))   # set() enlève les doublons, sorted() trie et renvoie une liste
-print(distinctes)                 # [12, 15, 18]
 ```
 </details>
 

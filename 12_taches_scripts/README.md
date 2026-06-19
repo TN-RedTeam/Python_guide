@@ -121,20 +121,31 @@ logging.error("Le dossier source est introuvable")
 
 ---
 
-## ▶️ À toi de jouer
+## 🏁 S'entraîner
 
-> 🎯 **Exercices auto-corrigés** (construire un parseur `argparse`) :
-> [`exercices.py`](./exercices.py) → [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter pour construire un parseur
+`argparse`, avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où tu écris
+ton code pour ce module.
+
+```bash
+python3 12_taches_scripts/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (lance les démos commentées du module)
 
 ```bash
 # Affiche l'aide générée automatiquement par argparse :
-python3 python/12_taches_scripts/sauvegarde.py --help
+python3 12_taches_scripts/sauvegarde.py --help
 
 # Lance une vraie sauvegarde (crée des dossiers de test) :
-python3 python/12_taches_scripts/sauvegarde.py
+python3 12_taches_scripts/sauvegarde.py
 
 # Démo de planification (s'arrête tout seul après quelques répétitions) :
-python3 python/12_taches_scripts/tache_repetee.py
+python3 12_taches_scripts/tache_repetee.py
 ```
 
 ➡️ Module suivant : [`13_donnees_rapports`](../13_donnees_rapports/).

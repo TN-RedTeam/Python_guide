@@ -135,19 +135,29 @@ Du code lisible se relit et se corrige plus vite. Deux familles d'outils :
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement TDD** : dans [`exercices.py`](./exercices.py), les **tests sont déjà écrits** —
-> implémente les fonctions pour les faire passer au vert (rouge → vert). Corrigé dans
-> [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : ici, les **tests sont déjà écrits**. Ton travail :
+implémenter les fonctions pour faire passer les tests au vert (la démarche **TDD** : rouge →
+vert). C'est **LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 09_tests_qualite/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Installe** pytest (`pip install pytest`) et lance `pytest` dans ce dossier.
 2. **Lis** [`test_demo.py`](./test_demo.py) pour voir la structure d'un fichier de tests.
-3. **Écris tes tests** : crée une fonction `est_pair(n)` et un fichier `test_pair.py` qui vérifie
-   qu'elle renvoie `True` pour 4, `False` pour 3, et `True` pour 0.
+3. **Écris tes propres tests (à coder toi-même)** : crée une fonction `est_pair(n)` et un fichier
+   `test_pair.py` qui vérifie qu'elle renvoie `True` pour 4, `False` pour 3, et `True` pour 0.
 
 <details>
-<summary>💡 Solution — exercice 3 (est_pair)</summary>
+<summary>💡 Solution — est_pair</summary>
 
 ```python
 # fichier : test_pair.py
