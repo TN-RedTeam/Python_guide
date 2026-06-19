@@ -15,3 +15,7 @@ print("2 + 2 font :", 2 + 2)
 
 # Astuce : Python exécute le code ligne après ligne.
 # Si tu fais une erreur à la ligne 10, les lignes 1 à 9 s'exécuteront quand même.
+
+print("Mon prénom est Karim")
+
+print(7 * 8)
