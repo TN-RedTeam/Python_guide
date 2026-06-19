@@ -123,15 +123,25 @@ L'idée du mini-projet `ranger_dossier.py` : regarder l'**extension** de chaque 
 
 ---
 
-## ▶️ À toi de jouer
+## 🏁 S'entraîner
 
-> 🎯 **Exercices auto-corrigés** : complète [`exercices.py`](./exercices.py) (✅/❌ en direct),
-> corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
+(✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
 
 ```bash
-python3 python/10_fichiers_dossiers/lire_ecrire.py
-python3 python/10_fichiers_dossiers/csv_json.py
-python3 python/10_fichiers_dossiers/ranger_dossier.py
+python3 10_fichiers_dossiers/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (lance les démos commentées du module)
+
+```bash
+python3 10_fichiers_dossiers/lire_ecrire.py
+python3 10_fichiers_dossiers/csv_json.py
+python3 10_fichiers_dossiers/ranger_dossier.py
 ```
 
 Le script `ranger_dossier.py` travaille sur un dossier de test (`exemples/bazar/`) qu'il

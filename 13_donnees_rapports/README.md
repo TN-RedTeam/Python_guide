@@ -5,7 +5,7 @@ en vrac) en un **rapport propre** (totaux, moyennes, classements, fichier Excel)
 automatiquement. C'est ce que font des milliers de gens **à la main** dans Excel chaque jour.
 
 > Fichier du module : `rapport_ventes.py`. Il crée lui-même un jeu de données de démo.
-> Nécessite `pandas` et `openpyxl` (`pip install -r python/requirements.txt`).
+> Nécessite `pandas` et `openpyxl` (`pip install -r requirements.txt`).
 
 ---
 
@@ -100,13 +100,24 @@ ca_par_produit.to_excel("rapport.xlsx")            # en Excel (nécessite openpy
 
 ---
 
-## ▶️ À toi de jouer
+## 🏁 S'entraîner
 
-> 🎯 **Exercices auto-corrigés** (la logique d'un rapport, sans pandas) :
-> [`exercices.py`](./exercices.py) → [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter qui reproduisent la logique d'un
+rapport **sans pandas**, avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où
+tu écris ton code pour ce module.
 
 ```bash
-python3 python/13_donnees_rapports/rapport_ventes.py
+python3 13_donnees_rapports/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (lance la démo commentée du module)
+
+```bash
+python3 13_donnees_rapports/rapport_ventes.py
 ```
 
 Le script génère un faux fichier de ventes, calcule plusieurs indicateurs (chiffre

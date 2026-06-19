@@ -149,7 +149,55 @@ profil(**donnees)                # déballe le dict → profil(nom="Ada", age=36
 
 ---
 
-## 6. Les modules : réutiliser du code entre fichiers
+## 6. Une fonction peut en recevoir une autre (et les `lambda`)
+
+En Python, une fonction est une **valeur comme une autre** : tu peux la ranger dans une variable
+et même la **passer en argument** à une autre fonction. (Remarque : on passe le **nom sans les
+parenthèses** — `dire_bonjour`, pas `dire_bonjour()` — sinon on passe son *résultat*, pas la
+fonction elle-même.)
+
+```python
+def dire_bonjour(nom):
+    return f"Bonjour {nom}"
+
+def appliquer(fonction, valeur):     # `fonction` est une fonction reçue en argument
+    return fonction(valeur)          # on l'APPELLE ici, avec ()
+
+print(appliquer(dire_bonjour, "Ada"))   # "Bonjour Ada"
+```
+
+### `lambda` : une mini-fonction écrite en une ligne
+
+Quand la fonction est si courte qu'écrire un `def` complet serait lourd, on peut la créer **à la
+volée** avec `lambda`. Ces deux écritures sont **équivalentes** :
+
+```python
+def double(x):          # la version classique
+    return x * 2
+
+double = lambda x: x * 2   # la version lambda : lambda <paramètres>: <résultat>
+```
+
+Lis `lambda x: x * 2` comme : « une fonction qui prend `x` et **renvoie** `x * 2` » (le `return`
+est implicite). C'est surtout pratique pour la **passer directement en argument**, sans lui
+donner de nom :
+
+```python
+nombres = [1, 2, 3]
+resultats = [(lambda x: x * 2)(n) for n in nombres]   # [2, 4, 6]
+
+# Cas classique : trier par un critère
+mots = ["python", "go", "rust"]
+mots.sort(key=lambda mot: len(mot))   # trie par longueur → ["go", "rust", "python"]
+```
+
+> 🧠 **À retenir** : `lambda` ne fait rien de plus qu'un `def` ; c'est juste une **écriture
+> raccourcie** pour les fonctions d'une ligne. Si la logique est longue, garde un vrai `def`
+> (c'est plus lisible).
+
+---
+
+## 7. Les modules : réutiliser du code entre fichiers
 
 Un **module**, c'est simplement **un fichier `.py`**. L'`import` permet d'utiliser les fonctions
 d'un fichier dans un autre — ou celles fournies par Python.
@@ -197,29 +245,23 @@ print(aire_cercle(2))
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
+(✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 03_fonctions_modules/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal, sans correction automatique)
 
 1. **Lis et lance** [`fonctions.py`](./fonctions.py) (valeurs par défaut, `*args`).
 2. **Lis et lance** [`usage_module.py`](./usage_module.py) : il importe le module
    [`outils_math.py`](./outils_math.py). Repère les **deux** formes d'import.
-3. **Écris** une fonction `moyenne(*notes)` qui accepte un nombre variable de notes et renvoie
-   leur moyenne (attention au cas « aucune note » pour éviter la division par zéro).
-
-<details>
-<summary>💡 Solution — exercice 3 (moyenne)</summary>
-
-```python
-def moyenne(*notes):
-    if not notes:                  # tuple vide → "si aucune note" (voir if not x)
-        return 0                   # on évite la division par zéro
-    return sum(notes) / len(notes) # sum() additionne, len() compte
-
-print(moyenne(12, 15, 18))         # 15.0
-print(moyenne())                   # 0
-```
-</details>
 
 ➡️ **Prochaine étape** : [module 04 — exceptions & fichiers](../04_exceptions_fichiers/).

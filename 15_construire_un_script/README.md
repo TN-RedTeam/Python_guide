@@ -19,12 +19,12 @@ chaque morceau est là.
 
 ```bash
 # Compter les fichiers du dossier courant, puis d'un autre dossier, puis en récursif :
-python3 python/15_construire_un_script/compter_fichiers.py
-python3 python/15_construire_un_script/compter_fichiers.py /tmp
-python3 python/15_construire_un_script/compter_fichiers.py . --recursif
+python3 15_construire_un_script/compter_fichiers.py
+python3 15_construire_un_script/compter_fichiers.py /tmp
+python3 15_construire_un_script/compter_fichiers.py . --recursif
 
 # JSON -> SQL (fabrique ses données de démo, affiche le SQL, remplit une base SQLite) :
-python3 python/15_construire_un_script/json_vers_sql.py
+python3 15_construire_un_script/json_vers_sql.py
 ```
 
 > 💡 Lis le code **en même temps** que `ECRIRE_UN_SCRIPT.md` : tu y retrouveras, étape par

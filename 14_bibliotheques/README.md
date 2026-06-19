@@ -150,7 +150,7 @@ pandas>=2.0.0
 L'autre personne tape alors une seule commande pour tout installer :
 
 ```bash
-pip install -r python/requirements.txt
+pip install -r requirements.txt
 ```
 
 > 🧊 **« Figer » les versions** : `requests==2.31.0` (avec `==`) installe EXACTEMENT cette
@@ -179,13 +179,24 @@ Si tu utilises un environnement virtuel, vérifie qu'il est **activé** avant d'
 
 ---
 
-## ▶️ À toi de jouer
+## 🏁 S'entraîner
 
-> 🎯 **Exercices auto-corrigés** (vérifier qu'un module est installé) :
-> [`exercices.py`](./exercices.py) → [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter (vérifier qu'un module est
+installé), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où tu écris ton
+code pour ce module.
 
 ```bash
-python3 python/14_bibliotheques/explorer_modules.py
+python3 14_bibliotheques/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (lance la démo commentée du module)
+
+```bash
+python3 14_bibliotheques/explorer_modules.py
 ```
 
 Ce script montre comment vérifier, depuis Python, ce qui est déjà disponible et quelle

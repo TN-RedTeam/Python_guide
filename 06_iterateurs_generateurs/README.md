@@ -124,38 +124,33 @@ total = sum(n ** 2 for n in nombres)   # pas de liste créée : on additionne au
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter (filtrer, transformer, et écrire
+un **générateur** de nombres pairs), avec **correction automatique** (✅/❌ en direct). C'est
+**LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 06_iterateurs_generateurs/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`generateurs.py`](./generateurs.py) (différence de consommation mémoire).
-2. **Compréhension** : à partir de `noms = ["Alice", "Bob", "Anna", "Tom"]`, construis la liste
-   de ceux qui commencent par `"A"`.
-3. **Générateur** : écris un générateur `pairs(limite)` qui produit les nombres pairs de 0
-   jusqu'à `limite` exclue.
+2. **Filtre par initiale (à coder toi-même)** : à partir de `noms = ["Alice", "Bob", "Anna",
+   "Tom"]`, construis la liste de ceux qui commencent par `"A"` (avec une compréhension de liste).
 
 <details>
-<summary>💡 Solution — exercice 2 (filtre sur l'initiale)</summary>
+<summary>💡 Solution — filtre sur l'initiale</summary>
 
 ```python
 noms = ["Alice", "Bob", "Anna", "Tom"]
 en_a = [nom for nom in noms if nom.startswith("A")]   # startswith : commence par
 print(en_a)   # ['Alice', 'Anna']
-```
-</details>
-
-<details>
-<summary>💡 Solution — exercice 3 (générateur de pairs)</summary>
-
-```python
-def pairs(limite):
-    n = 0
-    while n < limite:
-        yield n
-        n += 2
-
-print(list(pairs(10)))   # [0, 2, 4, 6, 8]  (list() consomme tout le générateur)
 ```
 </details>
 

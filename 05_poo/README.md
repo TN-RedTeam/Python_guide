@@ -142,19 +142,28 @@ print(Voiture("Tesla"))                # "Voiture Tesla"  (au lieu du charabia)
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des classes à compléter (`Rectangle`, `Carre` par
+héritage, `CompteBancaire`…), avec **correction automatique** (✅/❌ en direct). C'est **LE**
+fichier où tu écris ton code pour ce module.
+
+```bash
+python3 05_poo/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`poo.py`](./poo.py) : repère `__init__`, `self`, `super()`, l'override.
-2. **Ajoute une classe `Moto`** qui hérite de `Vehicule`, avec un attribut `cylindree` et sa
-   propre version de `se_deplacer`.
-3. **Compte en banque** : crée une classe `Compte` avec un attribut `solde`, une méthode
-   `deposer(montant)` et une méthode `retirer(montant)` qui refuse si le solde est insuffisant.
+2. **Classe `Moto` (à coder toi-même)** : ajoute une classe `Moto` qui hérite de `Vehicule`,
+   avec un attribut `cylindree` et sa propre version de `se_deplacer`.
 
 <details>
-<summary>💡 Solution — exercice 2 (Moto)</summary>
+<summary>💡 Solution — Moto</summary>
 
 ```python
 class Moto(Vehicule):
@@ -164,30 +173,6 @@ class Moto(Vehicule):
 
     def se_deplacer(self):
         print(f"La moto {self.nom} ({self.cylindree} cm³) file à {self.vitesse_max} km/h.")
-```
-</details>
-
-<details>
-<summary>💡 Solution — exercice 3 (Compte)</summary>
-
-```python
-class Compte:
-    def __init__(self, solde=0):
-        self.solde = solde
-
-    def deposer(self, montant):
-        self.solde += montant
-
-    def retirer(self, montant):
-        if montant > self.solde:
-            print("Solde insuffisant.")
-            return
-        self.solde -= montant
-
-c = Compte(100)
-c.deposer(50)        # solde = 150
-c.retirer(200)       # "Solde insuffisant."
-print(c.solde)       # 150
 ```
 </details>
 

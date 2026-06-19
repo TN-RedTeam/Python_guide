@@ -158,19 +158,30 @@ except FileNotFoundError:
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
+(✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 04_exceptions_fichiers/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`fichiers.py`](./fichiers.py) (création + lecture d'un fichier de log).
 2. **Provoque une erreur** volontairement (divise par zéro, ouvre un fichier inexistant) pour
    voir le `try/except` la capturer.
-3. **Mini-journal** : écris un programme qui demande une phrase à l'utilisateur et l'**ajoute**
-   (mode `"a"`) à un fichier `journal.txt`, puis affiche tout le contenu du journal.
+3. **Mini-journal (à coder toi-même)** : écris un programme qui demande une phrase à
+   l'utilisateur et l'**ajoute** (mode `"a"`) à un fichier `journal.txt`, puis affiche tout le
+   contenu du journal.
 
 <details>
-<summary>💡 Solution — exercice 3 (mini-journal)</summary>
+<summary>💡 Solution — mini-journal</summary>
 
 ```python
 phrase = input("Ton message : ")

@@ -212,7 +212,11 @@ réflexe pro, c'est de **lire le message** — Python est souvent très clair.
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
+
+> 🔬 Ce module d'**installation** n'a pas de fichier `exercices.py` auto-corrigé : la vraie
+> pratique du code commence au [module 01](../01_les_bases/). Ici, entraîne-toi directement
+> dans le terminal (rien n'est noté, c'est juste pour prendre tes marques) :
 
 1. **Lis et lance** [`hello.py`](./hello.py). Repère le commentaire, la docstring, les `print`.
 2. **Modifie-le** : ajoute une ligne qui affiche ton prénom, puis une autre qui calcule et

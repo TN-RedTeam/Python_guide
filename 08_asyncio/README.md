@@ -104,10 +104,20 @@ asyncio.run(main())
 
 ---
 
-## 🏁 Exercices
+## 🏁 S'entraîner
 
-> 🎯 **Entraînement guidé et auto-corrigé** : complète [`exercices.py`](./exercices.py) (✅/❌ en
-> direct). Corrigé dans [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions `async` à compléter, avec **correction
+automatique** (✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
+
+```bash
+python3 08_asyncio/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`demo_async.py`](./demo_async.py) : compare la durée synchrone vs asynchrone.
 2. **Ajoute une 3ᵉ tâche** dans le `gather` et observe que le total reste ≈ la tâche la plus

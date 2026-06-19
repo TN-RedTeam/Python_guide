@@ -5,7 +5,7 @@ automatiquement** : appeler une API, télécharger une page, en extraire des inf
 
 > Fichiers du module : `appeler_api.py`, `scraping.py`.
 > ⚠️ Ces scripts ont besoin d'une **connexion Internet** et des bibliothèques `requests`
-> et `beautifulsoup4` (`pip install -r python/requirements.txt`).
+> et `beautifulsoup4` (`pip install -r requirements.txt`).
 
 ---
 
@@ -117,14 +117,25 @@ prix = soup.find("p", class_="prix").text     # le <p class="prix">
 
 ---
 
-## ▶️ À toi de jouer
+## 🏁 S'entraîner
 
-> 🎯 **Exercices auto-corrigés** (sans Internet : on traite une réponse JSON) :
-> [`exercices.py`](./exercices.py) → [`solutions.py`](./solutions.py).
+### 🎯 L'exercice principal — commence par ça
+
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter pour **traiter une réponse JSON**
+(sans Internet), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où tu
+écris ton code pour ce module.
 
 ```bash
-python3 python/11_web_apis/appeler_api.py
-python3 python/11_web_apis/scraping.py
+python3 11_web_apis/exercices.py
+```
+
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+
+### 🔬 Pour explorer (lance les démos commentées du module)
+
+```bash
+python3 11_web_apis/appeler_api.py
+python3 11_web_apis/scraping.py
 ```
 
 Les scripts utilisent des sites publics **prévus pour l'entraînement**
