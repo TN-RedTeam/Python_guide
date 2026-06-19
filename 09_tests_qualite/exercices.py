@@ -4,14 +4,43 @@
 """
 EXERCICES — Module 09 : tests & qualité (approche TDD)
 
-Ici on inverse la logique : LES TESTS SONT DÉJÀ ÉCRITS (tout en bas).
-Ton travail : implémenter les fonctions pour faire passer les tests au VERT.
-C'est exactement la démarche TDD (Test-Driven Development) : rouge → vert.
+══════════════════════════════════════════════════════════════════════
+ C'EST QUOI CE FICHIER ? (logique INVERSÉE !)
+ Ici, LES TESTS SONT DÉJÀ ÉCRITS (tout en bas du fichier). Ils décrivent
+ exactement ce que chaque fonction doit faire. Ton travail : écrire les
+ fonctions pour que tous les tests passent au VERT.
+ C'est la démarche TDD (Test-Driven Development) : d'abord rouge, puis vert.
+══════════════════════════════════════════════════════════════════════
 
-  1. Complète chaque fonction (remplace la ligne `...`).
-  2. Lance :   python3 exercices.py
-  3. Bonus : ce sont des asserts, comme pytest. Tu peux aussi écrire un
-     fichier test_xxx.py et lancer `pytest`.
+▶ AVANT DE COMMENCER :
+    1. Lis le cours du module       →  README.md  (dans ce dossier)
+    2. Observe l'exemple commenté   →  test_demo.py
+
+▶ COMMENT FAIRE :
+    • Chaque fonction contient une ligne « ... » (trois points) : c'est le
+      TROU à remplir. Efface ce « ... » et écris ton code à la place.
+    • Pas sûr de ce qu'on attend ? Va lire les tests en bas du fichier : un
+      test comme  assert est_palindrome("kayak") == True  te dit noir sur
+      blanc l'entrée et le résultat attendu.
+    • Pense au « return » : une fonction doit RENVOYER son résultat.
+
+  Exemple — au départ, la fonction a un trou :
+
+      def double(n):
+          ...
+
+  À toi de remplacer le « ... » par la vraie réponse :
+
+      def double(n):
+          return n * 2
+
+▶ LANCER :   python3 exercices.py
+  Un test qui échoue lève une AssertionError et arrête le programme : c'est
+  le « rouge » à transformer en « vert ».
+  Bonus : ce sont de vrais asserts, comme pytest. Tu peux aussi mettre ces
+  tests dans un fichier test_xxx.py et lancer la commande `pytest`.
+
+▶ BLOQUÉ ? Réessaie d'abord. En dernier recours, ouvre solutions.py.
 """
 
 

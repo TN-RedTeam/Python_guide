@@ -4,9 +4,48 @@
 """
 EXERCICES — Module 05 : la POO (classes)
 
-  1. Complète chaque classe (remplace les `...`).
-  2. Lance :   python3 exercices.py
-  3. Vise 100 % de ✅. Corrigé dans solutions.py.
+══════════════════════════════════════════════════════════════════════
+ C'EST QUOI CE FICHIER ?
+ Des CLASSES À TROUS que tu complètes toi-même. Tu lances le fichier, et
+ il TESTE tes réponses : ✅ = réussi, ❌ = encore à corriger.
+══════════════════════════════════════════════════════════════════════
+
+▶ AVANT DE COMMENCER (dans cet ordre) :
+    1. Lis le cours du module       →  README.md  (dans ce dossier)
+    2. Observe l'exemple commenté   →  poo.py
+  Les exercices ne demandent RIEN de plus que ce qui y est expliqué.
+
+▶ COMMENT COMPLÉTER UNE MÉTHODE :
+    • Chaque méthode contient une ligne « ... » (trois points) : c'est le
+      TROU à remplir. Efface ce « ... » et écris ton code à la place, juste
+      sous le commentaire « # TODO ».
+    • Garde l'indentation (les espaces en début de ligne) : c'est elle qui
+      dit « ce code est À L'INTÉRIEUR de la méthode ».
+    • « self » = l'objet en cours. Dans __init__, on RANGE les données dans
+      self (self.xxx = ...). Les autres méthodes les RELISENT avec self.xxx.
+
+  Exemple — au départ, la classe a des trous :
+
+      class Chien:
+          def __init__(self, nom):
+              ...                       # le trou du constructeur
+          def crier(self):
+              ...                       # le trou de la méthode
+
+  À toi de les remplacer par le vrai code :
+
+      class Chien:
+          def __init__(self, nom):
+              self.nom = nom            # on RANGE le nom dans l'objet
+          def crier(self):
+              return f"{self.nom} : Wouf !"   # on RELIT self.nom
+
+▶ LANCER LES TESTS :   python3 exercices.py
+  Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TON code a
+  produit : compare les deux, ton erreur est dans l'écart.
+
+▶ BLOQUÉ ? Réessaie en relisant l'indication de la classe. En tout dernier
+  recours, ouvre solutions.py (le corrigé commenté).
 """
 
 
