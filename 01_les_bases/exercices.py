@@ -34,6 +34,15 @@ EXERCICES — Module 01 : les bases (variables, conditions, boucles)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -44,38 +53,64 @@ EXERCICES — Module 01 : les bases (variables, conditions, boucles)
 
 
 def somme_jusqua(n):
-    """Renvoie la somme de tous les entiers de 1 à n inclus.
-    Ex : somme_jusqua(5) -> 15   (1 + 2 + 3 + 4 + 5)
+    """OBJECTIF : renvoyer la somme de tous les entiers de 1 à n inclus.
+
+    Exemple : somme_jusqua(5)  ->  15   (car 1 + 2 + 3 + 4 + 5 = 15)
+
+    Comment t'y prendre :
+      1. crée un total à 0 ;
+      2. parcours les nombres de 1 à n avec : for i in range(1, n + 1) ;
+         (range(1, n + 1) va de 1 jusqu'à n INCLUS) ;
+      3. ajoute i au total à chaque tour ;
+      4. renvoie le total.
     """
-    # TODO : utilise une boucle for et range pour additionner
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def est_pair(n):
-    """Renvoie True si n est pair, False sinon.
-    Indice : un nombre est pair si son reste dans la division par 2 vaut 0.
+    """OBJECTIF : renvoyer True si n est pair, False sinon.
+
+    Exemples : est_pair(4)  ->  True       est_pair(7)  ->  False
+
+    Comment t'y prendre :
+      - un nombre est pair si le reste de sa division par 2 vaut 0 ;
+      - en Python, ce reste s'écrit  n % 2  (l'opérateur « modulo ») ;
+      - renvoie le résultat du test  n % 2 == 0  (qui vaut déjà True ou False).
     """
-    # TODO : utilise l'opérateur modulo %
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def fizzbuzz(n):
-    """Pour UN nombre n, renvoie (sous forme de texte) :
-      - "FizzBuzz" si n est divisible par 3 ET par 5,
-      - "Fizz"     si divisible par 3 seulement,
-      - "Buzz"     si divisible par 5 seulement,
-      - sinon le nombre lui-même converti en texte, ex. "7".
+    """OBJECTIF : pour UN nombre n, renvoyer (sous forme de TEXTE) :
+      - "FizzBuzz" si n est divisible par 3 ET par 5 ;
+      - "Fizz"     si divisible par 3 seulement ;
+      - "Buzz"     si divisible par 5 seulement ;
+      - sinon, le nombre lui-même converti en texte, ex. "7".
+
+    Exemples : fizzbuzz(15) -> "FizzBuzz"   fizzbuzz(9) -> "Fizz"   fizzbuzz(7) -> "7"
+
+    Comment t'y prendre :
+      - « divisible par 3 » s'écrit  n % 3 == 0 ;
+      - teste les cas avec if / elif / else, en mettant le cas le PLUS PRÉCIS
+        en premier (le ET 3-et-5 AVANT les cas simples), sinon tu n'y arrives jamais ;
+      - pour le dernier cas, convertis le nombre en texte avec str(n).
     """
-    # TODO : attention à l'ORDRE des conditions (le cas le plus précis d'abord)
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def compte_a_rebours(depart):
-    """Renvoie une liste qui décompte de `depart` jusqu'à 1.
-    Ex : compte_a_rebours(3) -> [3, 2, 1]
+    """OBJECTIF : renvoyer une LISTE qui décompte de `depart` jusqu'à 1.
+
+    Exemple : compte_a_rebours(3)  ->  [3, 2, 1]
+
+    Comment t'y prendre :
+      1. crée une liste vide : resultat = [] ;
+      2. parcours les nombres de `depart` à 1 en DÉCROISSANT :
+         for i in range(depart, 0, -1)   (le -1 = on recule d'1 à chaque pas) ;
+      3. ajoute i à la liste avec resultat.append(i) ;
+      4. renvoie resultat.
     """
-    # TODO : une boucle while ou un range décroissant
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

@@ -38,6 +38,15 @@ EXERCICES — Module 13 : données & rapports (le RAISONNEMENT, sans pandas)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -48,28 +57,47 @@ EXERCICES — Module 13 : données & rapports (le RAISONNEMENT, sans pandas)
 
 
 def chiffre_affaires_total(ventes):
-    """Renvoie la somme de tous les "montant".
-    Ex : [{"montant": 10}, {"montant": 5}] -> 15
+    """OBJECTIF : renvoyer la somme de tous les "montant" de la liste `ventes`.
+
+    Exemple : chiffre_affaires_total([{"montant": 10}, {"montant": 5}])  ->  15
+
+    Comment t'y prendre :
+      - récupère le "montant" de chaque vente ;
+      - additionne-les avec sum(...) ;
+      - renvoie  sum(vente["montant"] for vente in ventes).
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def total_par_produit(ventes):
-    """Renvoie un dict {produit: somme des montants de ce produit} (comme un groupby).
-    Ex : [{"produit":"a","montant":10}, {"produit":"a","montant":5}, {"produit":"b","montant":3}]
-         -> {"a": 15, "b": 3}
+    """OBJECTIF : renvoyer un dict {produit: somme de ses montants} (un « groupby »).
+
+    Exemple :
+        total_par_produit([{"produit":"a","montant":10},
+                           {"produit":"a","montant":5},
+                           {"produit":"b","montant":3}])   ->   {"a": 15, "b": 3}
+
+    Comment t'y prendre :
+      1. crée un dict vide : total = {} ;
+      2. parcours `ventes` ; pour chaque vente, lis p = vente["produit"] et m = vente["montant"] ;
+      3. accumule : total[p] = total.get(p, 0) + m
+         (.get(p, 0) renvoie 0 si le produit n'a pas encore été vu) ;
+      4. renvoie total.
     """
-    # TODO : parcours les ventes, accumule dans un dict avec .get(produit, 0)
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def grosses_ventes(ventes, seuil):
-    """Renvoie la liste des ventes dont le "montant" dépasse strictement `seuil`.
-    Ex : grosses_ventes([{"montant":10},{"montant":3}], 5) -> [{"montant":10}]
+    """OBJECTIF : renvoyer la liste des ventes dont le "montant" dépasse
+    STRICTEMENT `seuil`.
+
+    Exemple : grosses_ventes([{"montant":10}, {"montant":3}], 5)  ->  [{"montant":10}]
+
+    Comment t'y prendre (compréhension de liste avec filtre, vue au module 06) :
+      - garde chaque vente dont vente["montant"] > seuil ;
+      - renvoie  [v for v in ventes if v["montant"] > seuil].
     """
-    # TODO : une compréhension de liste avec un filtre
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

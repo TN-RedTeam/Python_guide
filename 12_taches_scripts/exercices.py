@@ -34,6 +34,15 @@ EXERCICES — Module 12 : scripts réutilisables (argparse)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -46,25 +55,30 @@ import argparse
 
 
 def construire_parseur():
-    """Renvoie un ArgumentParser configuré ainsi :
+    """OBJECTIF : renvoyer un ArgumentParser configuré avec :
       - un argument OBLIGATOIRE  --source
-      - un argument FACULTATIF   --destination, avec la valeur par défaut "sauvegardes"
-    (Ne pas appeler parse_args ici : juste construire et renvoyer le parseur.)
+      - un argument FACULTATIF   --destination, valeur par défaut "sauvegardes"
+    (Ici on ne fait QUE construire et renvoyer le parseur — pas de parse_args.)
+
+    Comment t'y prendre :
+      1. crée le parseur :   parseur = argparse.ArgumentParser() ;
+      2. ajoute l'obligatoire : parseur.add_argument("--source", required=True) ;
+      3. ajoute le facultatif : parseur.add_argument("--destination", default="sauvegardes") ;
+      4. renvoie parseur.
     """
-    # TODO :
-    #   parseur = argparse.ArgumentParser(...)
-    #   parseur.add_argument("--source", required=True)
-    #   parseur.add_argument("--destination", default="sauvegardes")
-    #   return parseur
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def nom_archive(source, date):
-    """Renvoie le nom d'archive au format "<source>_<date>.zip".
-    Ex : nom_archive("docs", "2026-06-19") -> "docs_2026-06-19.zip"
+    """OBJECTIF : renvoyer le nom d'archive au format "<source>_<date>.zip".
+
+    Exemple : nom_archive("docs", "2026-06-19")  ->  "docs_2026-06-19.zip"
+
+    Comment t'y prendre :
+      - assemble les morceaux avec une f-string : f"{source}_{date}.zip" ;
+      - renvoie-la.
     """
-    # TODO : une f-string
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

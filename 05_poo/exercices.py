@@ -40,6 +40,15 @@ EXERCICES — Module 05 : la POO (classes)
           def crier(self):
               return f"{self.nom} : Wouf !"   # on RELIT self.nom
 
+  Chaque classe t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et ce
+  que doit faire chaque méthode. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TON code a
   produit : compare les deux, ton erreur est dans l'écart.
@@ -50,59 +59,62 @@ EXERCICES — Module 05 : la POO (classes)
 
 
 class Rectangle:
-    """Un rectangle défini par sa largeur et sa hauteur.
+    """OBJECTIF : un rectangle défini par sa largeur et sa hauteur.
 
-    Doit fournir :
-      - __init__(self, largeur, hauteur)  → range les deux dans l'objet
-      - aire(self)        → largeur * hauteur
-      - perimetre(self)   → 2 * (largeur + hauteur)
+    Exemple : Rectangle(3, 4).aire() -> 12   ;   Rectangle(3, 4).perimetre() -> 14
+
+    Tu dois compléter 3 méthodes :
+      - __init__(self, largeur, hauteur) : RANGE les deux valeurs dans l'objet
+        (self.largeur = largeur, et pareil pour hauteur) ;
+      - aire(self)      : renvoie largeur * hauteur (relis-les avec self.largeur…) ;
+      - perimetre(self) : renvoie 2 * (largeur + hauteur).
     """
 
     def __init__(self, largeur, hauteur):
-        # TODO : range largeur et hauteur dans self
-        ...
+        ...   # ⬅️ range largeur et hauteur dans self (self.largeur = largeur, ...)
 
     def aire(self):
-        # TODO
-        ...
+        ...   # ⬅️ renvoie self.largeur * self.hauteur
 
     def perimetre(self):
-        # TODO
-        ...
+        ...   # ⬅️ renvoie 2 * (self.largeur + self.hauteur)
 
 
 class Carre(Rectangle):
-    """Un carré EST un rectangle dont les deux côtés sont égaux.
+    """OBJECTIF : un carré EST un rectangle dont les deux côtés sont égaux.
+    Il HÉRITE donc de Rectangle (il a déjà aire() et perimetre() gratuitement).
 
-    __init__(self, cote) doit appeler le constructeur du parent (super())
-    avec le même côté pour la largeur ET la hauteur.
+    Exemple : Carre(5).aire() -> 25   ;   Carre(5).perimetre() -> 20
+
+    À compléter : __init__(self, cote) doit appeler le constructeur du PARENT
+    avec le même côté pour la largeur ET la hauteur :  super().__init__(cote, cote).
     """
 
     def __init__(self, cote):
-        # TODO : utilise super().__init__(...)
-        ...
+        ...   # ⬅️ appelle super().__init__(cote, cote)
 
 
 class CompteBancaire:
-    """Un compte avec un solde.
+    """OBJECTIF : un compte qui mémorise un solde.
 
-      - __init__(self, solde=0)
-      - deposer(self, montant)   → augmente le solde
-      - retirer(self, montant)   → diminue le solde, MAIS refuse (ne fait rien)
-                                    si le montant dépasse le solde
+    Scénario : CompteBancaire(100), deposer(50) → 150, retirer(200) refusé → 150,
+               retirer(30) → 120.
+
+    Tu dois compléter 3 méthodes :
+      - __init__(self, solde=0) : range le solde de départ dans self (self.solde = solde) ;
+      - deposer(self, montant)  : augmente le solde (self.solde += montant) ;
+      - retirer(self, montant)  : diminue le solde, MAIS ne fait RIEN si le montant
+        dépasse le solde (vérifie avec un if avant de soustraire).
     """
 
     def __init__(self, solde=0):
-        # TODO
-        ...
+        ...   # ⬅️ range le solde dans self
 
     def deposer(self, montant):
-        # TODO
-        ...
+        ...   # ⬅️ ajoute montant au solde
 
     def retirer(self, montant):
-        # TODO : vérifie d'abord que le solde est suffisant
-        ...
+        ...   # ⬅️ si montant <= self.solde, soustrais-le ; sinon ne fais rien
 
 
 # ════════════════════════════════════════════════════════════════════

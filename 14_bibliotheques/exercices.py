@@ -34,6 +34,15 @@ EXERCICES — Module 14 : les bibliothèques
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -46,21 +55,31 @@ import importlib.util
 
 
 def est_disponible(nom_module):
-    """Renvoie True si le module `nom_module` est installé/importable, False sinon.
-    Ex : est_disponible("json") -> True   (stdlib, toujours là)
-         est_disponible("module_qui_nexiste_pas_xyz") -> False
-    Indice : importlib.util.find_spec(nom) renvoie None si le module est introuvable.
+    """OBJECTIF : renvoyer True si le module `nom_module` est installé (importable),
+    False sinon.
+
+    Exemples : est_disponible("json")  ->  True   (toujours là, c'est la stdlib)
+               est_disponible("module_qui_nexiste_pas_xyz")  ->  False
+
+    Comment t'y prendre :
+      - importlib.util.find_spec(nom_module) renvoie une « fiche » si le module
+        existe, ou None s'il est introuvable ;
+      - renvoie le test  importlib.util.find_spec(nom_module) is not None.
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def ligne_requirement(nom, version):
-    """Construit une ligne de requirements.txt qui FIGE la version (avec ==).
-    Ex : ligne_requirement("requests", "2.31.0") -> "requests==2.31.0"
+    """OBJECTIF : construire une ligne de requirements.txt qui FIGE la version
+    (avec ==).
+
+    Exemple : ligne_requirement("requests", "2.31.0")  ->  "requests==2.31.0"
+
+    Comment t'y prendre :
+      - colle le nom, "==" et la version avec une f-string : f"{nom}=={version}" ;
+      - renvoie-la.
     """
-    # TODO : une f-string avec ==
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

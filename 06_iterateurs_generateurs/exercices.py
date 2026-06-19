@@ -34,6 +34,15 @@ EXERCICES — Module 06 : itérateurs & générateurs
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -44,37 +53,55 @@ EXERCICES — Module 06 : itérateurs & générateurs
 
 
 def filtrer_positifs(nombres):
-    """Renvoie la liste des nombres strictement positifs (compréhension de liste).
-    Ex : filtrer_positifs([3, -1, 0, 7, -2]) -> [3, 7]
+    """OBJECTIF : renvoyer la liste des nombres STRICTEMENT positifs (> 0).
+
+    Exemple : filtrer_positifs([3, -1, 0, 7, -2])  ->  [3, 7]
+
+    Comment t'y prendre (compréhension de liste, vue dans le cours) :
+      - garde chaque n de `nombres` à condition que n > 0 ;
+      - en une ligne : renvoie  [n for n in nombres if n > 0].
     """
-    # TODO : [ ... for ... in ... if ... ]
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def noms_en_majuscules(noms):
-    """Renvoie la liste des noms en MAJUSCULES (compréhension + méthode .upper()).
-    Ex : noms_en_majuscules(["ada", "bob"]) -> ["ADA", "BOB"]
+    """OBJECTIF : renvoyer la liste des noms passés en MAJUSCULES.
+
+    Exemple : noms_en_majuscules(["ada", "bob"])  ->  ["ADA", "BOB"]
+
+    Comment t'y prendre :
+      - la méthode "ada".upper() renvoie "ADA" ;
+      - applique-la à chaque nom dans une compréhension :
+        renvoie  [nom.upper() for nom in noms].
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def somme_carres(n):
-    """Renvoie la somme des carrés de 0 à n-1.
-    Ex : somme_carres(4) -> 0 + 1 + 4 + 9 = 14
-    Indice : sum(... for ... in range(n))  (expression génératrice)
+    """OBJECTIF : renvoyer la somme des carrés des entiers de 0 à n-1.
+
+    Exemple : somme_carres(4)  ->  14   (car 0² + 1² + 2² + 3² = 0 + 1 + 4 + 9)
+
+    Comment t'y prendre :
+      - le carré de i s'écrit i ** 2 ;
+      - parcours range(n) (= 0, 1, …, n-1) et additionne les carrés ;
+      - en une ligne : renvoie  sum(i ** 2 for i in range(n)).
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def pairs_jusqua(limite):
-    """GÉNÉRATEUR qui produit les nombres pairs de 0 (inclus) à `limite` (exclu).
-    Ex : list(pairs_jusqua(10)) -> [0, 2, 4, 6, 8]
-    Indice : utilise `yield` dans une boucle.
+    """OBJECTIF : écrire un GÉNÉRATEUR qui PRODUIT les nombres pairs de 0 (inclus)
+    jusqu'à `limite` (exclu). Un générateur ne fait pas `return` d'une liste : il
+    `yield` (livre) ses valeurs une par une.
+
+    Exemple : list(pairs_jusqua(10))  ->  [0, 2, 4, 6, 8]
+
+    Comment t'y prendre :
+      - parcours les pairs avec un pas de 2 : for n in range(0, limite, 2) ;
+      - à chaque tour, fais  yield n  (et surtout PAS return d'une liste).
     """
-    # TODO : un yield dans une boucle ; NE renvoie PAS une liste, utilise yield
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

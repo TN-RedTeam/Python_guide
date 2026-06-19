@@ -38,6 +38,15 @@ EXERCICES — Module 11 : web & APIs (traiter une réponse JSON)
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -50,29 +59,44 @@ import json
 
 
 def extraire_temperature(reponse_texte):
-    """`reponse_texte` est une chaîne JSON, ex. '{"ville": "Paris", "temperature": 18}'.
-    Renvoie la valeur de "temperature" (un nombre).
-    Indice : json.loads(texte) transforme le TEXTE JSON en dict Python.
+    """OBJECTIF : `reponse_texte` est une CHAÎNE de texte au format JSON, ex.
+    '{"ville": "Paris", "temperature": 18}'. Renvoyer la valeur de "temperature".
+
+    Exemple : extraire_temperature('{"ville": "Paris", "temperature": 18}')  ->  18
+
+    Comment t'y prendre :
+      1. json.loads(reponse_texte) transforme le TEXTE JSON en dict Python ;
+      2. accède ensuite à la clé : donnees["temperature"] ;
+      3. renvoie cette valeur.
     """
-    # TODO : json.loads puis accède à la clé
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def noms_des_resultats(reponse):
-    """`reponse` est DÉJÀ un dict, de la forme :
+    """OBJECTIF : `reponse` est DÉJÀ un dict, de la forme
         {"results": [{"name": "Ada"}, {"name": "Bob"}]}
-    Renvoie la liste des noms : ["Ada", "Bob"].
+    Renvoyer la liste des noms : ["Ada", "Bob"].
+
+    Comment t'y prendre :
+      - reponse["results"] est une liste de dicts ;
+      - récupère le "name" de chacun ;
+      - renvoie  [element["name"] for element in reponse["results"]].
     """
-    # TODO : parcours reponse["results"] et récupère chaque "name"
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def statut_ok(code):
-    """Renvoie True si `code` est un code HTTP de succès (entre 200 et 299 inclus).
-    Ex : statut_ok(200) -> True ; statut_ok(404) -> False
+    """OBJECTIF : renvoyer True si `code` est un code HTTP de succès (entre 200
+    et 299 inclus), False sinon.
+
+    Exemples : statut_ok(200)  ->  True       statut_ok(404)  ->  False
+
+    Comment t'y prendre :
+      - un code est un succès s'il est >= 200 ET <= 299 ;
+      - en Python on peut écrire ça d'un coup : 200 <= code <= 299 ;
+      - renvoie ce test.
     """
-    # TODO
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════

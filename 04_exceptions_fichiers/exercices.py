@@ -34,6 +34,15 @@ EXERCICES — Module 04 : exceptions & fichiers
       def double(n):
           return n * 2
 
+  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
+  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
+  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
+  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
+  guide (« git pull ») ne touchera jamais ton travail :
+      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
+
 ▶ LANCER LES TESTS :   python3 exercices.py
   Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
   a renvoyé : compare les deux, ton erreur est dans l'écart.
@@ -44,38 +53,59 @@ EXERCICES — Module 04 : exceptions & fichiers
 
 
 def division_sure(a, b):
-    """Renvoie a / b, ou None si b vaut 0 (au lieu de planter).
-    Ex : division_sure(10, 2) -> 5.0
-         division_sure(10, 0) -> None
+    """OBJECTIF : renvoyer a / b, mais renvoyer None si b vaut 0 (au lieu de
+    laisser le programme planter).
+
+    Exemples : division_sure(10, 2)  ->  5.0       division_sure(10, 0)  ->  None
+
+    Comment t'y prendre :
+      - mets le calcul a / b dans un bloc  try: ... ;
+      - ajoute  except ZeroDivisionError:  qui renvoie None ;
+      - dans le try (si tout va bien), renvoie a / b.
     """
-    # TODO : utilise try / except ZeroDivisionError
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def convertir_entier(texte):
-    """Convertit `texte` en entier, ou renvoie None si ce n'est pas un nombre.
-    Ex : convertir_entier("42")  -> 42
-         convertir_entier("abc") -> None
+    """OBJECTIF : convertir `texte` en entier, ou renvoyer None si ce n'est pas
+    un nombre valide (au lieu de planter).
+
+    Exemples : convertir_entier("42")  ->  42        convertir_entier("abc")  ->  None
+
+    Comment t'y prendre :
+      - dans un  try:  renvoie int(texte) ;
+      - int("abc") lève une ValueError : attrape-la avec  except ValueError:
+        et renvoie None.
     """
-    # TODO : try / except ValueError autour de int(...)
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def ecrire_puis_lire(chemin, contenu):
-    """Écrit `contenu` dans le fichier `chemin`, puis relit et renvoie ce qu'il contient.
-    Ex : ecrire_puis_lire("/tmp/x.txt", "salut") -> "salut"
-    Utilise `with open(...)` en mode "w" puis "r", avec encoding="utf-8".
+    """OBJECTIF : écrire `contenu` dans le fichier `chemin`, puis le relire et
+    renvoyer ce qu'il contient.
+
+    Exemple : ecrire_puis_lire("/tmp/x.txt", "salut")  ->  "salut"
+
+    Comment t'y prendre :
+      1. ÉCRIRE : with open(chemin, "w", encoding="utf-8") as f:  puis  f.write(contenu) ;
+      2. LIRE   : with open(chemin, "r", encoding="utf-8") as f:  puis  contenu_lu = f.read() ;
+      3. renvoie contenu_lu.
+      (Le « w » écrase/crée le fichier, le « r » le lit. `with` referme tout seul.)
     """
-    # TODO : deux blocs with open(...)
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 def compter_lignes(chemin):
-    """Renvoie le nombre de lignes du fichier `chemin`.
-    Si le fichier n'existe pas, renvoie 0 (sans planter).
+    """OBJECTIF : renvoyer le nombre de lignes du fichier `chemin`.
+    Si le fichier n'existe pas, renvoyer 0 (sans planter).
+
+    Comment t'y prendre :
+      - dans un  try: , ouvre le fichier : with open(chemin, "r", encoding="utf-8") as f: ;
+      - f.readlines() renvoie la LISTE des lignes ; len(...) les compte ;
+      - renvoie ce nombre ;
+      - ajoute  except FileNotFoundError:  qui renvoie 0.
     """
-    # TODO : try / except FileNotFoundError ; lis les lignes et compte-les
-    ...
+    ...   # ⬅️ remplace cette ligne par ton code
 
 
 # ════════════════════════════════════════════════════════════════════
