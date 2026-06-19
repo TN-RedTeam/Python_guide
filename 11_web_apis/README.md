@@ -41,7 +41,8 @@ La réponse contient un **code de statut** qui dit si ça s'est bien passé :
 
 Une **API** (*Application Programming Interface*) est une porte d'entrée qu'un service web
 ouvre **pour les programmes** (et non pour les humains). Au lieu d'une jolie page web, elle
-renvoie des **données brutes**, presque toujours au format **JSON** (vu au module 02).
+renvoie des **données brutes**, presque toujours au format **JSON** : un texte dont la structure
+ressemble à un dictionnaire Python (clés et valeurs).
 
 Exemple : tu demandes la météo à une API en visitant une URL, et elle te répond :
 
@@ -74,6 +75,27 @@ Quelques réflexes importants :
   d'exploiter les données : peut-être que le serveur a renvoyé une erreur.
 - **Mettre un délai** (`timeout=10`) pour ne pas attendre indéfiniment si le serveur ne
   répond pas.
+
+### Quand tu as une chaîne JSON « brute » : `json.loads`
+
+`reponse.json()` est un raccourci offert par `requests`. Mais parfois tu as juste **du texte
+JSON** (une simple chaîne de caractères) — lu dans un fichier, ou reçu autrement. Pour le
+transformer en dictionnaire Python, on utilise le module `json` :
+
+```python
+import json
+
+texte = '{"ville": "Paris", "temperature": 18}'   # une CHAÎNE (guillemets tout autour)
+donnees = json.loads(texte)        # loads = "load string" → un vrai dict Python
+print(donnees["temperature"])      # 18  → maintenant on accède aux clés normalement
+
+inverse = json.dumps(donnees)      # dumps = "dump string" → re-transforme le dict en texte JSON
+```
+
+> 🔑 Retiens la paire : **`json.loads(texte)`** (texte → dict) et **`json.dumps(obj)`** (dict →
+> texte). Le `s` final veut dire *string* (chaîne). Sans le `s`, `json.load` / `json.dump`
+> travaillent avec des **fichiers** (vus au [module 10](../10_fichiers_dossiers/)). C'est
+> `json.loads` que tu utiliseras dans l'exercice de ce module.
 
 ---
 
