@@ -100,37 +100,43 @@ def statut_ok(code):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous (la chaîne JSON, le dict...) sont juste
+#    des ARGUMENTS qu'on passe à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(statut_ok, 200, attendu=True)
+#   ↑  appelle  statut_ok(200)  et compare le résultat à True.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 11 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("extraire_temperature(...)",
-          lambda: extraire_temperature('{"ville": "Paris", "temperature": 18}'), 18)
-    essai("noms_des_resultats(...)",
-          lambda: noms_des_resultats({"results": [{"name": "Ada"}, {"name": "Bob"}]}), ["Ada", "Bob"])
-    essai("statut_ok(200)", lambda: statut_ok(200), True)
-    essai("statut_ok(404)", lambda: statut_ok(404), False)
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 11 : web & APIs (traiter du JSON) ---\n")
+    resultats = [
+        verifie(extraire_temperature, '{"ville": "Paris", "temperature": 18}', attendu=18),
+        verifie(noms_des_resultats, {"results": [{"name": "Ada"}, {"name": "Bob"}]}, attendu=["Ada", "Bob"]),
+        verifie(statut_ok, 200, attendu=True),
+        verifie(statut_ok, 404, attendu=False),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

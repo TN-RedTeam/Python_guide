@@ -101,41 +101,51 @@ def grosses_ventes(ventes, seuil):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des données d'exemple.
+#  → La liste `ventes` ci-dessous est juste l'ARGUMENT qu'on passe à
+#    l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(chiffre_affaires_total, ventes, attendu=18)
+#   ↑  appelle  chiffre_affaires_total(ventes)  et compare le résultat à 18.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 13 ---")
-    res = []
+if __name__ == "__main__":
+    print("--- Module 13 : données & rapports ---\n")
 
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
+    # Les données d'exemple : une liste de ventes (chaque vente est un dict).
     ventes = [
         {"produit": "pomme", "montant": 10},
         {"produit": "pomme", "montant": 5},
         {"produit": "poire", "montant": 3},
     ]
 
-    essai("chiffre_affaires_total", lambda: chiffre_affaires_total(ventes), 18)
-    essai("total_par_produit", lambda: total_par_produit(ventes), {"pomme": 15, "poire": 3})
-    essai("grosses_ventes(>4)", lambda: grosses_ventes(ventes, 4),
-          [{"produit": "pomme", "montant": 10}, {"produit": "pomme", "montant": 5}])
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+    resultats = [
+        verifie(chiffre_affaires_total, ventes, attendu=18),
+        verifie(total_par_produit, ventes, attendu={"pomme": 15, "poire": 3}),
+        verifie(grosses_ventes, ventes, 4,
+                attendu=[{"produit": "pomme", "montant": 10}, {"produit": "pomme", "montant": 5}]),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

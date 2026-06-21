@@ -118,44 +118,47 @@ class CompteBancaire:
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on UTILISE tes classes : on crée des objets (ex. Rectangle(3, 4))
+#  et on appelle leurs méthodes (ex. .aire()). Les nombres comme 3 et 4 sont
+#  juste les ARGUMENTS qu'on donne au moment de créer l'objet.
+#  C'est normal : en HAUT on DÉFINIT les classes, et plus bas on s'en SERT.
+#
+#  ⚙️ Détail technique : ici chaque appel est écrit après « lambda: » pour
+#     permettre au test de gérer proprement une erreur. Concentre-toi sur le
+#     texte de gauche entre guillemets : c'est le vrai appel, en clair.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+def verifie(appel, produire, attendu):
+    """`appel` : le texte de l'appel (pour l'affichage).
+    `produire` : une mini-fonction (lambda) qui FABRIQUE le résultat à tester."""
+    try:
+        obtenu = produire()
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    print(f"{'✅' if ok else '❌'} {appel}  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 05 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("Rectangle(3,4).aire()", lambda: Rectangle(3, 4).aire(), 12)
-    essai("Rectangle(3,4).perimetre()", lambda: Rectangle(3, 4).perimetre(), 14)
-    essai("Carre(5).aire()", lambda: Carre(5).aire(), 25)
-    essai("Carre(5).perimetre()", lambda: Carre(5).perimetre(), 20)
-
-    def scenario_compte():
-        c = CompteBancaire(100)
-        c.deposer(50)        # 150
-        c.retirer(200)       # refusé → reste 150
-        c.retirer(30)        # 120
-        return c.solde
-
-    essai("CompteBancaire scénario", scenario_compte, 120)
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
+def scenario_compte():
+    """Crée un compte et enchaîne quelques opérations ; renvoie le solde final."""
+    c = CompteBancaire(100)
+    c.deposer(50)        # solde : 150
+    c.retirer(200)       # refusé (200 > 150) → reste 150
+    c.retirer(30)        # solde : 120
+    return c.solde
 
 
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 05 : la POO (classes) ---\n")
+    resultats = [
+        verifie("Rectangle(3, 4).aire()",      lambda: Rectangle(3, 4).aire(),      attendu=12),
+        verifie("Rectangle(3, 4).perimetre()", lambda: Rectangle(3, 4).perimetre(), attendu=14),
+        verifie("Carre(5).aire()",             lambda: Carre(5).aire(),             attendu=25),
+        verifie("Carre(5).perimetre()",        lambda: Carre(5).perimetre(),        attendu=20),
+        verifie("CompteBancaire (scénario)",   scenario_compte,                     attendu=120),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

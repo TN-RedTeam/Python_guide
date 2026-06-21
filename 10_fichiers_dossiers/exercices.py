@@ -100,45 +100,50 @@ def sauver_puis_charger_json(chemin, donnees):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec un vrai dossier de test
+#  (créé pour l'occasion, tes vrais fichiers ne sont pas touchés).
+#  → Le chemin du dossier est juste l'ARGUMENT qu'on passe à l'appel.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(lister_noms, dossier, attendu=["a.txt", "b.txt", "c.csv"])
+#   ↑  appelle  lister_noms(dossier)  et compare au résultat attendu.
 # ════════════════════════════════════════════════════════════════════
-import tempfile
-import os
+import types as _types
 
 
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 10 ---")
-    res = []
+if __name__ == "__main__":
+    import tempfile, os
+    print("--- Module 10 : fichiers & dossiers ---\n")
 
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    # Prépare un dossier temporaire avec quelques fichiers
+    # On prépare un dossier temporaire avec quelques fichiers pour les tests.
     dossier = tempfile.mkdtemp()
     for nom_fichier in ["a.txt", "b.txt", "c.csv"]:
         Path(dossier, nom_fichier).write_text("x", encoding="utf-8")
-
-    essai("lister_noms(...)", lambda: lister_noms(dossier), ["a.txt", "b.txt", "c.csv"])
-    essai("compter_par_extension(...)", lambda: compter_par_extension(dossier), {".txt": 2, ".csv": 1})
-
     chemin_json = os.path.join(dossier, "data.json")
-    essai("sauver_puis_charger_json(...)", lambda: sauver_puis_charger_json(chemin_json, {"a": 1}), {"a": 1})
 
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+    resultats = [
+        verifie(lister_noms, dossier,                       attendu=["a.txt", "b.txt", "c.csv"]),
+        verifie(compter_par_extension, dossier,             attendu={".txt": 2, ".csv": 1}),
+        verifie(sauver_puis_charger_json, chemin_json, {"a": 1}, attendu={"a": 1}),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

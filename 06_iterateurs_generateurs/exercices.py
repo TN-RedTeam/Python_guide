@@ -105,35 +105,44 @@ def pairs_jusqua(limite):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous sont juste des ARGUMENTS qu'on passe
+#    à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(somme_carres, 4, attendu=14)
+#   ↑  appelle  somme_carres(4)  et compare le résultat à 14.
+#  (Pour pairs_jusqua, qui est un générateur, le test le déroule en liste.)
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 06 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("filtrer_positifs([3,-1,0,7,-2])", lambda: filtrer_positifs([3, -1, 0, 7, -2]), [3, 7])
-    essai("noms_en_majuscules(['ada','bob'])", lambda: noms_en_majuscules(["ada", "bob"]), ["ADA", "BOB"])
-    essai("somme_carres(4)", lambda: somme_carres(4), 14)
-    essai("list(pairs_jusqua(10))", lambda: list(pairs_jusqua(10)), [0, 2, 4, 6, 8])
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 06 : itérateurs & générateurs ---\n")
+    resultats = [
+        verifie(filtrer_positifs, [3, -1, 0, 7, -2], attendu=[3, 7]),
+        verifie(noms_en_majuscules, ["ada", "bob"],  attendu=["ADA", "BOB"]),
+        verifie(somme_carres, 4,                     attendu=14),
+        verifie(pairs_jusqua, 10,                    attendu=[0, 2, 4, 6, 8]),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

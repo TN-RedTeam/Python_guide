@@ -83,35 +83,42 @@ def ligne_requirement(nom, version):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous ("json", "requests"...) sont juste des
+#    ARGUMENTS qu'on passe à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(est_disponible, "json", attendu=True)
+#   ↑  appelle  est_disponible("json")  et compare le résultat à True.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 14 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("est_disponible('json')", lambda: est_disponible("json"), True)
-    essai("est_disponible('xyz_introuvable')", lambda: est_disponible("module_qui_nexiste_pas_xyz"), False)
-    essai("ligne_requirement('requests','2.31.0')",
-          lambda: ligne_requirement("requests", "2.31.0"), "requests==2.31.0")
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 14 : les bibliothèques ---\n")
+    resultats = [
+        verifie(est_disponible, "json",                            attendu=True),
+        verifie(est_disponible, "module_qui_nexiste_pas_xyz",      attendu=False),
+        verifie(ligne_requirement, "requests", "2.31.0",           attendu="requests==2.31.0"),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

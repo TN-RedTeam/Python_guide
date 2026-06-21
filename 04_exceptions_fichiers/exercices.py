@@ -109,50 +109,57 @@ def compter_lignes(chemin):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous sont juste des ARGUMENTS qu'on passe
+#    à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(division_sure, 10, 2, attendu=5.0)
+#   ↑  appelle  division_sure(10, 2)  et compare le résultat à 5.0.
 # ════════════════════════════════════════════════════════════════════
-import tempfile
-import os
+import types as _types
 
 
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 04 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("division_sure(10, 2)", lambda: division_sure(10, 2), 5.0)
-    essai("division_sure(10, 0)", lambda: division_sure(10, 0), None)
-    essai("convertir_entier('42')", lambda: convertir_entier("42"), 42)
-    essai("convertir_entier('abc')", lambda: convertir_entier("abc"), None)
-
-    # Exercices fichiers : on travaille dans un dossier temporaire
-    dossier = tempfile.mkdtemp()
-    chemin = os.path.join(dossier, "test.txt")
-    essai("ecrire_puis_lire(...)", lambda: ecrire_puis_lire(chemin, "salut"), "salut")
-
-    chemin3 = os.path.join(dossier, "trois.txt")
-    with open(chemin3, "w", encoding="utf-8") as f:
-        f.write("a\nb\nc\n")
-    essai("compter_lignes(3 lignes)", lambda: compter_lignes(chemin3), 3)
-    essai("compter_lignes(inexistant)", lambda: compter_lignes(os.path.join(dossier, "nope.txt")), 0)
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    import tempfile, os
+    print("--- Module 04 : exceptions & fichiers ---\n")
+
+    # On prépare un dossier temporaire et un fichier de 3 lignes pour les tests
+    # fichiers (rien n'est touché dans tes vrais dossiers).
+    dossier = tempfile.mkdtemp()
+    fichier = os.path.join(dossier, "test.txt")
+    fichier3 = os.path.join(dossier, "trois.txt")
+    with open(fichier3, "w", encoding="utf-8") as f:
+        f.write("a\nb\nc\n")
+    fichier_absent = os.path.join(dossier, "nexiste_pas.txt")
+
+    resultats = [
+        verifie(division_sure, 10, 2,            attendu=5.0),
+        verifie(division_sure, 10, 0,            attendu=None),
+        verifie(convertir_entier, "42",          attendu=42),
+        verifie(convertir_entier, "abc",         attendu=None),
+        verifie(ecrire_puis_lire, fichier, "salut", attendu="salut"),
+        verifie(compter_lignes, fichier3,        attendu=3),
+        verifie(compter_lignes, fichier_absent,  attendu=0),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")
