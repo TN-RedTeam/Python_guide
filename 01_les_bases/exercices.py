@@ -114,40 +114,48 @@ def compte_a_rebours(depart):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous (comme 5, 4, 15...) sont juste des
+#    ARGUMENTS qu'on passe à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(somme_jusqua, 5, attendu=15)
+#   ↑  appelle  somme_jusqua(5)  et compare le résultat à 15.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 01 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("somme_jusqua(5)", lambda: somme_jusqua(5), 15)
-    essai("somme_jusqua(1)", lambda: somme_jusqua(1), 1)
-    essai("est_pair(4)", lambda: est_pair(4), True)
-    essai("est_pair(7)", lambda: est_pair(7), False)
-    essai("fizzbuzz(15)", lambda: fizzbuzz(15), "FizzBuzz")
-    essai("fizzbuzz(9)", lambda: fizzbuzz(9), "Fizz")
-    essai("fizzbuzz(10)", lambda: fizzbuzz(10), "Buzz")
-    essai("fizzbuzz(7)", lambda: fizzbuzz(7), "7")
-    essai("compte_a_rebours(3)", lambda: compte_a_rebours(3), [3, 2, 1])
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 01 : les bases ---\n")
+    resultats = [
+        verifie(somme_jusqua, 5,     attendu=15),
+        verifie(somme_jusqua, 1,     attendu=1),
+        verifie(est_pair, 4,         attendu=True),
+        verifie(est_pair, 7,         attendu=False),
+        verifie(fizzbuzz, 15,        attendu="FizzBuzz"),
+        verifie(fizzbuzz, 9,         attendu="Fizz"),
+        verifie(fizzbuzz, 10,        attendu="Buzz"),
+        verifie(fizzbuzz, 7,         attendu="7"),
+        verifie(compte_a_rebours, 3, attendu=[3, 2, 1]),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

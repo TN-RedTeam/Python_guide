@@ -87,35 +87,37 @@ async def executer_tout(coroutines):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions async (voir _lancer_les_essais).
+#  Les nombres (2, 3...) sont juste les ARGUMENTS passés à l'appel. Comme ce
+#  sont des coroutines, on les appelle avec « await », le tout démarré par
+#  asyncio.run(...). C'est normal : en HAUT on DÉFINIT, ici on UTILISE.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+def afficher(appel, obtenu, attendu):
+    """Affiche ✅/❌ pour un appel déjà exécuté. (Mécanique du test.)"""
+    ok = (obtenu == attendu)
+    print(f"{'✅' if ok else '❌'} {appel}  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-async def _scenario():
+async def _lancer_les_essais():
+    # C'est ICI qu'on APPELLE tes fonctions async (avec await) :
     r1 = await addition_async(2, 3)
     r2 = await executer_tout([addition_async(1, 1), addition_async(10, 5)])
     return r1, r2
 
 
-def _verifier():
-    print("--- Vérification — module 08 ---")
-    try:
-        r1, r2 = asyncio.run(_scenario())
-    except Exception as e:
-        r1, r2 = f"ERREUR: {e}", f"ERREUR: {e}"
-    res = [
-        _check("addition_async(2, 3)", r1, 5),
-        _check("executer_tout([...])", r2, [2, 15]),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 08 : asyncio ---\n")
+    try:
+        r1, r2 = asyncio.run(_lancer_les_essais())
+    except Exception as e:
+        r1 = r2 = f"ERREUR: {e}"
+    resultats = [
+        afficher("addition_async(2, 3)", r1, 5),
+        afficher("executer_tout([addition_async(1, 1), addition_async(10, 5)])", r2, [2, 15]),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

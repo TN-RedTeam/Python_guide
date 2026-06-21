@@ -75,35 +75,41 @@ def compter_voyelles(mot):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TES CORRECTIONS — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE les fonctions (avec des exemples concrets) pour
+#  révéler les bugs. Les valeurs comme [10, 20, 30] sont juste les ARGUMENTS
+#  passés à l'appel. Corrige le code des fonctions plus haut jusqu'à tout ✅.
+#
+#  Comment lire une ligne d'essai :
+#      verifie(moyenne, [10, 20, 30], attendu=20.0)
+#   ↑  appelle  moyenne([10, 20, 30])  et compare le résultat à 20.0.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  le code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 07 (corrige les bugs !) ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("moyenne([10,20,30])", lambda: moyenne([10, 20, 30]), 20.0)
-    essai("maximum([-5,-2,-9])", lambda: maximum([-5, -2, -9]), -2)
-    essai("maximum([3,9,4])", lambda: maximum([3, 9, 4]), 9)
-    essai("compter_voyelles('bonjour')", lambda: compter_voyelles("bonjour"), 3)
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 07 : corrige les bugs ! ---\n")
+    resultats = [
+        verifie(moyenne, [10, 20, 30],   attendu=20.0),
+        verifie(maximum, [-5, -2, -9],   attendu=-2),
+        verifie(maximum, [3, 9, 4],      attendu=9),
+        verifie(compter_voyelles, "bonjour", attendu=3),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

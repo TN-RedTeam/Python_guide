@@ -111,37 +111,44 @@ def compter_mots(phrase):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → C'est d'ici que vient une valeur comme "Ada" : c'est juste un
+#    ARGUMENT qu'on passe à l'appel. Rien de magique, rien de caché.
+#  C'est normal et voulu : en HAUT on DÉFINIT les fonctions, et plus bas
+#  on les UTILISE (définir une fonction ≠ l'appeler — cf. ce module).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(salutation, "Ada", attendu="Bonjour Ada !")
+#   ↑  appelle  salutation("Ada")  et compare le résultat à "Bonjour Ada !".
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 03 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("salutation('Ada')", lambda: salutation("Ada"), "Bonjour Ada !")
-    essai("salutation('Ada','Salut')", lambda: salutation("Ada", "Salut"), "Salut Ada !")
-    essai("moyenne(10, 20)", lambda: moyenne(10, 20), 15.0)
-    essai("moyenne()", lambda: moyenne(), 0)
-    essai("applique(x2, [1,2,3])", lambda: applique(lambda x: x * 2, [1, 2, 3]), [2, 4, 6])
-    essai("compter_mots('le chat dort')", lambda: compter_mots("le chat dort"), 3)
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 03 : fonctions & modules ---\n")
+
+    def fois_deux(x):                 # une petite fonction qu'on passe à `applique`
+        return x * 2
+
+    resultats = [
+        verifie(salutation, "Ada",              attendu="Bonjour Ada !"),
+        verifie(salutation, "Ada", "Salut",     attendu="Salut Ada !"),
+        verifie(moyenne, 10, 20,                attendu=15.0),
+        verifie(moyenne,                        attendu=0),
+        verifie(applique, fois_deux, [1, 2, 3], attendu=[2, 4, 6]),
+        verifie(compter_mots, "le chat dort",   attendu=3),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")

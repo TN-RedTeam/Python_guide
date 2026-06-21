@@ -93,36 +93,43 @@ def factorielle(n):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Les TESTS (comme pytest) — NE PAS MODIFIER
+#  ▶ LES TESTS — déjà écrits pour toi (lance le fichier : objectif tout ✅)
+#
+#  C'est ICI qu'on APPELLE tes fonctions avec des exemples : chaque ligne
+#  est un TEST (une entrée connue → un résultat attendu). C'est cette liste
+#  qui décrit EXACTEMENT ce que tes fonctions doivent faire.
+#  → Les valeurs comme "kayak" sont juste les ARGUMENTS passés à l'appel.
+#
+#  Comment lire une ligne de test :
+#      verifie(est_palindrome, "kayak", attendu=True)
+#   ↑  appelle  est_palindrome("kayak")  et vérifie que ça renvoie True.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Tests — module 09 ---")
-    res = []
-
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    essai("est_palindrome('kayak')", lambda: est_palindrome("kayak"), True)
-    essai("est_palindrome('python')", lambda: est_palindrome("python"), False)
-    essai("inverser('abc')", lambda: inverser("abc"), "cba")
-    essai("factorielle(5)", lambda: factorielle(5), 120)
-    essai("factorielle(0)", lambda: factorielle(0), 1)
-
-    print(f"\n{sum(res)}/{len(res)} tests réussis")
-
-
 if __name__ == "__main__":
-    _verifier()
+    print("--- Module 09 : tests & qualité (TDD) ---\n")
+    resultats = [
+        verifie(est_palindrome, "kayak",  attendu=True),
+        verifie(est_palindrome, "python", attendu=False),
+        verifie(inverser, "abc",          attendu="cba"),
+        verifie(factorielle, 5,           attendu=120),
+        verifie(factorielle, 0,           attendu=1),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} tests réussis ✅")

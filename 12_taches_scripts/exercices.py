@@ -82,42 +82,51 @@ def nom_archive(source, date):
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Auto-vérification — NE PAS MODIFIER
+#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+#
+#  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
+#  → Les valeurs d'exemple ci-dessous sont juste des ARGUMENTS qu'on passe
+#    à l'appel. Rien de magique ni de caché.
+#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
+#  UTILISE (définir une fonction ≠ l'appeler).
+#
+#  Comment lire une ligne d'essai :
+#      verifie(nom_archive, "docs", "2026-06-19", attendu="docs_2026-06-19.zip")
+#   ↑  appelle  nom_archive("docs", "2026-06-19")  et compare au résultat attendu.
 # ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
+import types as _types
+
+
+def verifie(fonction, *arguments, attendu):
+    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
+    try:
+        obtenu = fonction(*arguments)
+        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
+            obtenu = list(obtenu)
+    except Exception as e:
+        obtenu = f"ERREUR: {e}"
+    ok = (obtenu == attendu)
+    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
+    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
     if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
+        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
     return ok
 
 
-def _verifier():
-    print("--- Vérification — module 12 ---")
-    res = []
+if __name__ == "__main__":
+    print("--- Module 12 : scripts réutilisables (argparse) ---\n")
 
-    def essai(nom, fn, attendu):
-        try:
-            obtenu = fn()
-        except Exception as e:
-            obtenu = f"ERREUR: {e}"
-        res.append(_check(nom, obtenu, attendu))
-
-    def dest_par_defaut():
-        p = construire_parseur()
-        return p.parse_args(["--source", "docs"]).destination
+    # Pour tester construire_parseur, on construit le parseur puis on simule une
+    # ligne de commande avec parse_args([...]) (comme si on tapait : --source docs).
+    def destination_par_defaut():
+        return construire_parseur().parse_args(["--source", "docs"]).destination
 
     def source_lue():
-        p = construire_parseur()
-        return p.parse_args(["--source", "docs", "--destination", "sav"]).source
+        return construire_parseur().parse_args(["--source", "docs", "--destination", "sav"]).source
 
-    essai("destination par défaut", dest_par_defaut, "sauvegardes")
-    essai("source lue", source_lue, "docs")
-    essai("nom_archive('docs','2026-06-19')", lambda: nom_archive("docs", "2026-06-19"), "docs_2026-06-19.zip")
-
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+    resultats = [
+        verifie(destination_par_defaut, attendu="sauvegardes"),
+        verifie(source_lue,             attendu="docs"),
+        verifie(nom_archive, "docs", "2026-06-19", attendu="docs_2026-06-19.zip"),
+    ]
+    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")
