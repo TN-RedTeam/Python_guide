@@ -207,6 +207,95 @@ if _pending:
     await _a.gather(*_pending, return_exceptions=True)
 `;
 
+// Traceur « pas à pas » (style Python Tutor) : ré-exécute le programme sous
+// sys.settrace en photographiant, à chaque ligne, les variables et la sortie.
+const PY_TRACER = `
+class _TraceLimite(BaseException):
+    pass
+
+def _resume_valeur(valeur):
+    try:
+        texte = repr(valeur)
+    except Exception:
+        texte = "<illisible>"
+    if len(texte) > 90:
+        texte = texte[:87] + "..."
+    return texte
+
+def _executer_trace(code_source, limite=400):
+    import sys, io, json
+    etapes = []
+    sortie = io.StringIO()
+    vrai_stdout = sys.stdout
+
+    def variables_du_cadre(frame):
+        variables = {}
+        for nom, valeur in frame.f_locals.items():
+            if nom.startswith("__") or type(valeur).__name__ in ("module", "type"):
+                continue
+            if callable(valeur):
+                variables[nom] = "<fonction " + nom + ">"
+                continue
+            variables[nom] = _resume_valeur(valeur)
+        return variables
+
+    def profondeur_de(frame):
+        n = 0
+        f = frame.f_back
+        while f is not None:
+            if f.f_code.co_filename == "<script>":
+                n += 1
+            f = f.f_back
+        return n
+
+    def tracer(frame, evenement, arg):
+        if frame.f_code.co_filename != "<script>":
+            return None
+        if evenement not in ("call", "line", "return", "exception"):
+            return tracer
+        if len(etapes) >= limite:
+            raise _TraceLimite()
+        etape = {
+            "ligne": frame.f_lineno,
+            "evenement": evenement,
+            "fonction": frame.f_code.co_name,
+            "profondeur": profondeur_de(frame),
+            "variables": variables_du_cadre(frame),
+            "sortie": sortie.tell(),
+        }
+        if evenement == "return":
+            etape["retour"] = _resume_valeur(arg)
+        if evenement == "exception":
+            etape["erreur"] = arg[0].__name__ + ": " + str(arg[1])
+        etapes.append(etape)
+        return tracer
+
+    erreur = None
+    tronquee = False
+    sys.stdout = sortie
+    try:
+        objet_code = compile(code_source, "<script>", "exec")
+        espace = {"__name__": "__main__"}
+        sys.settrace(tracer)
+        try:
+            exec(objet_code, espace)
+        finally:
+            sys.settrace(None)
+    except _TraceLimite:
+        tronquee = True
+    except BaseException as e:
+        erreur = type(e).__name__ + ": " + str(e)
+    finally:
+        sys.stdout = vrai_stdout
+
+    return json.dumps({
+        "etapes": etapes,
+        "sortie": sortie.getvalue(),
+        "erreur": erreur,
+        "tronquee": tronquee,
+    })
+`;
+
 function ensurePyodide(onStatus) {
   if (!pyodideReady) {
     onStatus("Téléchargement de Python (~10 Mo, une seule fois)…");
@@ -228,6 +317,30 @@ function ensurePyodide(onStatus) {
   return pyodideReady;
 }
 
+// Paquets : deux mécanismes complémentaires, comme un `pip install` automatique.
+// 1) loadPackagesFromImports : lit les `import` du code et télécharge les paquets
+//    que Pyodide fournit compilés pour le navigateur (numpy, pandas, matplotlib…) ;
+// 2) si l'exécution échoue avec ModuleNotFoundError : micropip tente d'installer
+//    le paquet depuis PyPI (fonctionne pour les paquets en pur Python).
+async function chargerPaquets(py, code, ui) {
+  try {
+    await py.loadPackagesFromImports(code, { messageCallback: (m) => ui.status(m) });
+  } catch { /* module inconnu de Pyodide : micropip prendra le relais */ }
+}
+
+async function installerDepuisPyPI(py, paquet, ui) {
+  ui.print(`📦 « ${paquet} » n'est pas encore disponible — téléchargement depuis PyPI…`, "sys");
+  ui.status(`Installation de ${paquet}…`);
+  await py.loadPackage("micropip");
+  const micropip = py.pyimport("micropip");
+  try {
+    await micropip.install(paquet);
+    ui.print(`📦 « ${paquet} » installé ✅ — on relance ton programme.`, "sys");
+  } finally {
+    micropip.destroy();
+  }
+}
+
 async function runPython(code, ui) {
   const t0 = performance.now();
   ui.clear();
@@ -240,26 +353,66 @@ async function runPython(code, ui) {
     ui.status("");
     return null;
   }
+  await chargerPaquets(py, code, ui);
   ui.status("Exécution…");
   py.setStdout({ batched: (s) => ui.print(s) });
   py.setStderr({ batched: (s) => ui.print(s, "err") });
 
-  // Espace de noms neuf à chaque exécution (comme relancer `python fichier.py`).
-  const ns = py.globals.get("dict")();
-  ns.set("__name__", "__main__");
   let output = null;
+  for (let tentative = 0; tentative < 3; tentative++) {
+    // Espace de noms neuf à chaque exécution (comme relancer `python fichier.py`).
+    const ns = py.globals.get("dict")();
+    ns.set("__name__", "__main__");
+    try {
+      await py.runPythonAsync(code, { globals: ns });
+      await py.runPythonAsync(PY_DRAIN);
+      output = ui.text();
+      break;
+    } catch (e) {
+      const manquant = String(e.message || e).match(/ModuleNotFoundError: No module named '([A-Za-z0-9_.]+)'/);
+      if (manquant && tentative < 2) {
+        const paquet = manquant[1].split(".")[0];
+        try {
+          await installerDepuisPyPI(py, paquet, ui);
+          continue;                       // on retente l'exécution
+        } catch {
+          ui.print(`❌ « ${paquet} » n'a pas pu être installé dans le navigateur `
+            + `(paquet avec du code compilé non porté en WebAssembly ?).\n`
+            + `   Sur ta machine, ce serait :  pip install ${paquet}`, "err");
+          break;
+        }
+      }
+      ui.print(formatPyError(e), "err");
+      break;
+    } finally {
+      ns.destroy();
+    }
+  }
+  const dt = ((performance.now() - t0) / 1000).toFixed(1);
+  ui.status(`Terminé en ${dt} s`);
+  return output;
+}
+
+async function tracerPython(code, ui) {
+  let py;
   try {
-    await py.runPythonAsync(code, { globals: ns });
-    await py.runPythonAsync(PY_DRAIN);
-    output = ui.text();
+    py = await ensurePyodide(ui.status);
+  } catch (e) {
+    ui.print("❌ " + e.message, "err");
+    return null;
+  }
+  await chargerPaquets(py, code, ui);
+  ui.status("Enregistrement de la trace…");
+  try {
+    py.globals.set("_code_a_tracer", code);
+    const brut = await py.runPythonAsync(PY_TRACER + "\n_executer_trace(_code_a_tracer)");
+    return JSON.parse(brut);
   } catch (e) {
     ui.print(formatPyError(e), "err");
+    return null;
   } finally {
-    ns.destroy();
-    const dt = ((performance.now() - t0) / 1000).toFixed(1);
-    ui.status(`Terminé en ${dt} s`);
+    ui.status("");
   }
-  return output;
 }
 
 function formatPyError(e) {
@@ -279,6 +432,8 @@ function createIDE(host, options) {
     ${noteHtml}
     <div class="ide-toolbar">
       <button class="btn btn-primary" data-act="run">▶ Exécuter</button>
+      <button class="btn btn-ghost" data-act="trace"
+        title="Exécute ligne par ligne : tu VOIS les variables changer">🔍 Pas à pas</button>
       ${(options.extraButtons || []).map((b, i) =>
         `<button class="btn btn-ghost" data-extra="${i}">${b.label}</button>`).join("")}
       <button class="btn btn-ghost" data-act="reset" title="Revenir au code d'origine">↺</button>
@@ -333,6 +488,14 @@ function createIDE(host, options) {
     }
   });
 
+  const traceBtn = $('[data-act="trace"]', host);
+  traceBtn.addEventListener("click", async () => {
+    traceBtn.disabled = true;
+    const data = await tracerPython(cm.getValue(), ui);
+    traceBtn.disabled = false;
+    if (data) montrerTrace(data, cm, host);
+  });
+
   $('[data-act="reset"]', host).addEventListener("click", () => {
     if (confirm("Revenir au code d'origine ? Tes modifications ici seront effacées.")) {
       cm.setValue(options.code ?? "");
@@ -345,6 +508,105 @@ function createIDE(host, options) {
   editors[options.storageKey || "tmp"] = cm;
   setTimeout(() => cm.refresh(), 0);
   return cm;
+}
+
+/* ─────────── Visionneuse « pas à pas » (style Python Tutor) ─────────── */
+
+function fermerTrace(cm, host) {
+  const panel = $(".trace-panel", host);
+  if (panel) panel.remove();
+  if (cm._traceLine != null) {
+    cm.removeLineClass(cm._traceLine, "background", "cm-trace-line");
+    cm._traceLine = null;
+  }
+}
+
+function labelEtape(e) {
+  if (e.evenement === "call") {
+    return e.fonction === "<module>" ? "▶ Début du programme"
+      : `▶ On ENTRE dans ${e.fonction}()`;
+  }
+  if (e.evenement === "return") {
+    return e.fonction === "<module>" ? "⏹ Fin du programme"
+      : `◀ ${e.fonction}() se termine et RENVOIE ${e.retour ?? "None"}`;
+  }
+  if (e.evenement === "exception") return "⚠️ " + e.erreur;
+  return `Ligne ${e.ligne}` + (e.fonction !== "<module>" ? ` — dans ${e.fonction}()` : "");
+}
+
+function montrerTrace(data, cm, host) {
+  fermerTrace(cm, host);
+  const n = data.etapes.length;
+  const panel = document.createElement("div");
+  panel.className = "trace-panel";
+
+  if (n === 0) {
+    panel.innerHTML = `<div class="trace-event">${data.erreur
+      ? "⚠️ " + escapeHtml(data.erreur) : "Rien à exécuter (code vide ?)"}
+      </div><div style="text-align:right"><button class="btn btn-ghost" data-t="close">Fermer</button></div>`;
+    $(".editor-wrap", host).after(panel);
+    $('[data-t="close"]', panel).addEventListener("click", () => fermerTrace(cm, host));
+    return;
+  }
+
+  panel.innerHTML = `
+    <div class="trace-controls">
+      <button class="tbtn" data-t="first" title="Première étape">⏮</button>
+      <button class="tbtn" data-t="prev" title="Étape précédente">◀</button>
+      <input type="range" min="0" max="${n - 1}" value="0" step="1" aria-label="Étape">
+      <button class="tbtn" data-t="next" title="Étape suivante">▶</button>
+      <button class="tbtn" data-t="last" title="Dernière étape">⏭</button>
+      <span class="trace-pos"></span>
+      <button class="tbtn" data-t="close" title="Fermer">✕</button>
+    </div>
+    <div class="trace-event"></div>
+    <div class="trace-vars"></div>
+    <pre class="trace-out"></pre>
+    ${data.tronquee ? '<div class="trace-note">✂️ Programme long : seules les 400 premières étapes sont montrées.</div>' : ""}
+    ${data.erreur ? `<div class="trace-note">⚠️ Le programme s'est terminé par une erreur : ${escapeHtml(data.erreur)}</div>` : ""}`;
+  $(".editor-wrap", host).after(panel);
+
+  const slider = $('input[type="range"]', panel);
+  let index = 0;
+
+  function setStep(k) {
+    index = Math.max(0, Math.min(n - 1, k));
+    slider.value = index;
+    const e = data.etapes[index];
+    $(".trace-pos", panel).textContent = `${index + 1}/${n}`;
+    $(".trace-event", panel).textContent = labelEtape(e);
+
+    // surligne la ligne en cours dans l'éditeur (l'événement « début du
+    // programme » porte la ligne 0, et le code a pu être raccourci depuis)
+    if (cm._traceLine != null) cm.removeLineClass(cm._traceLine, "background", "cm-trace-line");
+    cm._traceLine = Math.min(Math.max(e.ligne, 1), cm.lineCount()) - 1;
+    cm.addLineClass(cm._traceLine, "background", "cm-trace-line");
+    cm.scrollIntoView({ line: cm._traceLine, ch: 0 }, 80);
+
+    // variables visibles à cette étape
+    const noms = Object.keys(e.variables);
+    const cadre = e.fonction === "<module>" ? "programme principal" : e.fonction + "()";
+    $(".trace-vars", panel).innerHTML = noms.length
+      ? `<div class="trace-cadre">Variables — ${escapeHtml(cadre)}</div><table>${noms.map((nom) =>
+          `<tr><td>${escapeHtml(nom)}</td><td>${escapeHtml(e.variables[nom])}</td></tr>`).join("")}</table>`
+      : `<div class="trace-cadre">Aucune variable pour l'instant (${escapeHtml(cadre)})</div>`;
+
+    // sortie déjà affichée à cette étape
+    const texte = data.sortie.slice(0, e.sortie);
+    const out = $(".trace-out", panel);
+    out.textContent = texte;
+    out.style.display = texte ? "" : "none";
+  }
+
+  $('[data-t="first"]', panel).addEventListener("click", () => setStep(0));
+  $('[data-t="prev"]', panel).addEventListener("click", () => setStep(index - 1));
+  $('[data-t="next"]', panel).addEventListener("click", () => setStep(index + 1));
+  $('[data-t="last"]', panel).addEventListener("click", () => setStep(n - 1));
+  $('[data-t="close"]', panel).addEventListener("click", () => fermerTrace(cm, host));
+  slider.addEventListener("input", () => setStep(Number(slider.value)));
+
+  setStep(0);
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function showScore(ok, total, host) {
@@ -552,6 +814,10 @@ function viewProjets(sub) {
 
 const IDE_DEFAULT = `# ⌨️ Bac à sable — écris du Python, appuie sur ▶ Exécuter.
 # Tout tourne DANS ton navigateur : tu ne peux rien casser. Amuse-toi !
+#
+# 🔍 « Pas à pas » : exécute ligne par ligne en voyant les variables changer.
+# 📦 Besoin d'une bibliothèque ? Importe-la simplement (import numpy,
+#    import pandas…) : elle sera téléchargée automatiquement.
 
 prenom = input("Comment tu t'appelles ? ")
 print(f"Salut {prenom} ! 🐍")

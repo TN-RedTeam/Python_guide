@@ -19,12 +19,19 @@ y compris sur **téléphone Android** (installable comme une vraie app, utilisab
 
 > ### 🌐 [tn-redteam.github.io/Python_guide](https://tn-redteam.github.io/Python_guide/)
 >
-> - ⌨️ Un **vrai Python 3.12** dans le navigateur (aucune installation) ;
+> - ⌨️ Un **vrai Python 3.12** dans le navigateur (aucune installation, paquets téléchargés automatiquement) ;
 > - 🧪 les exercices de chaque module **préchargés et auto-corrigés** (✅/❌ en direct) ;
+> - 🔍 l'exécution **pas à pas** : tu vois les **variables changer ligne par ligne** ;
 > - 📊 ta **progression sauvegardée** sur ton appareil (aucun compte, aucune donnée envoyée) ;
 > - 📲 sur Android : Chrome → menu ⋮ → **« Ajouter à l'écran d'accueil »**.
 
 Détails, lancement en local et architecture : [`webapp/`](./webapp/).
+
+**Besoin du Python complet** (vrais `pip install`, réseau, fichiers, débogueur) **sans rien
+installer ?** Ouvre le dépôt dans **GitHub Codespaces** : un VS Code complet dans le
+navigateur, avec toutes les bibliothèques du guide préinstallées (gratuit : 60 h/mois) :
+
+[![Ouvrir dans GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/TN-RedTeam/Python_guide)
 
 ---
 

@@ -32,14 +32,16 @@ NOTES_NAVIGATEUR = {
                    "les print() pour suivre l'exécution. Les exercices, eux, fonctionnent.",
     "08_asyncio": "asyncio fonctionne dans le navigateur, mais certains affichages "
                   "peuvent arriver avec un léger décalage. Sur ta machine, tout est identique au cours.",
-    "11_web_apis": "Les appels réseau (requests) sont bloqués dans le navigateur : "
+    "11_web_apis": "Les appels réseau (requests) ne sortent pas du navigateur : "
                    "lance les démos sur ta machine. Les exercices (JSON), eux, fonctionnent ici.",
     "12_taches_scripts": "La planification (cron / Planificateur Windows) se fait sur une "
                          "vraie machine. Les exercices fonctionnent ici.",
-    "13_donnees_rapports": "pandas / openpyxl ne sont pas chargés ici : lance les démos "
-                           "sur ta machine. Les exercices (stdlib), eux, fonctionnent.",
-    "14_bibliotheques": "pip et les environnements virtuels s'utilisent sur ta machine. "
-                        "Les exercices fonctionnent ici.",
+    "13_donnees_rapports": "Bonne nouvelle : pandas se télécharge automatiquement à la "
+                           "première exécution (~15 Mo, sois patient·e). L'écriture de "
+                           "fichiers Excel reste à tester sur ta machine.",
+    "14_bibliotheques": "Ici, « pip install » est automatique : importe un paquet et il "
+                        "est téléchargé (paquets en pur Python + ceux portés par Pyodide). "
+                        "Sur ta machine, la vraie commande reste pip install.",
 }
 
 # Guides transverses embarqués (ordre d'affichage).

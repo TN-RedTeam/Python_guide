@@ -17,6 +17,8 @@ ou **téléphone Android**, sans rien installer.
 | 📖 **Tous les cours** | Les 16 modules + les 7 guides (symboles, glossaire…) + les mini-projets, rendus joliment (hors pentest, volontairement). |
 | ⌨️ **IDE intégré** | Éditeur avec coloration syntaxique (CodeMirror) + **Python 3.12 réel** compilé en WebAssembly ([Pyodide](https://pyodide.org)) : ton code s'exécute localement, dans l'onglet. |
 | 🧪 **Exercices auto-corrigés** | Les `exercices.py` de chaque module, préchargés dans l'IDE : tu complètes, tu appuies sur ▶, tu vois tes ✅/❌. Le score est détecté automatiquement. |
+| 🔍 **Pas à pas** (style Python Tutor) | Exécute le programme **ligne par ligne** : la ligne courante est surlignée, on **voit les variables changer**, les entrées/sorties de fonctions et la sortie s'afficher au fil des étapes. L'outil idéal pour *comprendre* ce que fait vraiment le code. |
+| 📦 **Paquets automatiques** | `import numpy`, `import pandas`… : les paquets portés par Pyodide sont téléchargés automatiquement ; pour les autres, un `ModuleNotFoundError` déclenche une installation **micropip** depuis PyPI (paquets en pur Python). Autrement dit : le `pip install` est fait pour toi. |
 | 📊 **Progression** | Sauvegardée sur l'appareil (localStorage) : modules lus, scores d'exercices, reprise là où tu t'étais arrêté. Rien n'est envoyé à un serveur. |
 | 💾 **Ton code est conservé** | Chaque éditeur mémorise tes modifications sur l'appareil ; bouton ↺ pour revenir au code d'origine. |
 | 📱 **Installable (PWA)** | Sur Android : Chrome → menu ⋮ → « Ajouter à l'écran d'accueil ». L'app s'ouvre alors en plein écran, comme une application native, et les cours restent disponibles hors ligne. |
@@ -24,9 +26,16 @@ ou **téléphone Android**, sans rien installer.
 | ▶ **« Essayer »** | Chaque bloc de code Python d'un cours a un bouton qui l'envoie dans le bac à sable. |
 
 **Limites honnêtes** (c'est un navigateur, pas ta machine) : pas d'accès réseau
-(`requests`), pas de vrais dossiers, pas de `pip install`, pas de débogueur
-interactif (`pdb`). Les modules concernés (11, 12, 13, 14…) l'affichent clairement
-et restent à pratiquer sur un vrai Python — c'est d'ailleurs le but du parcours.
+sortant (`requests`), pas de vrais dossiers (les fichiers vivent dans une mémoire
+temporaire), pas de débogueur interactif (`pdb`), et seuls les paquets **pur
+Python** ou **portés en WebAssembly** s'installent (pas ceux avec du code C non
+porté). Les modules concernés (11, 12…) l'affichent clairement et restent à
+pratiquer sur un vrai Python — c'est d'ailleurs le but du parcours.
+
+> 💡 **Le vrai Python sans installation quand même ?** Le dépôt contient un
+> [`.devcontainer`](../.devcontainer/devcontainer.json) : ouvre-le dans
+> **GitHub Codespaces** (bouton « Code » → « Codespaces » sur GitHub) pour avoir
+> un VS Code complet dans le navigateur, `pip`, réseau et débogueur inclus.
 
 ---
 
