@@ -27,6 +27,12 @@ y compris sur **téléphone Android** (installable comme une vraie app, utilisab
 
 Détails, lancement en local et architecture : [`webapp/`](./webapp/).
 
+**Besoin du Python complet** (vrais `pip install`, réseau, fichiers, débogueur) **sans rien
+installer ?** Ouvre le dépôt dans **GitHub Codespaces** : un VS Code complet dans le
+navigateur, avec toutes les bibliothèques du guide préinstallées (gratuit : 60 h/mois) :
+
+[![Ouvrir dans GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/TN-RedTeam/Python_guide)
+
 ---
 
 ## 🆚 Pourquoi Python ?

@@ -1,0 +1,33 @@
+{
+  // ══════════════════════════════════════════════════════════════════
+  //  GitHub Codespaces / Dev Containers — le "vrai Python" en 1 clic
+  //
+  //  Sur GitHub : bouton vert « Code » → onglet « Codespaces » →
+  //  « Create codespace on main ». En ~1 minute tu obtiens un VS Code
+  //  complet dans le navigateur, avec Python 3.12 et toutes les
+  //  bibliothèques du guide déjà installées (requests, pandas…).
+  //  C'est le complément de la plateforme e-learning : ici, pip,
+  //  le réseau, les vrais fichiers et le débogueur fonctionnent.
+  //
+  //  Gratuit : 60 h/mois avec un compte GitHub personnel.
+  // ══════════════════════════════════════════════════════════════════
+  "name": "Python Guide — environnement complet",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+  // Installe toutes les bibliothèques du guide à la création.
+  "postCreateCommand": "pip install -r requirements.txt",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",          // support Python (exécution, débogueur)
+        "ms-python.vscode-pylance"   // autocomplétion et aide sur les types
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        // Le terminal s'ouvre à la racine du guide : `cd 01_les_bases` et c'est parti.
+        "terminal.integrated.cwd": "${containerWorkspaceFolder}"
+      }
+    }
+  }
+}

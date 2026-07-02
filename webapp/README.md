@@ -32,6 +32,11 @@ Python** ou **portés en WebAssembly** s'installent (pas ceux avec du code C non
 porté). Les modules concernés (11, 12…) l'affichent clairement et restent à
 pratiquer sur un vrai Python — c'est d'ailleurs le but du parcours.
 
+> 💡 **Le vrai Python sans installation quand même ?** Le dépôt contient un
+> [`.devcontainer`](../.devcontainer/devcontainer.json) : ouvre-le dans
+> **GitHub Codespaces** (bouton « Code » → « Codespaces » sur GitHub) pour avoir
+> un VS Code complet dans le navigateur, `pip`, réseau et débogueur inclus.
+
 ---
 
 ## 🚀 Lancer en local
