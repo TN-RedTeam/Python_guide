@@ -11,6 +11,23 @@ de la cybersécurité (pentest), Python est l'outil de prédilection.
 
 ---
 
+## 📱 NOUVEAU : la plateforme e-learning interactive
+
+Tout ce guide existe maintenant sous forme d'**application web interactive** — cours,
+exercices auto-corrigés et **IDE Python intégré** qui s'exécute **dans ton navigateur**,
+y compris sur **téléphone Android** (installable comme une vraie app, utilisable hors ligne) :
+
+> ### 🌐 [tn-redteam.github.io/Python_guide](https://tn-redteam.github.io/Python_guide/)
+>
+> - ⌨️ Un **vrai Python 3.12** dans le navigateur (aucune installation) ;
+> - 🧪 les exercices de chaque module **préchargés et auto-corrigés** (✅/❌ en direct) ;
+> - 📊 ta **progression sauvegardée** sur ton appareil (aucun compte, aucune donnée envoyée) ;
+> - 📲 sur Android : Chrome → menu ⋮ → **« Ajouter à l'écran d'accueil »**.
+
+Détails, lancement en local et architecture : [`webapp/`](./webapp/).
+
+---
+
 ## 🆚 Pourquoi Python ?
 
 Si tu as déjà jeté un œil au C, au Go ou à l'Assembleur, Python va te sembler être du

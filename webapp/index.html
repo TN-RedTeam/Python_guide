@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Python Guide — apprends Python dans ton navigateur</title>
+  <meta name="description" content="Plateforme e-learning interactive : cours de Python en français, exercices auto-corrigés et IDE intégré — directement dans ton navigateur, même sur Android.">
+  <meta name="theme-color" content="#0f1220">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="vendor/codemirror/codemirror.min.css">
+  <link rel="stylesheet" href="vendor/codemirror/material-darker.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dark">
+
+  <!-- ══════════ Barre supérieure ══════════ -->
+  <header class="topbar">
+    <button id="btn-menu" class="icon-btn" aria-label="Menu">☰</button>
+    <a class="brand" href="#/">🐍 <span>Python&nbsp;Guide</span></a>
+    <div class="topbar-right">
+      <span id="global-progress" class="chip" title="Progression globale"></span>
+      <button id="btn-theme" class="icon-btn" aria-label="Changer de thème">🌙</button>
+    </div>
+  </header>
+
+  <!-- ══════════ Navigation latérale (drawer sur mobile) ══════════ -->
+  <nav id="sidebar" class="sidebar">
+    <div class="sidebar-head">
+      <span>Sommaire</span>
+      <button id="btn-close-menu" class="icon-btn" aria-label="Fermer">✕</button>
+    </div>
+    <div id="nav-list" class="nav-list"><!-- rempli par app.js --></div>
+  </nav>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <!-- ══════════ Contenu principal ══════════ -->
+  <main id="view" class="view">
+    <div class="loading-screen">
+      <div class="loading-snake">🐍</div>
+      <p>Chargement des cours…</p>
+    </div>
+  </main>
+
+  <!-- ══════════ Navigation basse (mobile) ══════════ -->
+  <nav class="bottombar">
+    <a href="#/" data-nav="home"><span>🏠</span>Accueil</a>
+    <a href="#/module/01_les_bases" data-nav="cours"><span>📚</span>Cours</a>
+    <a href="#/ide" data-nav="ide"><span>⌨️</span>Bac&nbsp;à&nbsp;sable</a>
+    <a href="#/guides" data-nav="guides"><span>🧭</span>Guides</a>
+  </nav>
+
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/codemirror/codemirror.min.js"></script>
+  <script src="vendor/codemirror/python.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
