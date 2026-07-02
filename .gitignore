@@ -147,3 +147,5 @@ c/**/build/
 cpp/**/build/
 go/**/build/
 asm/**/build/
+# Miroir Pyodide local utilisé pour les tests de la webapp (jamais versionné)
+webapp/.pyodide-test/

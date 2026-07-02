@@ -1,0 +1,44 @@
+# Déploie la plateforme e-learning (dossier webapp/) sur GitHub Pages.
+#
+# À activer une fois dans les réglages du dépôt :
+#   Settings → Pages → Source : « GitHub Actions »
+# L'app sera ensuite servie sur : https://tn-redteam.github.io/Python_guide/
+
+name: Déployer la plateforme (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Le contenu des cours est régénéré à chaque déploiement : la plateforme
+      # reflète donc toujours les derniers README / exercices du dépôt.
+      - name: Régénérer le contenu des cours
+        run: python3 webapp/build_content.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: webapp
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
