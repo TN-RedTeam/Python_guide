@@ -1,8 +1,9 @@
 # Déploie la plateforme e-learning (dossier webapp/) sur GitHub Pages.
 #
-# À activer une fois dans les réglages du dépôt :
-#   Settings → Pages → Source : « GitHub Actions »
-# L'app sera ensuite servie sur : https://tn-redteam.github.io/Python_guide/
+# L'activation de Pages est automatique (enablement: true ci-dessous). Si le
+# job échoue quand même avec « Not Found / Resource not accessible », active
+# une fois à la main : Settings → Pages → Source : « GitHub Actions ».
+# L'app est servie sur : https://tn-redteam.github.io/Python_guide/
 
 name: Déployer la plateforme (GitHub Pages)
 
@@ -35,6 +36,9 @@ jobs:
         run: python3 webapp/build_content.py
 
       - uses: actions/configure-pages@v5
+        with:
+          # Active Pages (source « GitHub Actions ») si ce n'est pas déjà fait.
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
