@@ -107,6 +107,7 @@ function buildNav() {
   parts.push(`<div class="nav-section">Pratiquer</div>`);
   parts.push(`<a class="nav-item" data-route="ide" href="#/ide"><span>⌨️</span> Bac à sable (IDE)</a>`);
   parts.push(`<a class="nav-item" data-route="projets" href="#/projets"><span>🧩</span> Mini-projets</a>`);
+  parts.push(`<a class="nav-item" data-route="pentest" href="#/pentest"><span>🛡️</span> Pentest &amp; sécurité</a>`);
   parts.push(`<div class="nav-section">Guides</div>`);
   for (const g of CONTENT.guides) {
     parts.push(`<a class="nav-item" data-route="guide/${g.id}" href="#/guide/${g.id}">
@@ -794,6 +795,9 @@ function viewHome() {
       <a class="card" href="#/projets"><span class="emoji">🧩</span>
         <span class="card-body"><div class="card-title">Mini-projets</div>
         <div class="card-sub">To-do list, carnet de contacts, générateur de mots de passe…</div></span></a>
+      <a class="card" href="#/pentest"><span class="emoji">🛡️</span>
+        <span class="card-body"><div class="card-title">Pentest &amp; sécurité</div>
+        <div class="card-sub">Python pour l'audit : réseau, web, recon, crypto, démos offensives (lab)</div></span></a>
     </div>
 
     <div class="section-title">🧭 Guides de survie</div>
@@ -941,6 +945,58 @@ function viewProjets(sub) {
     }));
 }
 
+function viewPentest(groupId) {
+  const pt = CONTENT.pentest;
+  const groupe = groupId ? pt.groupes.find((g) => g.id === groupId) : null;
+
+  const tabs = `<div class="tabs">
+    <button class="tab ${!groupe ? "active" : ""}" data-go="#/pentest">🛡️ Aperçu</button>
+    ${pt.groupes.map((g) =>
+      `<button class="tab ${groupe && groupe.id === g.id ? "active" : ""}"
+        data-go="#/pentest/${g.id}">${escapeHtml(g.titre)}</button>`).join("")}</div>`;
+
+  view.innerHTML = `
+    <div class="module-head">
+      <div class="crumbs"><a href="#/">Accueil</a> / Pentest &amp; sécurité</div>
+      <h1>🛡️ Pentest &amp; sécurité</h1>
+    </div>
+    ${tabs}
+    <div class="md" id="pt-md"></div>
+    <div id="pt-files"></div>`;
+
+  document.querySelectorAll(".tab").forEach((b) =>
+    b.addEventListener("click", () => { location.hash = b.dataset.go; }));
+
+  // Aperçu : le README global (contient les règles d'éthique et la feuille de route).
+  if (!groupe) {
+    renderMarkdown(pt.readme, $("#pt-md"));
+    return;
+  }
+
+  if (groupe.readme) renderMarkdown(groupe.readme, $("#pt-md"));
+
+  const host = $("#pt-files");
+  host.innerHTML = `
+    <div class="section-title">💻 Scripts du module</div>
+    <div class="file-pills">${groupe.files.map((f, i) =>
+      `<button class="file-pill" data-i="${i}">${escapeHtml(f.name)}</button>`).join("")}</div>
+    <div id="pt-ide"></div>`;
+
+  const loadFile = (i) => {
+    document.querySelectorAll(".file-pill").forEach((p, j) => p.classList.toggle("active", i === j));
+    const f = groupe.files[i];
+    createIDE($("#pt-ide"), {
+      code: f.code,
+      storageKey: "pentest:" + groupe.id + ":" + f.name,
+      note: f.note || "✅ Ce script tourne dans le navigateur : clique ▶ Exécuter, "
+        + "ou teste tes idées dans le terminal ci-dessous.",
+    });
+  };
+  document.querySelectorAll(".file-pill").forEach((p) =>
+    p.addEventListener("click", () => loadFile(Number(p.dataset.i))));
+  if (groupe.files.length) loadFile(0);
+}
+
 const IDE_DEFAULT = `# ⌨️ Bac à sable — écris du Python, appuie sur ▶ Exécuter.
 # Tout tourne DANS ton navigateur : tu ne peux rien casser. Amuse-toi !
 #
@@ -984,6 +1040,7 @@ function router() {
   else if (root === "guide" && a) { viewGuide(a); highlightNav("guide/" + a); }
   else if (root === "guides") { viewGuides(); highlightNav("guides"); }
   else if (root === "projets") { viewProjets(a); highlightNav("projets"); }
+  else if (root === "pentest") { viewPentest(a); highlightNav("pentest"); }
   else if (root === "ide") { viewIDE(); highlightNav("ide"); }
   else { viewHome(); highlightNav(""); }
 }

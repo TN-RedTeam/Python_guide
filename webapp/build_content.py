@@ -55,6 +55,40 @@ GUIDES = [
     ("PYTHON_VS_AUTRES_LANGAGES.md", "Python vs autres langages", "🆚"),
 ]
 
+# ── Section « Pentest & sécurité » ──────────────────────────────────────
+# Sous-dossiers du curriculum pentest, dans l'ordre d'affichage (titre lisible).
+PENTEST_GROUPES = [
+    ("01_basics", "01 · Bases Python"),
+    ("02_network", "02 · Réseau"),
+    ("03_web", "03 · Web"),
+    ("04_recon", "04 · Reconnaissance"),
+    ("05_automation", "05 · Automatisation"),
+    ("06_crypto", "06 · Crypto & encodage"),
+    ("offensif", "🎯 Démos offensives"),
+]
+
+# Scripts qui ne tournent PAS dans le navigateur (réseau ou système). Le reste
+# (crypto, encodage, sqlite, hachage…) s'exécute très bien via Pyodide.
+# Clé = chemin relatif depuis pentest/ ; valeur = "reseau" ou "systeme".
+PENTEST_HORS_NAVIGATEUR = {
+    "02_network/arp_detector.py": "systeme",
+    "02_network/port_scanner.py": "reseau",
+    "03_web/http_recon.py": "reseau",
+    "04_recon/dns_recon.py": "reseau",
+    "05_automation/cli_tool.py": "reseau",
+    "offensif/deserialisation.py": "systeme",
+    "offensif/injection_commande.py": "systeme",
+    "offensif/ssrf.py": "reseau",
+}
+NOTE_RESEAU = ("🌐 Ce script ouvre des connexions réseau (sockets / HTTP / DNS) : le "
+               "navigateur ne peut pas les établir. Lis le code et lance-le sur ta "
+               "machine. Le terminal ci-dessous reste dispo pour tester du Python.")
+NOTE_SYSTEME = ("🖥️ Ce script lance des commandes système (subprocess) : ça ne tourne "
+                "pas dans le navigateur. Lance-le sur ta machine. Le terminal "
+                "ci-dessous reste dispo pour tester du Python.")
+NOTE_LAB = ("⚠️ Démonstration éducative — à exécuter uniquement sur tes propres "
+            "systèmes ou un lab autorisé (CTF, DVWA…).")
+
 
 def lire(chemin: Path) -> str:
     return chemin.read_text(encoding="utf-8")
@@ -126,6 +160,43 @@ def construire_projets() -> dict:
     return projets
 
 
+def note_pentest(rel_path: str, dans_offensif: bool) -> str | None:
+    """Note affichée dans l'IDE pour un script pentest (None si rien à signaler)."""
+    categorie = PENTEST_HORS_NAVIGATEUR.get(rel_path)
+    if categorie == "reseau":
+        return NOTE_RESEAU
+    if categorie == "systeme":
+        return NOTE_SYSTEME
+    if dans_offensif:
+        return NOTE_LAB
+    return None
+
+
+def construire_pentest() -> dict:
+    """Section pentest : README global + chaque sous-dossier avec ses scripts."""
+    base = RACINE / "pentest"
+    groupes = []
+    for nom, titre in PENTEST_GROUPES:
+        dossier = base / nom
+        if not dossier.is_dir():
+            continue
+        fichiers = []
+        for f in sorted(dossier.glob("*.py")):
+            if f.name.startswith("__"):
+                continue
+            entree = {"name": f.name, "code": lire(f)}
+            note = note_pentest(f"{nom}/{f.name}", nom == "offensif")
+            if note:
+                entree["note"] = note
+            fichiers.append(entree)
+        groupe = {"id": nom, "titre": titre, "files": fichiers}
+        readme = dossier / "README.md"
+        if readme.exists():
+            groupe["readme"] = lire(readme)
+        groupes.append(groupe)
+    return {"readme": lire(base / "README.md"), "groupes": groupes}
+
+
 def main() -> None:
     modules = []
     for dossier in sorted(RACINE.iterdir()):
@@ -146,11 +217,14 @@ def main() -> None:
                 "md": lire(chemin),
             })
 
+    pentest = construire_pentest()
+
     contenu = {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "modules": modules,
         "guides": guides,
         "projets": construire_projets(),
+        "pentest": pentest,
         "modele_script": lire(RACINE / "modele_script.py"),
     }
 
@@ -159,8 +233,9 @@ def main() -> None:
         encoding="utf-8",
     )
     taille = SORTIE.stat().st_size / 1024
-    print(f"✅ {SORTIE.name} généré : {len(modules)} modules, "
-          f"{len(guides)} guides — {taille:.0f} Ko")
+    nb_scripts = sum(len(g["files"]) for g in pentest["groupes"])
+    print(f"✅ {SORTIE.name} généré : {len(modules)} modules, {len(guides)} guides, "
+          f"pentest ({nb_scripts} scripts) — {taille:.0f} Ko")
 
 
 if __name__ == "__main__":
