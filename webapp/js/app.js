@@ -197,6 +197,17 @@ def _asyncio_run_compat(coro, **kwargs):
         # Navigateur : une boucle tourne déjà -> on y planifie la coroutine.
         return asyncio.ensure_future(coro)
 asyncio.run = _asyncio_run_compat
+
+# Terminal interactif : exécute une saisie dans l'espace de noms donné. Le mode
+# "single" reproduit le vrai shell Python -> une expression seule affiche son
+# résultat (repr) automatiquement, exactement comme dans « python » sur la ligne
+# de commande. Plusieurs instructions collées -> on retombe sur "exec".
+def _pyguide_terminal(saisie, espace):
+    try:
+        objet = compile(saisie, "<terminal>", "single")
+    except SyntaxError:
+        objet = compile(saisie, "<terminal>", "exec")
+    exec(objet, espace)
 `;
 
 // Après l'exécution : attendre les tâches asyncio encore en vol (module 08).
@@ -341,17 +352,21 @@ async function installerDepuisPyPI(py, paquet, ui) {
   }
 }
 
-async function runPython(code, ui) {
+// options.keepNamespace : renvoie { output, ns } et NE détruit pas l'espace de
+// noms final, pour que le terminal interactif puisse continuer d'y accéder
+// (appeler les fonctions de l'exercice, inspecter les variables…).
+async function runPython(code, ui, options = {}) {
   const t0 = performance.now();
   ui.clear();
   ui.status("Préparation…");
+  const emballe = (output, ns) => options.keepNamespace ? { output, ns } : output;
   let py;
   try {
     py = await ensurePyodide(ui.status);
   } catch (e) {
     ui.print("❌ " + e.message, "err");
     ui.status("");
-    return null;
+    return emballe(null, null);
   }
   await chargerPaquets(py, code, ui);
   ui.status("Exécution…");
@@ -359,10 +374,10 @@ async function runPython(code, ui) {
   py.setStderr({ batched: (s) => ui.print(s, "err") });
 
   let output = null;
+  // Espace de noms neuf à chaque exécution (comme relancer `python fichier.py`).
+  let ns = py.globals.get("dict")();
+  ns.set("__name__", "__main__");
   for (let tentative = 0; tentative < 3; tentative++) {
-    // Espace de noms neuf à chaque exécution (comme relancer `python fichier.py`).
-    const ns = py.globals.get("dict")();
-    ns.set("__name__", "__main__");
     try {
       await py.runPythonAsync(code, { globals: ns });
       await py.runPythonAsync(PY_DRAIN);
@@ -374,6 +389,9 @@ async function runPython(code, ui) {
         const paquet = manquant[1].split(".")[0];
         try {
           await installerDepuisPyPI(py, paquet, ui);
+          ns.destroy();                   // on repart d'un espace de noms neuf
+          ns = py.globals.get("dict")();
+          ns.set("__name__", "__main__");
           continue;                       // on retente l'exécution
         } catch {
           ui.print(`❌ « ${paquet} » n'a pas pu être installé dans le navigateur `
@@ -384,13 +402,39 @@ async function runPython(code, ui) {
       }
       ui.print(formatPyError(e), "err");
       break;
-    } finally {
-      ns.destroy();
     }
   }
   const dt = ((performance.now() - t0) / 1000).toFixed(1);
   ui.status(`Terminé en ${dt} s`);
+  if (options.keepNamespace) return { output, ns };
+  ns.destroy();
   return output;
+}
+
+// Exécute UNE saisie du terminal interactif dans l'espace de noms persistant de
+// l'IDE (getNs). N'efface pas la console : on ajoute au fil, comme un vrai shell.
+async function runTerminalLine(code, ui, getNs) {
+  let py;
+  try {
+    py = await ensurePyodide(ui.status);
+  } catch (e) {
+    ui.print("❌ " + e.message, "err");
+    ui.status("");
+    return;
+  }
+  await chargerPaquets(py, code, ui);
+  py.setStdout({ batched: (s) => ui.print(s) });
+  py.setStderr({ batched: (s) => ui.print(s, "err") });
+  const espace = getNs(py);
+  const executer = py.globals.get("_pyguide_terminal");
+  try {
+    executer(code, espace);
+  } catch (e) {
+    ui.print(formatPyError(e), "err");
+  } finally {
+    executer.destroy();
+    ui.status("");
+  }
 }
 
 async function tracerPython(code, ui) {
@@ -416,10 +460,18 @@ async function tracerPython(code, ui) {
 }
 
 function formatPyError(e) {
-  // On ne garde que la partie utile de la traceback (pas les couches Pyodide).
+  // On ne garde que la partie utile de la traceback (pas les couches Pyodide ni
+  // notre passe-plat interne). Le code de l'utilisateur porte l'un de ces noms
+  // de fichier ; on coupe au premier cadre correspondant. « <terminal> » est
+  // prioritaire : quand il est présent, « <exec> » n'est que le passe-plat du
+  // terminal (_pyguide_terminal) et doit rester masqué.
   const msg = String(e.message || e);
-  const idx = msg.lastIndexOf('File "<exec>"');
-  return idx >= 0 ? "❌ Erreur Python :\n" + msg.slice(idx) : "❌ " + msg;
+  const reperes = ['File "<terminal>"', 'File "<script>"', 'File "<exec>"', 'File "<string>"'];
+  for (const repere of reperes) {
+    const idx = msg.indexOf(repere);
+    if (idx >= 0) return "❌ Erreur Python :\n" + msg.slice(idx);
+  }
+  return "❌ " + msg;
 }
 
 /* ─────────────────────────── Composant IDE ─────────────────────────── */
@@ -442,7 +494,16 @@ function createIDE(host, options) {
     </div>
     <div class="editor-wrap"><textarea></textarea></div>
     <div class="score-slot"></div>
-    <div class="console"><span class="sys">La sortie de ton programme s'affichera ici. Appuie sur ▶ Exécuter.</span></div>`;
+    <div class="console"><span class="sys placeholder">La sortie de ton programme s'affichera ici. Appuie sur ▶ Exécuter.</span></div>
+    <div class="terminal">
+      <div class="terminal-head">⌨️ Terminal Python — tape une commande et appuie sur Entrée
+        <span class="terminal-hint">(Maj+Entrée = nouvelle ligne)</span></div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">&gt;&gt;&gt;</span>
+        <textarea class="terminal-input" rows="1" spellcheck="false" autocapitalize="off"
+          autocomplete="off" autocorrect="off" placeholder="ex : 2 + 2   ou   help(str)"></textarea>
+      </div>
+    </div>`;
 
   const saved = options.storageKey ? store.read("code." + options.storageKey, null) : null;
   const cm = CodeMirror.fromTextArea($("textarea", host), {
@@ -477,14 +538,82 @@ function createIDE(host, options) {
     status: (s) => { statusEl.textContent = s; },
   };
 
+  // Espace de noms partagé entre « ▶ Exécuter » et le terminal interactif :
+  // après avoir lancé son code, l'apprenant peut appeler ses fonctions et
+  // inspecter ses variables directement dans le terminal ci-dessous.
+  let terminalNs = null;
+  const ensureTerminalNs = (py) => {
+    if (!terminalNs) {
+      terminalNs = py.globals.get("dict")();
+      terminalNs.set("__name__", "__main__");
+    }
+    return terminalNs;
+  };
+  const adopterNs = (ns) => {
+    if (!ns) return;
+    if (terminalNs) terminalNs.destroy();
+    terminalNs = ns;
+  };
+
   const runBtn = $('[data-act="run"]', host);
   runBtn.addEventListener("click", async () => {
     runBtn.disabled = true;
-    const output = await runPython(cm.getValue(), ui);
+    const { output, ns } = await runPython(cm.getValue(), ui, { keepNamespace: true });
+    adopterNs(ns);
     runBtn.disabled = false;
     if (output !== null && options.onScore) {
       const m = output.match(/(\d+)\s*\/\s*(\d+)\s+réussis/);
       if (m) options.onScore(Number(m[1]), Number(m[2]), host);
+    }
+  });
+
+  // ── Terminal interactif (REPL) ──────────────────────────────────────
+  const termInput = $(".terminal-input", host);
+  const history = [];
+  let histIndex = 0;              // position dans l'historique (== longueur = saisie neuve)
+  const autoGrow = () => {
+    termInput.style.height = "auto";
+    termInput.style.height = Math.min(termInput.scrollHeight, 160) + "px";
+  };
+  const echoTerminal = (src) => {
+    const ligne = src.split("\n").map((l, i) => (i ? "... " : ">>> ") + l).join("\n");
+    ui.print(ligne, "echo");
+  };
+  const soumettreTerminal = async (src) => {
+    const ph = consoleEl.querySelector(".placeholder");
+    if (ph) ph.remove();
+    history.push(src);
+    histIndex = history.length;
+    echoTerminal(src);
+    termInput.value = "";
+    autoGrow();
+    termInput.disabled = true;
+    await runTerminalLine(src, ui, ensureTerminalNs);
+    termInput.disabled = false;
+    termInput.focus();
+    consoleEl.scrollTop = consoleEl.scrollHeight;
+  };
+  termInput.addEventListener("input", autoGrow);
+  termInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const src = termInput.value.replace(/\s+$/, "");
+      if (src.trim()) soumettreTerminal(src);
+      return;
+    }
+    // Historique : flèches ↑/↓ quand la saisie tient sur une seule ligne.
+    if ((e.key === "ArrowUp" || e.key === "ArrowDown") && !termInput.value.includes("\n")) {
+      if (e.key === "ArrowUp" && histIndex > 0) {
+        e.preventDefault();
+        histIndex--;
+        termInput.value = history[histIndex];
+        autoGrow();
+      } else if (e.key === "ArrowDown" && histIndex < history.length) {
+        e.preventDefault();
+        histIndex++;
+        termInput.value = history[histIndex] ?? "";
+        autoGrow();
+      }
     }
   });
 
