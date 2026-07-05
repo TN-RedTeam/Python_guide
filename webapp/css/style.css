@@ -389,6 +389,51 @@ body[data-theme="light"] .CodeMirror { background: #fff; color: #1c2138; }
 .console .ok { color: var(--ok); }
 .console .err { color: var(--ko); }
 .console .sys { color: var(--text-dim); font-style: italic; }
+.console .echo { color: #8ea2ff; }
+
+/* ─────────── Terminal interactif (REPL) ─────────── */
+.terminal {
+  margin-top: .55rem;
+  background: #0b0e1a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .55rem .7rem .65rem;
+}
+.terminal-head {
+  font-size: .72rem;
+  color: #7c83b3;
+  margin-bottom: .4rem;
+}
+.terminal-hint { opacity: .7; }
+.terminal-line {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+}
+.terminal-prompt {
+  color: #6ee7a8;
+  font-family: var(--mono);
+  font-size: .82rem;
+  line-height: 1.55;
+  padding-top: .12rem;
+  user-select: none;
+}
+.terminal-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #d5dbff;
+  font-family: var(--mono);
+  font-size: .82rem;
+  line-height: 1.55;
+  resize: none;
+  overflow: hidden;
+  padding: .12rem 0;
+}
+.terminal-input::placeholder { color: #565c86; }
+.terminal-input:disabled { opacity: .5; }
 
 .score-banner {
   margin-top: .7rem;
