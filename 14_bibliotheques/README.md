@@ -230,5 +230,31 @@ python3 14_bibliotheques/explorer_modules.py
 Ce script montre comment vérifier, depuis Python, ce qui est déjà disponible et quelle
 version est installée.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : mettre en code le réflexe « ai-je vraiment besoin d'installer ? » —
+tester **à l'exécution** si un module est disponible, sans planter s'il manque.
+
+```python
+def est_disponible(nom_module):
+    try:
+        __import__(nom_module)     # on tente l'import
+        return True
+    except ImportError:            # absent → on le sait, proprement
+        return False
+
+print("json     :", est_disponible("json"))       # stdlib → toujours là
+print("requests :", est_disponible("requests"))    # tierce → selon l'environnement
+```
+
+:::defi 🧪 Prédis la sortie
+La bibliothèque standard regorge d'outils. Que donne le module `math` ? Devine, **puis** ▶ Essayer.
+```python
+import math
+print(math.sqrt(144))
+print(math.pi > 3)
+```
+:::
+
 🎉 **Tu sais maintenant raisonner sur les dépendances** — une compétence que beaucoup de
 développeurs mettent du temps à acquérir.

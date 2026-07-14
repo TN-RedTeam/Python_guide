@@ -307,4 +307,40 @@ for i in range(1, 11):           # 1 à 10 inclus
 ```
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : afficher, pour chaque nombre de 1 à 20, s'il est **pair** ou **impair**.
+
+On ne se jette pas sur le clavier : on écrit d'abord les **étapes** en français
+(pseudo-code), *ensuite* on traduit.
+
+```pseudo
+POUR n DE 1 À 20 :
+    SI n est pair (n % 2 == 0) :
+        afficher "n : pair"
+    SINON :
+        afficher "n : impair"
+```
+
+La traduction est alors quasi mécanique — 1 ligne de pseudo-code ≈ 1 ligne de Python :
+
+```python
+for n in range(1, 21):        # 21 exclu → on s'arrête à 20
+    if n % 2 == 0:
+        print(f"{n} : pair")
+    else:
+        print(f"{n} : impair")
+```
+
+:::defi 🧪 Prédis la sortie
+Avant de cliquer sur **▶ Essayer** : que va afficher ce code ? Réfléchis (trace-le
+à la main !), **puis** vérifie.
+```python
+x = 5
+x = x + 3
+x = x * 2
+print(x)
+```
+:::
+
 ➡️ **Prochaine étape** : [module 02 — les collections](../02_collections/) (listes, dictionnaires…).

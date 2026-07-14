@@ -155,4 +155,35 @@ python3 12_taches_scripts/sauvegarde.py
 python3 12_taches_scripts/tache_repetee.py
 ```
 
+## 🔬 Le raisonnement en action
+
+**Problème** : transformer un script **figé** en **outil**, en repérant ce qui change.
+Ce qui varie (le *nom* à saluer) ne doit pas être écrit en dur → ça devient un
+**paramètre**, avec une valeur par défaut.
+
+```python
+# Figé : ne salue qu'Alice
+def saluer_fige():
+    print("Bonjour Alice !")
+
+# Outil : le nom (ce qui CHANGE) devient un paramètre
+def saluer(nom="tout le monde"):
+    print(f"Bonjour {nom} !")
+
+saluer("Alice")
+saluer("Bob")
+saluer()               # valeur par défaut quand on ne précise rien
+```
+
+:::defi 🧪 Prédis la sortie
+Un paramètre avec valeur par défaut : que donnent ces deux appels ? Devine, **puis** ▶ Essayer.
+```python
+def puissance(base, exposant=2):
+    return base ** exposant
+
+print(puissance(5))
+print(puissance(2, 3))
+```
+:::
+
 ➡️ Module suivant : [`13_donnees_rapports`](../13_donnees_rapports/).

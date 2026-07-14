@@ -180,5 +180,29 @@ def test_est_pair():
 Lance ensuite `pytest` : tu dois voir un point vert.
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : écrire `est_pair`, puis la **prouver** avec des tests. Réponds d'abord :
+« quels cas prouvent qu'elle est correcte ? » → un cas normal, un cas limite.
+
+```python
+def est_pair(n):
+    return n % 2 == 0
+
+# Les tests : chaque assert vérifie un cas. Aucun message = tout va bien.
+assert est_pair(4) is True
+assert est_pair(7) is False
+assert est_pair(0) is True        # cas limite : zéro est pair
+print("Tous les tests passent ✅")
+```
+
+:::defi 🧪 Prédis la sortie
+Que se passe-t-il quand une assertion est **fausse** ? Devine, **puis** ▶ Essayer.
+```python
+assert 2 + 2 == 5, "les maths sont cassées"
+print("cette ligne est-elle atteinte ?")
+```
+:::
+
 ➡️ **Tu as terminé le cœur du langage !** Direction le **Python appliqué** :
 [module 10 — fichiers & dossiers](../10_fichiers_dossiers/).

@@ -184,4 +184,44 @@ class Moto(Vehicule):
 ```
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : modéliser un **compteur** — un objet qui retient une valeur et sait
+l'incrémenter.
+
+On repère l'objet (*un compteur*), sa **donnée** (sa valeur, qui démarre à 0) et
+son **action** (incrémenter). Donnée + action réunies → une classe.
+
+```pseudo
+CLASSE Compteur :
+    À LA CRÉATION : valeur ← 0
+    MÉTHODE incrementer : valeur ← valeur + 1
+```
+
+```python
+class Compteur:
+    def __init__(self):        # à la création de l'objet
+        self.valeur = 0        # la donnée, rangée DANS l'objet
+    def incrementer(self):     # une action de l'objet
+        self.valeur += 1
+
+c = Compteur()
+c.incrementer()
+c.incrementer()
+print(c.valeur)                # 2
+```
+
+:::defi 🧪 Prédis la sortie
+Deux objets fabriqués avec le même moule : partagent-ils leur `nom` ? Devine, **puis** ▶ Essayer.
+```python
+class Chien:
+    def __init__(self, nom):
+        self.nom = nom
+
+a = Chien("Rex")
+b = Chien("Mia")
+print(a.nom, b.nom)
+```
+:::
+
 ➡️ **Prochaine étape** : [module 06 — itérateurs & générateurs](../06_iterateurs_generateurs/).

@@ -155,4 +155,35 @@ python3 10_fichiers_dossiers/ranger_dossier.py
 Le script `ranger_dossier.py` travaille sur un dossier de test (`exemples/bazar/`) qu'il
 crée lui-même, pour que tu puisses l'exécuter **sans risque pour tes vrais fichiers**.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : écrire 3 lignes dans un fichier, puis le relire et compter ses lignes.
+
+```pseudo
+OUVRIR "notes.txt" EN ÉCRITURE : écrire les 3 lignes
+OUVRIR "notes.txt" EN LECTURE  : lire toutes les lignes
+AFFICHER le nombre de lignes, puis chacune
+```
+
+```python
+with open("notes.txt", "w", encoding="utf-8") as f:
+    f.write("pomme\npoire\nkiwi\n")
+
+with open("notes.txt", "r", encoding="utf-8") as f:
+    lignes = f.readlines()
+
+print(f"{len(lignes)} lignes :")
+for ligne in lignes:
+    print("-", ligne.strip())      # .strip() enlève le \n de fin
+```
+
+:::defi 🧪 Prédis la sortie
+`split` découpe une chaîne en liste. Que donne ceci ? Devine, **puis** ▶ Essayer.
+```python
+texte = "un,deux,trois"
+morceaux = texte.split(",")
+print(len(morceaux), morceaux[1])
+```
+:::
+
 ➡️ Module suivant : [`11_web_apis`](../11_web_apis/).

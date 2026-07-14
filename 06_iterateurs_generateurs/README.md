@@ -162,4 +162,36 @@ print(en_a)   # ['Alice', 'Anna']
 ```
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : produire les carrés des nombres de 1 à N, **un par un**, sans jamais
+tout stocker en mémoire (penser **flux**, pas **stock**).
+
+Un générateur `yield` une valeur, se met en pause, et reprend au tour suivant
+quand on lui redemande — parfait pour un flux.
+
+```pseudo
+GÉNÉRATEUR carres(n) :
+    POUR i DE 1 À n :
+        PRODUIRE (yield) i * i
+```
+
+```python
+def carres(n):
+    for i in range(1, n + 1):
+        yield i * i            # produit une valeur, PUIS se met en pause
+
+for c in carres(5):
+    print(c, end=" ")         # 1 4 9 16 25
+```
+
+:::defi 🧪 Prédis la sortie
+`next()` demande la valeur **suivante**. Que donnent ces deux appels ? Devine, **puis** ▶ Essayer.
+```python
+g = (x * 10 for x in range(3))
+print(next(g))
+print(next(g))
+```
+:::
+
 ➡️ **Prochaine étape** : [module 07 — débugger](../07_debugger/).

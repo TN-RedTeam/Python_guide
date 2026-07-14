@@ -138,4 +138,40 @@ Le corrigé **expliqué** (chaque bug commenté) est dans [`solutions.py`](./sol
 3. **Provoque** chaque type d'erreur du tableau du [module 04](../04_exceptions_fichiers/) et
    entraîne-toi à lire le traceback : type + ligne + cause.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : ce code plante. Applique la **méthode du détective** pour le réparer.
+
+```python
+def moyenne(notes):
+    return sum(notes) / len(notes)
+
+print(moyenne([]))     # 💥 ZeroDivisionError: division by zero
+```
+
+1. **Reproduire** : l'erreur tombe sur la liste vide `[]`.
+2. **Localiser** : la dernière ligne du traceback pointe la **division**.
+3. **Hypothèse** : `len(notes)` vaut `0` sur une liste vide → division par zéro.
+
+On corrige en **prévoyant ce cas limite** :
+
+```python
+def moyenne(notes):
+    if not notes:          # liste vide : on décide d'une réponse sensée
+        return 0
+    return sum(notes) / len(notes)
+
+print(moyenne([]))         # 0
+print(moyenne([12, 8]))    # 10.0
+```
+
+:::defi 🧪 Prédis la sortie
+Où ce code s'arrête-t-il, et sur quelle erreur ? Lis-le comme un détective, **puis** ▶ Essayer.
+```python
+mots = ["a", "b", "c"]
+print(mots[len(mots) - 1])
+print(mots[len(mots)])
+```
+:::
+
 ➡️ **Prochaine étape** : [module 08 — asyncio](../08_asyncio/).
