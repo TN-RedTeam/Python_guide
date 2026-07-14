@@ -203,4 +203,42 @@ with open("journal.txt", "r", encoding="utf-8") as f:
 ```
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : diviser deux nombres, mais **sans planter** si le diviseur est 0.
+
+On anticipe le cas qui échoue (division par zéro) et on décide d'une réponse
+sensée à la place — c'est la pensée défensive du bloc « Réfléchis d'abord ».
+
+```pseudo
+FONCTION division_sure(a, b) :
+    ESSAYER :
+        RENVOYER a / b
+    EN CAS DE division par zéro :
+        RENVOYER "impossible (division par zéro)"
+```
+
+```python
+def division_sure(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return "impossible (division par zéro)"
+
+print(division_sure(10, 2))   # 5.0
+print(division_sure(10, 0))   # impossible (division par zéro)
+```
+
+:::defi 🧪 Prédis la sortie
+Deux lignes dans le `try`, dont une qui va échouer. Qu'affiche le programme, et
+**jusqu'où** va-t-il ? Réfléchis, **puis** ▶ Essayer.
+```python
+try:
+    print(int("42") + 1)
+    print(int("abc") + 1)
+except ValueError:
+    print("saisie invalide")
+```
+:::
+
 ➡️ **Prochaine étape** : [module 05 — la POO (classes)](../05_poo/).

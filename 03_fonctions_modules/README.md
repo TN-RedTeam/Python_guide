@@ -275,4 +275,37 @@ Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](.
 2. **Lis et lance** [`usage_module.py`](./usage_module.py) : il importe le module
    [`outils_math.py`](./outils_math.py). Repère les **deux** formes d'import.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : écrire une fonction qui dit si un mot est un **palindrome** (se lit
+pareil dans les deux sens : *kayak*, *radar*).
+
+Décomposons : « se lit pareil à l'envers » = *le mot est égal à lui-même inversé*.
+Petit piège à anticiper (cas limite) : les majuscules — on **normalise** d'abord.
+
+```pseudo
+FONCTION est_palindrome(mot) :
+    propre ← mot en minuscules
+    RENVOYER (propre == propre à l'envers)
+```
+
+```python
+def est_palindrome(mot):
+    propre = mot.lower()          # normalise : "Kayak" -> "kayak"
+    return propre == propre[::-1]  # [::-1] = la chaîne à l'envers
+
+print(est_palindrome("Kayak"))    # True
+print(est_palindrome("Python"))   # False
+```
+
+:::defi 🧪 Prédis la sortie
+Une fonction appelée sur son propre résultat : que s'affiche-t-il ? Devine, **puis** ▶ Essayer.
+```python
+def double(x):
+    return x * 2
+
+print(double(double(3)))
+```
+:::
+
 ➡️ **Prochaine étape** : [module 04 — exceptions & fichiers](../04_exceptions_fichiers/).

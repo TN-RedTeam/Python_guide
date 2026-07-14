@@ -283,4 +283,38 @@ for produit, quantite in stock.items():
 ```
 </details>
 
+## 🔬 Le raisonnement en action
+
+**Problème** : compter combien de fois chaque mot apparaît dans une liste.
+
+Quelle **structure** pour le résultat ? On veut associer *un mot* → *un nombre* :
+c'est une paire clé → valeur, donc un **dictionnaire**. Le raisonnement est le
+pattern **compteur**, appliqué à un dict :
+
+```pseudo
+compteur ← dictionnaire vide
+POUR chaque mot DANS mots :
+    SI mot déjà connu : compteur[mot] ← compteur[mot] + 1
+    SINON             : compteur[mot] ← 1
+RENVOYER compteur
+```
+
+```python
+mots = ["a", "b", "a", "c", "a", "b"]
+compteur = {}
+for mot in mots:
+    # .get(mot, 0) : la valeur actuelle, ou 0 si le mot est nouveau
+    compteur[mot] = compteur.get(mot, 0) + 1
+print(compteur)      # {'a': 3, 'b': 2, 'c': 1}
+```
+
+:::defi 🧪 Prédis la sortie
+Que va afficher ce code ? Réfléchis, **puis** clique sur **▶ Essayer**.
+```python
+panier = ["pomme", "poire"]
+panier.append("kiwi")
+print(len(panier), panier[-1])
+```
+:::
+
 ➡️ **Prochaine étape** : [module 03 — fonctions & modules](../03_fonctions_modules/).
