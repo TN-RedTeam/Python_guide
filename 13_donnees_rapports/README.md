@@ -7,6 +7,14 @@ automatiquement. C'est ce que font des milliers de gens **à la main** dans Exce
 > Fichier du module : `rapport_ventes.py`. Il crée lui-même un jeu de données de démo.
 > Nécessite `pandas` et `openpyxl` (`pip install -r requirements.txt`).
 
+:::reflexion Réfléchis d'abord : un rapport, c'est un pipeline
+Ne vois pas « le rapport » comme un bloc, mais comme une **chaîne** de 4 étapes :
+**charger** les données brutes → les **nettoyer** → **calculer** (totaux, moyennes,
+regroupements) → **présenter** (tableau, Excel). Décompose toujours dans cet ordre :
+chaque étape prend la sortie de la précédente. C'est la décomposition appliquée aux
+données.
+:::
+
 ---
 
 ## 1. Pourquoi `pandas` ?

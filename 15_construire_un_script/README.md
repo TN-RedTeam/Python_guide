@@ -8,6 +8,14 @@ Ici, **deux scripts réels**, écrits en suivant la méthode (objectif → entr�
 étapes → recherche des outils → code), et **commentés pas à pas** pour que tu voies *pourquoi*
 chaque morceau est là.
 
+:::reflexion Réfléchis d'abord : la méthode, du début à la fin
+Ce module déroule **en entier** la démarche de [🧭 Penser comme un dev](../penser_comme_un_dev) :
+**objectif → entrées/sorties → étapes (pseudo-code) → outils → code → test**. En
+lisant les deux scripts, ne regarde pas seulement *le code final* : suis le
+**raisonnement** qui y mène. C'est ça que tu dois savoir reproduire — le code, lui,
+se cherche au fil de l'eau.
+:::
+
 ## Les scripts
 
 | Script | Ce qu'il fait | Notions / outils |

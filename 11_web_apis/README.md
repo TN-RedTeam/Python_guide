@@ -7,6 +7,14 @@ automatiquement** : appeler une API, télécharger une page, en extraire des inf
 > ⚠️ Ces scripts ont besoin d'une **connexion Internet** et des bibliothèques `requests`
 > et `beautifulsoup4` (`pip install -r requirements.txt`).
 
+:::reflexion Réfléchis d'abord : demander → recevoir → extraire
+Tout échange avec le web tient en **3 temps** : je **demande** (une requête à une
+adresse), je **reçois** (une réponse, souvent du JSON ou du HTML), j'**extrais** ce
+qui m'intéresse. Sépare bien ces 3 étapes dans ta tête : la plupart des bugs
+viennent d'en confondre deux (« je n'ai rien reçu » n'est pas « j'ai mal
+extrait »).
+:::
+
 ---
 
 ## 1. Comment le web fonctionne (en 2 minutes)

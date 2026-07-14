@@ -5,6 +5,14 @@
 > programmes. Concepts à maîtriser : **classe**, **objet**, **`self`**, **`__init__`**,
 > **héritage**.
 
+:::reflexion Réfléchis d'abord : repère les « objets » de ton problème
+La POO, avant d'être de la syntaxe, est une façon de **modéliser**. Dans ton
+énoncé, souligne les **noms** (un *client*, un *panier*, une *voiture*) et les
+**actions** associées (*ajouter au panier*, *démarrer*). Les noms deviennent des
+**classes**, leurs caractéristiques des **attributs**, leurs actions des
+**méthodes**. On modélise d'abord sur le papier, on code ensuite.
+:::
+
 ---
 
 ## 1. L'idée : regrouper données + actions

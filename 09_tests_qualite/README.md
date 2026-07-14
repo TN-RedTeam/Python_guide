@@ -4,6 +4,14 @@
 > que ça ne cassera pas demain ». Tu vas apprendre à écrire des **tests automatiques** (`pytest`)
 > et à garder un code **propre** (formatage, style).
 
+:::reflexion Réfléchis d'abord : qu'est-ce qui PROUVE que ça marche ?
+Avant d'écrire un test, réponds en français : « pour être sûr que ma fonction est
+correcte, quels cas dois-je vérifier ? ». Un cas **normal**, un cas **limite**
+(vide, zéro, négatif), un cas **d'erreur**. Cette liste, c'est déjà tes tests —
+c'est le **jeu d'essai** de [🧭 Penser comme un dev](../penser_comme_un_dev),
+rendu **automatique** et rejouable à volonté.
+:::
+
 ---
 
 ## 1. Pourquoi tester ?

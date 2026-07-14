@@ -7,6 +7,14 @@ l'installer proprement ? C'est tout l'objet de ce module (100 % théorique).
 > Fichier du module : `explorer_modules.py` (un petit script qui montre comment vérifier
 > ce qui est déjà installé).
 
+:::reflexion Réfléchis d'abord : ai-je VRAIMENT besoin d'une bibliothèque ?
+Ajouter une dépendance n'est pas gratuit (installation, poids, maintenance). Le bon
+réflexe **avant** `pip install` : « la **bibliothèque standard** ne suffit-elle
+pas ? » (elle fait déjà énormément). Puis : « cette lib est-elle **maintenue**,
+**populaire**, adaptée à mon besoin **précis** ? ». Choisir un outil, c'est déjà un
+raisonnement — pas un réflexe.
+:::
+
 ---
 
 ## 1. Vocabulaire : module, bibliothèque, paquet

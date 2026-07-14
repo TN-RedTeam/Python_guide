@@ -4,6 +4,14 @@
 > invalide…) et manipule des données qui **survivent** à la fin du programme (les fichiers). Ce
 > module t'apprend à **ne pas planter** au moindre souci et à **lire/écrire** des fichiers.
 
+:::reflexion Réfléchis d'abord : « et si ça se passait mal ? »
+Un débutant code le chemin idéal ; un pro **anticipe les imprévus**. Avant
+d'écrire, liste ce qui peut **échouer** : le fichier n'existe pas, la saisie n'est
+pas un nombre, la division est par zéro… C'est le retour des **cas limites**
+(revois [🧭 Penser comme un dev](../penser_comme_un_dev)) : chaque cas prévu, c'est
+un plantage en moins. Les exceptions sont l'outil pour **réagir** au lieu de subir.
+:::
+
 ---
 
 ## 1. Les exceptions : quand le code rencontre un problème
