@@ -5,6 +5,14 @@
 > une** sans saturer la mémoire. Concepts avancés mais très utiles dès qu'on manipule beaucoup
 > de données.
 
+:::reflexion Réfléchis d'abord : « stock » ou « flux » ?
+Question de raisonnement, pas de syntaxe : as-tu besoin de **tout** garder en
+mémoire, ou de traiter les valeurs **une par une** ? Additionner un fichier de
+10 Go n'exige pas de le charger en entier — juste de le lire **au fil de l'eau**.
+Penser en **flux** (générateurs) plutôt qu'en **stock** (listes), c'est parfois la
+différence entre « ça tient en mémoire » et « ça plante ».
+:::
+
 ---
 
 ## 1. Itérable vs itérateur (la distinction clé)

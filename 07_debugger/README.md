@@ -4,6 +4,16 @@
 > aguerri, c'est sa **méthode** pour localiser le problème vite. Tu vas apprendre à lire une
 > erreur, à inspecter ton programme en marche, et à raisonner comme un détective.
 
+:::reflexion Réfléchis d'abord : débugger, c'est enquêter
+Un bug, c'est une **enquête**, pas de la magie noire. La méthode du détective :
+
+1. **Reproduire** le bug de façon fiable (mêmes entrées → même plantage).
+2. **Localiser** en coupant en deux (le problème est-il avant ou après cette ligne ?).
+3. **Formuler une hypothèse** (« je crois que `x` vaut 0 ici »), puis la **vérifier**.
+
+Un `print()` bien placé ou le bouton **🔍 Pas à pas** valent mille suppositions.
+:::
+
 ---
 
 ## 1. D'abord : lire le message d'erreur (le *traceback*)

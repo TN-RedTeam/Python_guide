@@ -4,6 +4,14 @@
 > programme passe son temps à **attendre** (réseau, fichiers, API). C'est un sujet avancé : ne
 > l'aborde qu'une fois les modules 00→05 bien digérés.
 
+:::reflexion Réfléchis d'abord : ton programme attend-il, ou calcule-t-il ?
+L'asynchrone n'accélère **que l'attente** (réseau, disque, API), jamais le calcul.
+Avant de sortir `async`/`await`, demande-toi : « où mon programme **perd-il son
+temps à attendre** ? ». Si la réponse est « nulle part, il calcule », l'async ne
+sert à rien. C'est un choix de raisonnement sur la **nature** du travail, pas une
+recette à appliquer partout.
+:::
+
 ---
 
 ## 1. Le problème : l'attente qui bloque tout

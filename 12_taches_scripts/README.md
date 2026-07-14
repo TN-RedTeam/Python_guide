@@ -7,6 +7,13 @@ outils** : configurables au lancement, et capables de tourner **tout seuls** à 
 > Fichiers du module : `sauvegarde.py` (un outil avec options) et `tache_repetee.py`
 > (une tâche qui se répète toute seule).
 
+:::reflexion Réfléchis d'abord : qu'est-ce qui CHANGE d'une fois à l'autre ?
+Un script figé devient un **outil** dès qu'on identifie ce qui **varie** : le
+dossier à sauvegarder, la date, le seuil… Ce qui change devient une **option** (un
+argument). Le réflexe : écris d'abord ta tâche pour **un** cas concret, puis
+demande-toi « qu'est-ce que je voudrais pouvoir changer sans rouvrir le code ? ».
+:::
+
 ---
 
 ## 1. `if __name__ == "__main__"` : la ligne mystérieuse

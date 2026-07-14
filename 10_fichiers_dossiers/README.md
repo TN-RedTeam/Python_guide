@@ -7,6 +7,14 @@ des heures.
 > Fichiers du module : `lire_ecrire.py`, `csv_json.py`, `ranger_dossier.py`.
 > Un dossier `exemples/` contient des fichiers de test pour que tout fonctionne directement.
 
+:::reflexion Réfléchis d'abord : automatiser = décrire une corvée en étapes
+Toute automatisation de fichiers se pense pareil : « **pour chaque** fichier du
+dossier, **si** telle condition, **alors** telle action ». Reconnais les patterns
+de [🧭 Penser comme un dev](../penser_comme_un_dev) : une **boucle** (pour chaque),
+un **filtre** (si…), une **action**. Écris cette phrase en français d'abord, et le
+programme s'écrit presque tout seul.
+:::
+
 ---
 
 ## 1. Comment l'ordinateur range les fichiers
