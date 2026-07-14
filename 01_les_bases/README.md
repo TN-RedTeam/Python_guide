@@ -4,6 +4,21 @@
 > base, et **piloter** le déroulement d'un programme avec les conditions et les boucles. Ce sont
 > les 4 briques avec lesquelles on construit **tout** le reste.
 
+:::reflexion Réfléchis d'abord : les 4 verbes de tout programme
+Avant de retenir *quoi taper*, comprends **pourquoi** ces briques existent. Pour
+dérouler n'importe quel raisonnement, un programme n'a besoin que de **4 actions** :
+
+1. **Retenir** une information → une **variable**.
+2. **Calculer / transformer** une valeur → les **types** et les **opérateurs**.
+3. **Décider** selon la situation → les **conditions** (`if`).
+4. **Répéter** sans se fatiguer → les **boucles** (`for`, `while`).
+
+Garde cette grille en tête : quand tu bloqueras sur un exercice, demande-toi
+« il me manque quel verbe : **retenir**, **calculer**, **décider** ou **répéter** ? ».
+C'est le premier réflexe de décomposition (revois la méthode dans
+[🧭 Penser comme un dev](../penser_comme_un_dev)).
+:::
+
 ---
 
 ## 1. Les variables : donner un nom à une valeur

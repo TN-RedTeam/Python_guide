@@ -156,6 +156,7 @@ function normaliserType(mot) {
     astuce: "tip", tip: "tip", note: "note",
     danger: "danger", erreur: "danger",
     etape: "step", étape: "step", steps: "step",
+    reflexion: "think", réflexion: "think", reflechis: "think", réfléchis: "think", think: "think",
     exemple: "example", example: "example",
     defi: "try", défi: "try", atoi: "try", try: "try", exo: "try",
     reussi: "success", ok: "success", success: "success",
@@ -170,6 +171,7 @@ const EMOJI_CALLOUTS = [
   ["⚠️", "warn"], ["⚠", "warn"], ["❌", "danger"], ["🚫", "danger"], ["🛑", "danger"],
   ["✅", "success"], ["🎉", "success"], ["📝", "note"], ["📌", "note"], ["ℹ️", "note"],
   ["🧪", "try"], ["👉", "try"], ["✍️", "try"], ["🔢", "step"], ["🧩", "step"],
+  ["🧭", "think"],
 ];
 
 function enhanceMarkdown(container) {

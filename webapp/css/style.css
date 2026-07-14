@@ -327,6 +327,7 @@ body {
 .md .callout-danger  { --cal:#ef4444; --cal-bg:rgba(239,68,68,.12);   --cal-ico:"❌"; }
 .md .callout-success { --cal:#22c55e; --cal-bg:rgba(34,197,94,.12);   --cal-ico:"✅"; }
 .md .callout-step    { --cal:#14b8a6; --cal-bg:rgba(20,184,166,.12);  --cal-ico:"🔢"; }
+.md .callout-think   { --cal:#6366f1; --cal-bg:rgba(99,102,241,.13);  --cal-ico:"🧭"; }
 .md .callout-example { --cal:#8b5cf6; --cal-bg:rgba(139,92,246,.10);  --cal-ico:"🔬"; }
 .md .callout-try     { --cal:#ec4899; --cal-bg:rgba(236,72,153,.12);  --cal-ico:"🧪"; }
 .md .callout-note    { --cal:var(--accent); --cal-bg:var(--accent-soft); --cal-ico:"📝"; }
