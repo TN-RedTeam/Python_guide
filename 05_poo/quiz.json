@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Quelle est la bonne image pour « classe » et « objet » ?",
+    "options": [
+      "La classe est le moule, l'objet ce qu'on fabrique avec",
+      "L'objet est le moule, la classe ce qu'on fabrique avec",
+      "Ce sont deux mots pour la même chose"
+    ],
+    "correct": 0,
+    "explanation": "Une classe est un plan/moule ; chaque objet est une instance fabriquée à partir de ce moule."
+  },
+  {
+    "q": "À quoi sert la méthode `__init__` ?",
+    "options": [
+      "À détruire l'objet",
+      "À initialiser l'objet au moment de sa création",
+      "À afficher l'objet"
+    ],
+    "correct": 1,
+    "explanation": "`__init__` est le constructeur : il pose les attributs de départ (`self.x = ...`)."
+  },
+  {
+    "q": "Que représente `self` dans une méthode ?",
+    "options": [
+      "La classe elle-même",
+      "L'objet courant sur lequel on agit",
+      "Une variable globale"
+    ],
+    "correct": 1,
+    "explanation": "`self` est l'objet en train d'être manipulé ; `self.nom` accède à SES données."
+  },
+  {
+    "q": "Repérer les « objets » d'un problème, c'est surtout…",
+    "options": [
+      "chercher les nombres",
+      "repérer les noms (entités) et leurs actions",
+      "compter les lignes de code"
+    ],
+    "correct": 1,
+    "explanation": "Les noms deviennent des classes, leurs caractéristiques des attributs, leurs actions des méthodes."
+  }
+]

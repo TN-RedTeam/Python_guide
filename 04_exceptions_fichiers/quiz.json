@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Quel bloc permet de « rattraper » une erreur sans planter ?",
+    "options": ["`if` / `else`", "`try` / `except`", "`for` / `while`"],
+    "correct": 1,
+    "explanation": "`try` tente le code risqué ; `except` réagit si une exception est levée."
+  },
+  {
+    "q": "Une exception (message rouge / traceback), c'est…",
+    "options": [
+      "un bug mystérieux et aléatoire",
+      "un signal précis : type d'erreur + ligne + cause",
+      "toujours la faute de Python"
+    ],
+    "correct": 1,
+    "explanation": "Le traceback est une carte : lis la dernière ligne (type + message) puis remonte à la ligne fautive."
+  },
+  {
+    "q": "Que fait le mode `\"a\"` dans `open(fichier, \"a\")` ?",
+    "options": [
+      "Il écrase le fichier existant",
+      "Il ajoute à la fin sans écraser",
+      "Il ouvre en lecture seule"
+    ],
+    "correct": 1,
+    "explanation": "`\"a\"` = append (ajout). `\"w\"` écrase, `\"r\"` lit."
+  },
+  {
+    "q": "Pourquoi utiliser `with open(...) as f:` ?",
+    "options": [
+      "C'est plus court à écrire, sans autre intérêt",
+      "Le fichier est fermé automatiquement, même en cas d'erreur",
+      "Ça rend la lecture plus rapide"
+    ],
+    "correct": 1,
+    "explanation": "Le `with` garantit la fermeture propre du fichier à la sortie du bloc."
+  }
+]

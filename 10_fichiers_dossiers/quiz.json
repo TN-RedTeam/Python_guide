@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Automatiser une tâche sur des fichiers se pense en général comme…",
+    "options": [
+      "« pour chaque fichier, si condition, alors action »",
+      "un seul gros bloc impossible à découper",
+      "toujours à la main, fichier par fichier"
+    ],
+    "correct": 0,
+    "explanation": "Une boucle (pour chaque) + un filtre (si…) + une action : les patterns habituels."
+  },
+  {
+    "q": "Comment l'ordinateur organise-t-il les fichiers ?",
+    "options": [
+      "en vrac, sans ordre",
+      "en arborescence : des dossiers dans des dossiers",
+      "dans un seul dossier géant"
+    ],
+    "correct": 1,
+    "explanation": "C'est un arbre : chaque dossier peut contenir fichiers et sous-dossiers."
+  },
+  {
+    "q": "Quel module moderne manipule proprement les chemins de fichiers ?",
+    "options": ["`pathlib`", "`random`", "`math`"],
+    "correct": 0,
+    "explanation": "`pathlib` (objets `Path`) est la façon moderne de gérer chemins et dossiers."
+  },
+  {
+    "q": "Pourquoi tester ce genre de script sur un dossier d'exemple ?",
+    "options": [
+      "pour aller plus vite",
+      "pour ne pas risquer d'abîmer ses vrais fichiers pendant l'apprentissage",
+      "c'est obligatoire en Python"
+    ],
+    "correct": 1,
+    "explanation": "On s'entraîne sans risque : les démos créent elles-mêmes un dossier de test."
+  }
+]

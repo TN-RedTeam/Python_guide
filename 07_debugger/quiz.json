@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Dans quel sens lit-on un traceback pour aller vite ?",
+    "options": [
+      "La première ligne uniquement",
+      "La dernière ligne d'abord (type + message), puis on remonte",
+      "Peu importe, c'est illisible"
+    ],
+    "correct": 1,
+    "explanation": "La dernière ligne dit QUOI ; le numéro de ligne dit OÙ."
+  },
+  {
+    "q": "Débugger, c'est avant tout…",
+    "options": [
+      "changer le code au hasard jusqu'à ce que ça marche",
+      "une enquête : reproduire, localiser, formuler une hypothèse, vérifier",
+      "réécrire tout depuis zéro"
+    ],
+    "correct": 1,
+    "explanation": "La méthode du détective bat toujours les modifications au hasard."
+  },
+  {
+    "q": "Un moyen simple d'inspecter une variable pendant l'exécution ?",
+    "options": [
+      "un `print()` bien placé (ou le mode « Pas à pas »)",
+      "supprimer la variable",
+      "renommer le fichier"
+    ],
+    "correct": 0,
+    "explanation": "Un `print()` ou le débogueur pas-à-pas valent mille suppositions."
+  },
+  {
+    "q": "« Localiser en coupant en deux » signifie…",
+    "options": [
+      "supprimer la moitié du code définitivement",
+      "vérifier si le bug est avant ou après un point donné, pour cerner la zone",
+      "diviser le fichier en deux fichiers"
+    ],
+    "correct": 1,
+    "explanation": "La bissection réduit vite la zone où se cache le bug."
+  }
+]

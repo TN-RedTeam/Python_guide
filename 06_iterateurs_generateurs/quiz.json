@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Quel mot-clé transforme une fonction en générateur ?",
+    "options": ["`return`", "`yield`", "`async`"],
+    "correct": 1,
+    "explanation": "`yield` produit une valeur puis met la fonction en pause jusqu'au prochain appel."
+  },
+  {
+    "q": "L'intérêt principal d'un générateur, c'est…",
+    "options": [
+      "d'aller plus vite que tout",
+      "de produire les valeurs une par une, sans tout charger en mémoire",
+      "de trier automatiquement les données"
+    ],
+    "correct": 1,
+    "explanation": "On pense « flux » plutôt que « stock » : idéal pour de gros volumes."
+  },
+  {
+    "q": "Un **itérable**, c'est…",
+    "options": [
+      "tout ce qu'on peut parcourir avec un `for` (liste, str, fichier…)",
+      "uniquement une liste",
+      "un nombre entier"
+    ],
+    "correct": 0,
+    "explanation": "Listes, tuples, dicts, chaînes, fichiers ouverts… tous sont itérables."
+  },
+  {
+    "q": "Que fait `next(g)` sur un générateur `g` ?",
+    "options": [
+      "Renvoie toutes les valeurs d'un coup",
+      "Renvoie la valeur suivante et avance d'un cran",
+      "Remet le générateur au début"
+    ],
+    "correct": 1,
+    "explanation": "`next` demande la prochaine valeur ; le générateur reprend là où il s'était arrêté."
+  }
+]

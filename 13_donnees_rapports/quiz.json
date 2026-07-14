@@ -1,0 +1,34 @@
+[
+  {
+    "q": "Un rapport de données se pense comme un **pipeline**. Dans quel ordre ?",
+    "options": [
+      "présenter → calculer → charger → nettoyer",
+      "charger → nettoyer → calculer → présenter",
+      "calculer → présenter → charger → nettoyer"
+    ],
+    "correct": 1,
+    "explanation": "Chaque étape prend la sortie de la précédente : c'est la décomposition appliquée aux données."
+  },
+  {
+    "q": "À quoi sert `pandas` ?",
+    "options": [
+      "à faire du réseau",
+      "à manipuler des tableaux de données (calculer, regrouper, filtrer, trier)",
+      "à créer des interfaces graphiques"
+    ],
+    "correct": 1,
+    "explanation": "Son objet central, le DataFrame, est un « tableau intelligent »."
+  },
+  {
+    "q": "Quel est l'objet central de `pandas` ?",
+    "options": ["le DataFrame", "la Liste", "le Socket"],
+    "correct": 0,
+    "explanation": "Le DataFrame est un tableau (lignes/colonnes) avec plein d'opérations intégrées."
+  },
+  {
+    "q": "Faire un total sur une colonne, c'est encore le pattern…",
+    "options": ["accumulateur", "héritage", "récursivité"],
+    "correct": 0,
+    "explanation": "Somme, moyenne, comptage : ce sont des accumulations, que `pandas` fait pour toi à grande échelle."
+  }
+]

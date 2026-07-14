@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Quelle est la différence entre un module et une bibliothèque ?",
+    "options": [
+      "un module est un fichier `.py` ; une bibliothèque est un ensemble de modules",
+      "aucune, ce sont des synonymes",
+      "un module est plus gros qu'une bibliothèque"
+    ],
+    "correct": 0,
+    "explanation": "Module = un fichier de fonctions ; bibliothèque = un ensemble de modules qui rendent un service."
+  },
+  {
+    "q": "Avant de faire `pip install`, quel réflexe adopter ?",
+    "options": [
+      "installer d'abord, réfléchir après",
+      "vérifier si la bibliothèque standard suffit déjà",
+      "installer le plus de paquets possible"
+    ],
+    "correct": 1,
+    "explanation": "La stdlib fait déjà énormément ; une dépendance a un coût (poids, maintenance)."
+  },
+  {
+    "q": "La « bibliothèque standard », c'est…",
+    "options": [
+      "des paquets à installer avec pip",
+      "les modules fournis d'office avec Python (json, math, pathlib…)",
+      "une bibliothèque payante"
+    ],
+    "correct": 1,
+    "explanation": "Elle est là sans rien installer : `import json`, `import math`, etc."
+  },
+  {
+    "q": "Pour choisir une bibliothèque tierce, on regarde surtout…",
+    "options": [
+      "sa couleur de logo",
+      "qu'elle soit maintenue, populaire et adaptée au besoin précis",
+      "le nombre de lettres de son nom"
+    ],
+    "correct": 1,
+    "explanation": "Choisir un outil est un raisonnement (maintenance, adoption, adéquation), pas un réflexe."
+  }
+]
