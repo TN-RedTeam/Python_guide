@@ -17,7 +17,7 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-RACINE = Path(__file__).resolve().parent.parent   # racine du dépôt
+RACINE = Path(__file__).resolve().parent.parent  # racine du dépôt
 SORTIE = Path(__file__).resolve().parent / "content.json"
 
 # Dossiers exclus de la plateforme (le pentest reste uniquement sur GitHub).
@@ -27,21 +27,21 @@ EXCLUS = {"pentest", "webapp", ".git", ".github"}
 # pas tourner dans un navigateur (pas de vrai disque, pas de réseau, pas de pip).
 NOTES_NAVIGATEUR = {
     "00_demarrer": "Ce module parle d'installation : lis le cours, puis teste le "
-                   "code dans le bac à sable — Python tourne déjà ici, dans ton navigateur !",
+    "code dans le bac à sable — Python tourne déjà ici, dans ton navigateur !",
     "07_debugger": "breakpoint() / pdb sont interactifs : dans le navigateur, préfère "
-                   "les print() pour suivre l'exécution. Les exercices, eux, fonctionnent.",
+    "les print() pour suivre l'exécution. Les exercices, eux, fonctionnent.",
     "08_asyncio": "asyncio fonctionne dans le navigateur, mais certains affichages "
-                  "peuvent arriver avec un léger décalage. Sur ta machine, tout est identique au cours.",
+    "peuvent arriver avec un léger décalage. Sur ta machine, tout est identique au cours.",
     "11_web_apis": "Les appels réseau (requests) ne sortent pas du navigateur : "
-                   "lance les démos sur ta machine. Les exercices (JSON), eux, fonctionnent ici.",
+    "lance les démos sur ta machine. Les exercices (JSON), eux, fonctionnent ici.",
     "12_taches_scripts": "La planification (cron / Planificateur Windows) se fait sur une "
-                         "vraie machine. Les exercices fonctionnent ici.",
+    "vraie machine. Les exercices fonctionnent ici.",
     "13_donnees_rapports": "Bonne nouvelle : pandas se télécharge automatiquement à la "
-                           "première exécution (~15 Mo, sois patient·e). L'écriture de "
-                           "fichiers Excel reste à tester sur ta machine.",
+    "première exécution (~15 Mo, sois patient·e). L'écriture de "
+    "fichiers Excel reste à tester sur ta machine.",
     "14_bibliotheques": "Ici, « pip install » est automatique : importe un paquet et il "
-                        "est téléchargé (paquets en pur Python + ceux portés par Pyodide). "
-                        "Sur ta machine, la vraie commande reste pip install.",
+    "est téléchargé (paquets en pur Python + ceux portés par Pyodide). "
+    "Sur ta machine, la vraie commande reste pip install.",
 }
 
 # Guides transverses embarqués (ordre d'affichage).
@@ -80,14 +80,20 @@ PENTEST_HORS_NAVIGATEUR = {
     "offensif/injection_commande.py": "systeme",
     "offensif/ssrf.py": "reseau",
 }
-NOTE_RESEAU = ("🌐 Ce script ouvre des connexions réseau (sockets / HTTP / DNS) : le "
-               "navigateur ne peut pas les établir. Lis le code et lance-le sur ta "
-               "machine. Le terminal ci-dessous reste dispo pour tester du Python.")
-NOTE_SYSTEME = ("🖥️ Ce script lance des commandes système (subprocess) : ça ne tourne "
-                "pas dans le navigateur. Lance-le sur ta machine. Le terminal "
-                "ci-dessous reste dispo pour tester du Python.")
-NOTE_LAB = ("⚠️ Démonstration éducative — à exécuter uniquement sur tes propres "
-            "systèmes ou un lab autorisé (CTF, DVWA…).")
+NOTE_RESEAU = (
+    "🌐 Ce script ouvre des connexions réseau (sockets / HTTP / DNS) : le "
+    "navigateur ne peut pas les établir. Lis le code et lance-le sur ta "
+    "machine. Le terminal ci-dessous reste dispo pour tester du Python."
+)
+NOTE_SYSTEME = (
+    "🖥️ Ce script lance des commandes système (subprocess) : ça ne tourne "
+    "pas dans le navigateur. Lance-le sur ta machine. Le terminal "
+    "ci-dessous reste dispo pour tester du Python."
+)
+NOTE_LAB = (
+    "⚠️ Démonstration éducative — à exécuter uniquement sur tes propres "
+    "systèmes ou un lab autorisé (CTF, DVWA…)."
+)
 
 
 def lire(chemin: Path) -> str:
@@ -217,19 +223,21 @@ def construire_contenu() -> dict:
     fondation = RACINE / "penser_comme_un_dev"
     if fondation.is_dir():
         mod = construire_module(fondation)
-        mod["num"] = ""          # module de fondation, affiché sans numéro
+        mod["num"] = ""  # module de fondation, affiché sans numéro
         modules.insert(1, mod)
 
     guides = []
     for nom_fichier, titre, emoji in GUIDES:
         chemin = RACINE / nom_fichier
         if chemin.exists():
-            guides.append({
-                "id": chemin.stem,
-                "title": titre,
-                "emoji": emoji,
-                "md": lire(chemin),
-            })
+            guides.append(
+                {
+                    "id": chemin.stem,
+                    "title": titre,
+                    "emoji": emoji,
+                    "md": lire(chemin),
+                }
+            )
 
     return {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -249,8 +257,10 @@ def main() -> None:
     )
     taille = SORTIE.stat().st_size / 1024
     nb_scripts = sum(len(g["files"]) for g in contenu["pentest"]["groupes"])
-    print(f"✅ {SORTIE.name} généré : {len(contenu['modules'])} modules, "
-          f"{len(contenu['guides'])} guides, pentest ({nb_scripts} scripts) — {taille:.0f} Ko")
+    print(
+        f"✅ {SORTIE.name} généré : {len(contenu['modules'])} modules, "
+        f"{len(contenu['guides'])} guides, pentest ({nb_scripts} scripts) — {taille:.0f} Ko"
+    )
 
 
 if __name__ == "__main__":

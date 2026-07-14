@@ -1,0 +1,25 @@
+# Configuration outillage Python du dépôt.
+#
+# Choix assumé : le code du COURS est volontairement commenté, espacé et parfois
+# "non idiomatique" pour la pédagogie (imports montrés au fil du texte, variables
+# d'illustration…). On NE lui applique donc PAS de formatage automatique ni de
+# lint stylistique. Le lint ci-dessous vise les VRAIS bugs (noms indéfinis,
+# redéfinitions, erreurs de syntaxe), utiles partout sans dénaturer les exemples.
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["webapp/vendor", "webapp/tests/node_modules", "webapp/content.json"]
+
+[tool.ruff.lint]
+# F = pyflakes (bugs réels), E9 = erreurs de syntaxe/indentation.
+select = ["F", "E9"]
+# Tolérés car fréquents et volontaires dans le matériel pédagogique :
+#   F401 import "inutilisé" (montré à titre d'exemple)
+#   F541 f-string sans placeholder
+#   F841 variable assignée non utilisée (démos)
+ignore = ["F401", "F541", "F841"]
+
+[tool.ruff.format]
+# Le formateur n'est utilisé QUE sur l'outillage (webapp/*.py), jamais sur le
+# cours (voir le job CI). Ces réglages ne s'appliquent donc qu'à ces fichiers.
+quote-style = "double"

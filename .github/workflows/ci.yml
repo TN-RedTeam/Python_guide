@@ -27,11 +27,19 @@ jobs:
           python-version: "3.12"
 
       - name: Installer les dépendances (pandas, requests, ...)
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt ruff
 
       # 1) Compiler tous les .py : détecte les erreurs de syntaxe
       - name: Compiler tout le Python
         run: python -m py_compile $(find . -name '*.py')
+
+      # 1bis) Lint conservateur (vrais bugs, pas le style — voir pyproject.toml)
+      #       + formatage vérifié UNIQUEMENT sur l'outillage (pas le cours).
+      - name: Lint (ruff)
+        run: |
+          ruff check .
+          ruff format --check webapp/build_content.py webapp/validate_content.py \
+                              webapp/check_solutions.py webapp/make_icons.py
 
       # 2) Corrigés : ils doivent tourner ET afficher « N/N réussis »
       - name: Vérifier les corrigés (solutions.py) — score plein
@@ -51,6 +59,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      # Garde-fou JS bon marché : la syntaxe des scripts de l'app doit être valide.
+      - name: Vérifier la syntaxe JS
+        run: node --check webapp/js/app.js && node --check webapp/sw.js
 
       - name: Installer Playwright + Chromium
         working-directory: webapp/tests

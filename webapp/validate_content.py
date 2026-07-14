@@ -36,6 +36,7 @@ def erreur(msg: str) -> None:
 
 # ─────────────────────── 1. Structure de content.json ───────────────────────
 
+
 def valider_structure() -> None:
     if not CONTENT.exists():
         erreur("content.json absent — lance d'abord `python3 webapp/build_content.py`.")
@@ -65,6 +66,7 @@ def valider_structure() -> None:
 
 # ──────────────── 2 & 3. Parité et contrat des exercices/solutions ───────────
 
+
 def _parse(fichier: Path) -> ast.Module:
     return ast.parse(fichier.read_text(encoding="utf-8"))
 
@@ -73,8 +75,14 @@ def unites_pedagogiques(fichier: Path) -> set[str]:
     """Fonctions ET classes définies au premier niveau — les « unités » que
     l'apprenant implémente. On exclut les harnais d'auto-correction, dont les
     noms varient selon la convention du module (verifie / _check / _verifier…)."""
-    HARNAIS = {"verifie", "_check", "_verifier", "afficher",
-               "_lancer_les_essais", "_verifier_async"}
+    HARNAIS = {
+        "verifie",
+        "_check",
+        "_verifier",
+        "afficher",
+        "_lancer_les_essais",
+        "_verifier_async",
+    }
     unites = set()
     for n in _parse(fichier).body:
         if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
@@ -94,14 +102,18 @@ def valider_exercices() -> None:
         # Contrat de scoring : l'app lit un bilan « … réussis » dans la sortie
         # de l'EXERCICE. Sans lui, l'auto-correction (bandeau de score) est morte.
         if "réussis" not in exo.read_text(encoding="utf-8"):
-            erreur(f"{module}/exercices.py : pas de bilan « réussis » "
-                   f"(l'auto-correction de l'app en dépend).")
+            erreur(
+                f"{module}/exercices.py : pas de bilan « réussis » "
+                f"(l'auto-correction de l'app en dépend)."
+            )
         # Parité : toute unité (fonction/classe) à compléter dans l'exercice doit
         # être corrigée dans les solutions. On tolère des aides en plus côté sol.
         manquantes = unites_pedagogiques(exo) - unites_pedagogiques(sol)
         if manquantes:
-            erreur(f"{module} : corrigé incomplet — {sorted(manquantes)} "
-                   f"présent(es) dans exercices.py mais pas dans solutions.py.")
+            erreur(
+                f"{module} : corrigé incomplet — {sorted(manquantes)} "
+                f"présent(es) dans exercices.py mais pas dans solutions.py."
+            )
 
 
 # ─────────────────────────── 4. Liens internes .md ──────────────────────────
@@ -110,8 +122,12 @@ LIEN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
 
 def valider_liens() -> None:
-    fichiers = list(RACINE.glob("*/README.md")) + list(RACINE.glob("*.md")) \
-        + list(RACINE.glob("projets/**/README.md")) + list(RACINE.glob("pentest/**/README.md"))
+    fichiers = (
+        list(RACINE.glob("*/README.md"))
+        + list(RACINE.glob("*.md"))
+        + list(RACINE.glob("projets/**/README.md"))
+        + list(RACINE.glob("pentest/**/README.md"))
+    )
     for md in fichiers:
         for cible in LIEN.findall(md.read_text(encoding="utf-8")):
             cible = cible.strip()
@@ -139,7 +155,9 @@ def valider_fraicheur() -> None:
     actuel = json.loads(CONTENT.read_text(encoding="utf-8"))
     sans_date = lambda d: {k: v for k, v in d.items() if k != "generated"}
     if sans_date(attendu) != sans_date(actuel):
-        erreur("content.json est périmé — relance `python3 webapp/build_content.py` et committe-le.")
+        erreur(
+            "content.json est périmé — relance `python3 webapp/build_content.py` et committe-le."
+        )
 
 
 def main() -> int:
