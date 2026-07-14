@@ -1,0 +1,38 @@
+[
+  {
+    "q": "À quoi sert `if __name__ == \"__main__\":` ?",
+    "options": [
+      "à définir une classe",
+      "à n'exécuter du code QUE si le fichier est lancé directement (pas importé)",
+      "à importer un module"
+    ],
+    "correct": 1,
+    "explanation": "Ainsi un fichier peut être à la fois lançable ET importable sans tout exécuter à l'import."
+  },
+  {
+    "q": "Un script figé devient un vrai « outil » quand…",
+    "options": [
+      "on identifie ce qui CHANGE et on en fait des options/arguments",
+      "on ajoute des couleurs",
+      "on le renomme"
+    ],
+    "correct": 0,
+    "explanation": "Ce qui varie (dossier, date, seuil…) devient un argument : l'outil devient réutilisable."
+  },
+  {
+    "q": "Quel module de la stdlib gère les options de ligne de commande ?",
+    "options": ["`argparse`", "`random`", "`json`"],
+    "correct": 0,
+    "explanation": "`argparse` lit et organise les arguments (`--dossier`, `-p 80`, `--help`…)."
+  },
+  {
+    "q": "Le bon réflexe pour concevoir un outil configurable ?",
+    "options": [
+      "tout coder en dur puis abandonner",
+      "écrire d'abord pour UN cas concret, puis se demander « qu'est-ce que je voudrais changer sans rouvrir le code ? »",
+      "mettre toutes les valeurs dans des variables globales"
+    ],
+    "correct": 1,
+    "explanation": "Partir d'un cas concret, puis extraire ce qui varie en paramètres."
+  }
+]

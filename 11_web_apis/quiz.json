@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Tout échange avec le web se résume à quels 3 temps ?",
+    "options": [
+      "demander → recevoir → extraire",
+      "coder → compiler → exécuter",
+      "ouvrir → fermer → sauvegarder"
+    ],
+    "correct": 0,
+    "explanation": "Une requête, une réponse (souvent JSON/HTML), puis l'extraction de ce qui nous intéresse."
+  },
+  {
+    "q": "Dans l'analogie du restaurant, le « serveur » web correspond à…",
+    "options": [
+      "toi qui commandes",
+      "la cuisine qui prépare et renvoie l'assiette (la réponse)",
+      "l'addition"
+    ],
+    "correct": 1,
+    "explanation": "Client (navigateur) commande, serveur prépare et renvoie la réponse : c'est HTTP."
+  },
+  {
+    "q": "Le **JSON** sert à…",
+    "options": [
+      "afficher des images",
+      "échanger des données structurées (clé/valeur, listes) en texte",
+      "accélérer Internet"
+    ],
+    "correct": 1,
+    "explanation": "`json.loads(texte)` transforme la réponse texte en dictionnaire Python exploitable."
+  },
+  {
+    "q": "Pourquoi ces scripts se lancent-ils sur ta machine et pas dans le navigateur ?",
+    "options": [
+      "parce qu'ils sont trop longs",
+      "parce que le navigateur ne peut pas ouvrir de vraies connexions réseau (sockets)",
+      "parce que Python n'aime pas le web"
+    ],
+    "correct": 1,
+    "explanation": "Le bac à sable du navigateur interdit les connexions réseau brutes ; `requests` tourne sur ta machine."
+  }
+]

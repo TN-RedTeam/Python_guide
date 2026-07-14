@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Quelle est la démarche complète pour construire un script ?",
+    "options": [
+      "coder → tester → comprendre",
+      "objectif → entrées/sorties → étapes (pseudo-code) → outils → code → test",
+      "installer des paquets → espérer que ça marche"
+    ],
+    "correct": 1,
+    "explanation": "On raisonne d'abord, on choisit les outils, et le code vient en dernier."
+  },
+  {
+    "q": "En lisant un script existant, il faut surtout suivre…",
+    "options": [
+      "seulement le code final",
+      "le raisonnement qui mène au code",
+      "uniquement les commentaires"
+    ],
+    "correct": 1,
+    "explanation": "C'est le raisonnement que tu dois savoir reproduire ; la syntaxe, elle, se cherche."
+  },
+  {
+    "q": "Quel module lit les arguments d'un outil en ligne de commande (ex : `--recursif`) ?",
+    "options": ["`argparse`", "`socket`", "`random`"],
+    "correct": 0,
+    "explanation": "`argparse` transforme des options de ligne de commande en valeurs utilisables."
+  },
+  {
+    "q": "Face à un besoin nouveau (« exporter en `.sql` »), le bon réflexe est…",
+    "options": [
+      "réécrire tout depuis zéro",
+      "reprendre la méthode : quelles entrées/sorties, quelles étapes, quels outils ?",
+      "abandonner"
+    ],
+    "correct": 1,
+    "explanation": "La méthode se réapplique à chaque nouveau besoin — c'est ça, « trouver les arguments »."
+  }
+]

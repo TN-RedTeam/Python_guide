@@ -1,0 +1,42 @@
+[
+  {
+    "q": "L'asynchrone (`async`/`await`) fait surtout gagner du temps quand le programme…",
+    "options": [
+      "fait beaucoup de calculs lourds",
+      "passe son temps à ATTENDRE (réseau, disque, API)",
+      "affiche du texte"
+    ],
+    "correct": 1,
+    "explanation": "L'async recouvre les temps d'attente ; pour du calcul pur, il n'aide pas."
+  },
+  {
+    "q": "À quoi sert `await` ?",
+    "options": [
+      "à patienter SANS bloquer les autres tâches",
+      "à arrêter le programme",
+      "à accélérer les calculs mathématiques"
+    ],
+    "correct": 0,
+    "explanation": "Pendant l'`await`, la boucle peut faire avancer d'autres tâches."
+  },
+  {
+    "q": "Que fait `asyncio.gather(t1, t2, t3)` ?",
+    "options": [
+      "exécute les tâches l'une après l'autre",
+      "lance les tâches « en même temps » et attend qu'elles finissent",
+      "annule les tâches"
+    ],
+    "correct": 1,
+    "explanation": "Trois attentes de 1 s via `gather` prennent ≈ 1 s, pas 3."
+  },
+  {
+    "q": "L'image du cuisinier illustre que…",
+    "options": [
+      "il faut toujours un seul plat à la fois",
+      "on utilise les temps d'attente (l'eau qui chauffe) pour avancer ailleurs",
+      "cuisiner est plus lent en Python"
+    ],
+    "correct": 1,
+    "explanation": "Pendant que l'eau chauffe, on prépare la sauce : c'est l'idée de l'asynchrone."
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Pourquoi écrire des tests automatiques ?",
+    "options": [
+      "pour faire joli dans le projet",
+      "pour détecter tout de suite si un changement casse ce qui marchait (régression)",
+      "pour ralentir le développement"
+    ],
+    "correct": 1,
+    "explanation": "Les tests rejouent toutes les vérifications en une seconde, à chaque modification."
+  },
+  {
+    "q": "Que fait `assert resultat == 5` ?",
+    "options": [
+      "affiche 5",
+      "ne fait rien si c'est vrai, lève une AssertionError si c'est faux",
+      "renvoie True"
+    ],
+    "correct": 1,
+    "explanation": "Un `assert` est silencieux quand tout va bien, et signale bruyamment sinon."
+  },
+  {
+    "q": "Avant d'écrire un test, la bonne question est…",
+    "options": [
+      "« quel est le nom du fichier ? »",
+      "« quels cas prouvent que ma fonction est correcte ? » (normal + limites)",
+      "« combien de lignes ça fait ? »"
+    ],
+    "correct": 1,
+    "explanation": "Lister les cas (normal, vide, zéro, erreur), c'est déjà écrire ses tests."
+  },
+  {
+    "q": "Un test qui passe au rouge après un changement, ça veut dire…",
+    "options": [
+      "qu'il faut supprimer le test",
+      "qu'on vient de casser quelque chose — et on sait immédiatement où",
+      "que le code est parfait"
+    ],
+    "correct": 1,
+    "explanation": "C'est le filet de sécurité : il t'avertit tout de suite d'une régression."
+  }
+]
