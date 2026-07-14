@@ -101,7 +101,7 @@ function buildNav() {
   const parts = [`<div class="nav-section">Parcours</div>`];
   for (const m of CONTENT.modules) {
     parts.push(`<a class="nav-item" data-route="module/${m.id}" href="#/module/${m.id}">
-      <span>${m.emoji}</span> ${m.num} · ${escapeHtml(m.title)}
+      <span>${m.emoji}</span> ${m.num ? m.num + " · " : ""}${escapeHtml(m.title)}
       <span class="st">${statusIcon(m)}</span></a>`);
   }
   parts.push(`<div class="nav-section">Pratiquer</div>`);
@@ -133,8 +133,63 @@ function escapeHtml(s) {
   return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
+// Encadrés riches pour les cours : `:::type Titre` … `:::`. Le corps reste du
+// markdown normal (marked le rend car les balises <div> sont séparées par des
+// lignes vides). Types : objectif, idee, piege, astuce, etape, exemple, defi…
+function preprocessMarkdown(md) {
+  return md.replace(
+    /^:::([a-zA-Zéè]+)(?:[ \t]+(.+?))?[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gim,
+    (_, type, titre, corps) => {
+      const t = normaliserType(type);
+      const tete = titre ? `<p class="callout-titre">${escapeHtml(titre.trim())}</p>\n\n` : "";
+      return `\n<div class="callout callout-${t} callout-block">\n\n${tete}${corps.trim()}\n\n</div>\n`;
+    }
+  );
+}
+
+// Type d'encadré (français ou anglais) → classe CSS canonique.
+function normaliserType(mot) {
+  const map = {
+    objectif: "goal", but: "goal", goal: "goal",
+    idee: "idea", idée: "idea", cle: "idea", idea: "idea",
+    piege: "warn", piège: "warn", attention: "warn", warn: "warn",
+    astuce: "tip", tip: "tip", note: "note",
+    danger: "danger", erreur: "danger",
+    etape: "step", étape: "step", steps: "step",
+    reflexion: "think", réflexion: "think", reflechis: "think", réfléchis: "think", think: "think",
+    exemple: "example", example: "example",
+    defi: "try", défi: "try", atoi: "try", try: "try", exo: "try",
+    reussi: "success", ok: "success", success: "success",
+  };
+  return map[mot.toLowerCase()] || "note";
+}
+
+// Classe automatiquement les citations `> 🎯 …` existantes en encadrés typés,
+// d'après l'emoji de tête — sans toucher au contenu des cours.
+const EMOJI_CALLOUTS = [
+  ["🎯", "goal"], ["🧠", "idea"], ["💡", "tip"], ["🔎", "tip"], ["🔍", "tip"],
+  ["⚠️", "warn"], ["⚠", "warn"], ["❌", "danger"], ["🚫", "danger"], ["🛑", "danger"],
+  ["✅", "success"], ["🎉", "success"], ["📝", "note"], ["📌", "note"], ["ℹ️", "note"],
+  ["🧪", "try"], ["👉", "try"], ["✍️", "try"], ["🔢", "step"], ["🧩", "step"],
+  ["🧭", "think"],
+];
+
+function enhanceMarkdown(container) {
+  // Citations emoji → encadrés colorés (le contenu porte déjà l'emoji).
+  container.querySelectorAll("blockquote").forEach((bq) => {
+    if (bq.closest(".callout")) return;
+    const txt = bq.textContent.trimStart();
+    let type = "note";
+    for (const [emoji, t] of EMOJI_CALLOUTS) {
+      if (txt.startsWith(emoji)) { type = t; break; }
+    }
+    bq.classList.add("callout", "callout-" + type);
+  });
+}
+
 function renderMarkdown(md, container) {
-  container.innerHTML = marked.parse(md, { mangle: false, headerIds: false });
+  container.innerHTML = marked.parse(preprocessMarkdown(md), { mangle: false, headerIds: false });
+  enhanceMarkdown(container);
 
   // Tableaux : défilement horizontal sur mobile plutôt que déborder.
   container.querySelectorAll("table").forEach((t) => {
@@ -160,8 +215,12 @@ function renderMarkdown(md, container) {
     else { a.setAttribute("href", REPO_URL + clean); a.target = "_blank"; a.rel = "noopener"; }
   });
 
-  // Blocs de code Python : bouton « Essayer » qui envoie le code dans l'IDE.
+  // Blocs de code : « Essayer » (Python) et étiquette « Pseudo-code ».
   container.querySelectorAll("pre code").forEach((code) => {
+    if (/language-(pseudo|texte|text)/.test(code.className)) {
+      code.parentElement.classList.add("pseudo");
+      return;
+    }
     if (!/language-python/.test(code.className)) return;
     const btn = document.createElement("button");
     btn.className = "try-btn";
@@ -754,7 +813,7 @@ function viewHome() {
   const lastId = store.read("lastModule", null);
   const last = CONTENT.modules.find((m) => m.id === lastId);
   const cont = last
-    ? `<a class="btn btn-light" href="#/module/${last.id}">▶ Continuer : ${last.num} · ${escapeHtml(last.title)}</a>`
+    ? `<a class="btn btn-light" href="#/module/${last.id}">▶ Continuer : ${last.num ? last.num + " · " : ""}${escapeHtml(last.title)}</a>`
     : `<a class="btn btn-light" href="#/module/00_demarrer">▶ Commencer le parcours</a>`;
 
   const cards = CONTENT.modules.map((m) => {
@@ -764,7 +823,7 @@ function viewHome() {
     return `<a class="card" href="#/module/${m.id}">
       <span class="emoji">${m.emoji}</span>
       <span class="card-body">
-        <div class="card-title">${m.num} · ${escapeHtml(m.title)}</div>
+        <div class="card-title">${m.num ? m.num + " · " : ""}${escapeHtml(m.title)}</div>
         <div class="card-sub">${sub}</div>
       </span>
       <span class="badge">${statusIcon(m)}</span></a>`;
@@ -826,14 +885,14 @@ function viewModule(id, tab) {
 
   view.innerHTML = `
     <div class="module-head">
-      <div class="crumbs"><a href="#/">Accueil</a> / Module ${mod.num}</div>
+      <div class="crumbs"><a href="#/">Accueil</a> / ${mod.num ? "Module " + mod.num : "Fondation"}</div>
       <h1>${mod.emoji} ${escapeHtml(mod.title)}</h1>
     </div>
     ${moduleTabs(mod, tab)}
     <div id="tab-content"></div>
     <div class="pager">
-      ${prev ? `<a class="btn btn-ghost" href="#/module/${prev.id}">← ${prev.num}</a>` : "<span></span>"}
-      ${next ? `<a class="btn btn-primary" href="#/module/${next.id}">Module ${next.num} →</a>`
+      ${prev ? `<a class="btn btn-ghost" href="#/module/${prev.id}">← ${prev.num || "🧭"}</a>` : "<span></span>"}
+      ${next ? `<a class="btn btn-primary" href="#/module/${next.id}">${next.num ? "Module " + next.num : "🧭 Penser comme un dev"} →</a>`
              : `<a class="btn btn-primary" href="#/projets">Les mini-projets →</a>`}
     </div>`;
 

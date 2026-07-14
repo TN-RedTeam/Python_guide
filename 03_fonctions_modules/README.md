@@ -4,6 +4,17 @@
 > d'instructions sous un **nom** réutilisable ; un **module** regroupe des fonctions dans un
 > fichier qu'on peut **importer**. C'est la base de tout code organisé.
 
+:::reflexion Réfléchis d'abord : une fonction = un sous-problème
+Souviens-toi de la **décomposition** (revois [🧭 Penser comme un dev](../penser_comme_un_dev)) :
+on découpe un gros problème en petites étapes. Une **fonction, c'est exactement
+ça, rendu concret** — chaque sous-problème devient une petite machine **nommée**,
+qu'on teste et réutilise séparément.
+
+Le bon réflexe : dès qu'une étape de ton pseudo-code mérite un nom
+(`calculer_tva`, `est_valide`, `charger_données`), fais-en une fonction. Ton
+programme se lit alors comme la **liste de ses étapes**, plus comme un mur de code.
+:::
+
 ---
 
 ## 1. Pourquoi des fonctions ?

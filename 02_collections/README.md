@@ -5,6 +5,19 @@
 > de clients, un panier, des résultats… À la fin, tu sauras **choisir** la bonne collection et
 > la manipuler avec aisance.
 
+:::reflexion Réfléchis d'abord : comment représenter tes données ?
+Avant la syntaxe, la vraie question est de **modélisation** : « sous quelle forme
+je range mes informations ? ». C'est un choix de **raisonnement**, et il
+conditionne tout le reste du programme. Pose-toi 3 questions :
+
+1. **L'ordre compte-t-il ?** (une file d'attente : oui ; un sac de billes : non)
+2. **Les doublons sont-ils permis ?** (des e-mails uniques : non)
+3. **Ai-je des paires clé → valeur ?** (un annuaire *nom → téléphone* : oui)
+
+Tes réponses **désignent** la collection (liste / tuple / set / dict) avant même
+d'écrire une ligne. Bien modéliser, c'est déjà à moitié résoudre le problème.
+:::
+
 ---
 
 ## 0. Pourquoi quatre collections différentes ?
