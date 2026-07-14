@@ -84,6 +84,16 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.waitForSelector(".CodeMirror", { timeout: 10000 });
   ok((await page.locator(".terminal-input").count()) === 1, "Exercices : terminal interactif monté");
 
+  // 3bis. Quiz : questions rendues + correction fonctionnelle
+  await page.click('.tab[data-tab="quiz"]');
+  await page.waitForSelector(".quiz-q", { timeout: 10000 });
+  const nbQ = await page.locator(".quiz-q").count();
+  ok(nbQ >= 1, "Quiz : questions rendues");
+  await page.click('.quiz-q[data-i="0"] .quiz-opt:first-child input');
+  await page.click('[data-act="valider-quiz"]');
+  await page.waitForSelector(".score-banner", { timeout: 5000 });
+  ok((await page.locator(".quiz-expl:visible").count()) === nbQ, "Quiz : correction + explications affichées");
+
   // 4. Section pentest
   await page.goto(`${BASE}/index.html#/pentest`, { waitUntil: "domcontentloaded" });
   await page.waitForSelector(".tabs .tab", { timeout: 10000 });

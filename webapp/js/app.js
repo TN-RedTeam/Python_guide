@@ -806,6 +806,71 @@ function showScore(ok, total, host) {
   </div>`;
 }
 
+/* ─────────────────────────── Quiz (QCM auto-corrigé) ─────────────────────────── */
+
+function viewQuiz(host, mod) {
+  const quiz = mod.quiz;
+  const inline = (t) => marked.parseInline(t, { mangle: false });
+  host.innerHTML = `
+    <div class="ide-note">🧠 <div>Vérifie ta compréhension : une réponse par question, puis
+      « Valider ». Tu verras la correction et une explication. (Rien à installer, pas de code.)</div></div>
+    <form class="quiz">
+      ${quiz.map((q, i) => `
+        <fieldset class="quiz-q" data-i="${i}">
+          <legend><span class="quiz-num">${i + 1}</span> ${inline(q.q)}</legend>
+          <div class="quiz-opts">
+            ${q.options.map((opt, j) => `
+              <label class="quiz-opt">
+                <input type="radio" name="q${i}" value="${j}">
+                <span>${inline(opt)}</span>
+              </label>`).join("")}
+          </div>
+          <div class="quiz-expl" hidden>💡 ${inline(q.explanation || "")}</div>
+        </fieldset>`).join("")}
+      <div class="quiz-actions">
+        <button type="button" class="btn btn-primary" data-act="valider-quiz">Valider le quiz</button>
+        <button type="button" class="btn btn-ghost" data-act="refaire-quiz" hidden>↺ Refaire</button>
+      </div>
+      <div class="score-slot"></div>
+    </form>`;
+
+  const form = $(".quiz", host);
+  const btnValider = $('[data-act="valider-quiz"]', host);
+  const btnRefaire = $('[data-act="refaire-quiz"]', host);
+
+  btnValider.addEventListener("click", () => {
+    let ok = 0;
+    let repondu = 0;
+    quiz.forEach((q, i) => {
+      const fs = $(`.quiz-q[data-i="${i}"]`, host);
+      const choisi = form.querySelector(`input[name="q${i}"]:checked`);
+      if (choisi) repondu++;
+      fs.querySelectorAll(".quiz-opt").forEach((lab, j) => {
+        const input = lab.querySelector("input");
+        input.disabled = true;
+        lab.classList.toggle("is-correct", j === q.correct);
+        lab.classList.toggle("is-wrong", input.checked && j !== q.correct);
+      });
+      const bon = choisi && Number(choisi.value) === q.correct;
+      if (bon) ok++;
+      fs.classList.add(bon ? "correct" : "wrong");
+      $(".quiz-expl", fs).hidden = false;
+    });
+    const slot = $(".score-slot", host);
+    const parfait = ok === quiz.length;
+    slot.innerHTML = `<div class="score-banner ${parfait ? "win" : "partial"}">
+      ${parfait ? "🎉 Sans faute — " : "💪 "} ${ok}/${quiz.length} bonnes réponses${
+        repondu < quiz.length ? ` (${quiz.length - repondu} sans réponse)` : ""}.
+    </div>`;
+    progress.update(mod.id, { quiz_ok: ok, quiz_total: quiz.length });
+    btnValider.hidden = true;
+    btnRefaire.hidden = false;
+    slot.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  btnRefaire.addEventListener("click", () => viewQuiz(host, mod));
+}
+
 /* ─────────────────────────── Vues ─────────────────────────── */
 
 function viewHome() {
@@ -866,6 +931,7 @@ function viewHome() {
 function moduleTabs(mod, active) {
   const tabs = [["cours", "📖 Cours"]];
   if (mod.exercices) tabs.push(["exercices", "🧪 Exercices"]);
+  if (mod.quiz && mod.quiz.length) tabs.push(["quiz", "🧠 Quiz"]);
   if (mod.demos.length) tabs.push(["demo", "💻 Code du module"]);
   return `<div class="tabs">${tabs.map(([id, label]) =>
     `<button class="tab ${id === active ? "active" : ""}" data-tab="${id}">${label}</button>`).join("")}</div>`;
@@ -922,6 +988,8 @@ function viewModule(id, tab) {
         onClick: (cm, h) => toggleSolution(mod, h),
       }] : [],
     });
+  } else if (tab === "quiz") {
+    viewQuiz(host, mod);
   } else if (tab === "demo") {
     host.innerHTML = `<div class="file-pills">${mod.demos.map((d, i) =>
       `<button class="file-pill ${i === 0 ? "active" : ""}" data-i="${i}">${d.name}</button>`).join("")}</div>

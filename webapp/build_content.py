@@ -147,6 +147,9 @@ def construire_module(dossier: Path) -> dict:
         module["exercices"] = lire(exercices)
     if solutions.exists():
         module["solutions"] = lire(solutions)
+    quiz = dossier / "quiz.json"
+    if quiz.exists():
+        module["quiz"] = json.loads(lire(quiz))
     note = NOTES_NAVIGATEUR.get(dossier.name)
     if note:
         module["note"] = note
