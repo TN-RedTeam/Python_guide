@@ -172,4 +172,29 @@ Les scripts utilisent des sites publics **prévus pour l'entraînement**
 (`open-meteo.com` pour l'API météo, `example.com` pour le scraping), donc tu peux les
 lancer sans risque.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : d'une réponse d'API (du **JSON**), extraire les infos utiles. On isole
+ici le 3ᵉ temps — **extraire** — car il tourne hors ligne (le *demander* / *recevoir*
+réseau, lui, se lance sur ta machine).
+
+```python
+import json
+
+# Imagine que ceci est la RÉPONSE reçue d'une API météo :
+reponse = '{"ville": "Paris", "temp": 12, "vent": 20}'
+
+donnees = json.loads(reponse)        # texte JSON  ->  dictionnaire Python
+print(f"À {donnees['ville']}, il fait {donnees['temp']}°C (vent {donnees['vent']} km/h)")
+```
+
+:::defi 🧪 Prédis la sortie
+Extraire dans une structure imbriquée : que s'affiche-t-il ? Devine, **puis** ▶ Essayer.
+```python
+import json
+data = json.loads('{"fruits": ["pomme", "poire", "kiwi"]}')
+print(len(data["fruits"]), data["fruits"][0])
+```
+:::
+
 ➡️ Module suivant : [`12_taches_scripts`](../12_taches_scripts/).

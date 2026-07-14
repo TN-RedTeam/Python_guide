@@ -135,4 +135,35 @@ Ouvre les fichiers produits dans `exemples/` pour voir le résultat.
 🎉 **Bravo, tu maîtrises l'essentiel de l'automatisation des données !** Il reste un dernier
 module, transversal et précieux : savoir **quelle bibliothèque** ajouter et **quand**.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : un mini-rapport de ventes. On déroule le **pipeline** — ici en Python
+pur pour bien voir chaque étape (`pandas` fait la même chose, à grande échelle).
+
+```pseudo
+CHARGER   les ventes
+CALCULER  le total, le nombre, le panier moyen
+PRÉSENTER une ligne de synthèse
+```
+
+```python
+ventes = [
+    {"produit": "stylo",  "montant": 3},
+    {"produit": "cahier", "montant": 5},
+    {"produit": "stylo",  "montant": 3},
+]
+
+total = sum(v["montant"] for v in ventes)     # accumulateur
+nb = len(ventes)
+print(f"{nb} ventes | total {total} € | panier moyen {total / nb:.2f} €")
+```
+
+:::defi 🧪 Prédis la sortie
+Trois synthèses d'un coup. Que s'affiche-t-il ? Devine, **puis** ▶ Essayer.
+```python
+notes = [12, 15, 9, 18]
+print(max(notes), min(notes), sum(notes) / len(notes))
+```
+:::
+
 ➡️ Module suivant : [`14_bibliotheques`](../14_bibliotheques/).

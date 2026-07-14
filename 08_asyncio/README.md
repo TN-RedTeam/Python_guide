@@ -133,4 +133,39 @@ Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](.
 3. **Expérience** : remplace `await asyncio.sleep(1)` par un vrai `time.sleep(1)` (bloquant) et
    constate que le gain **disparaît** — c'est `await` qui permet le chevauchement.
 
+## 🔬 Le raisonnement en action
+
+**Problème** : lancer 3 tâches qui « attendent » 1 s chacune, mais en **~1 s au total**
+au lieu de 3 s — parce que les attentes se **chevauchent**.
+
+```pseudo
+DÉFINIR tâche(nom, durée) : attendre `durée`, puis afficher "nom fini"
+LANCER EN MÊME TEMPS tâche(A,1), tâche(B,1), tâche(C,1)   # gather
+```
+
+```python
+import asyncio
+
+async def tache(nom, duree):
+    await asyncio.sleep(duree)     # await = "je patiente SANS bloquer les autres"
+    print(f"{nom} fini")
+
+async def main():
+    await asyncio.gather(tache("A", 1), tache("B", 1), tache("C", 1))
+
+asyncio.run(main())                # ≈ 1 s au total, pas 3
+```
+
+:::defi 🧪 Prédis la sortie
+Le plus simple des programmes asynchrones : qu'affiche-t-il ? Devine, **puis** ▶ Essayer.
+```python
+import asyncio
+
+async def dire(msg):
+    print(msg)
+
+asyncio.run(dire("bonjour"))
+```
+:::
+
 ➡️ **Prochaine étape** : [module 09 — tests & qualité](../09_tests_qualite/).

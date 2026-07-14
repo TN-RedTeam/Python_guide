@@ -43,3 +43,18 @@ python3 15_construire_un_script/json_vers_sql.py
 > bricolant qu'on apprend à « trouver les arguments ».
 
 Les fichiers générés vont dans un sous-dossier `exemples/` (ignoré par git).
+
+## 🔬 Le raisonnement en action
+
+Les **deux scripts ci-dessus sont déjà** « le raisonnement en action » de bout en bout
+(objectif → entrées/sorties → étapes → outils → code). Avant de partir, un dernier
+réflexe de lecture — c'est le cœur de `compter_fichiers.py` :
+
+:::defi 🧪 Prédis la sortie
+Ce filtre ne garde que les fichiers `.txt`. Que renvoie-t-il ? Devine, **puis** ▶ Essayer.
+```python
+noms = ["a.txt", "b.py", "c.txt", "d.py"]
+txt = [n for n in noms if n.endswith(".txt")]
+print(len(txt), txt)
+```
+:::
