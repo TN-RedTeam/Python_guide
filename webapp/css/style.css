@@ -293,6 +293,63 @@ body {
   border-radius: 0 10px 10px 0;
 }
 .md blockquote p { margin: .25em 0; }
+
+/* ─────────── Encadrés typés (cours) ─────────── */
+/* Chaque intention a sa couleur : on distingue objectif / idée / piège /
+   astuce / étape d'un coup d'œil, au lieu d'un mur de blocs identiques. */
+.md .callout {
+  margin: 1.1em 0;
+  padding: .7em 1em .7em 2.6em;
+  border-left: 4px solid var(--cal, var(--accent));
+  background: var(--cal-bg, var(--accent-soft));
+  border-radius: 0 12px 12px 0;
+  position: relative;
+}
+.md .callout > :first-child { margin-top: 0; }
+.md .callout > :last-child { margin-bottom: 0; }
+.md .callout::before {
+  content: var(--cal-ico, "💬");
+  position: absolute;
+  left: .7em; top: .62em;
+  font-size: 1.05em;
+  line-height: 1.2;
+}
+.md .callout .callout-titre {
+  font-weight: 700;
+  color: var(--cal, var(--accent));
+  margin: 0 0 .35em;
+  letter-spacing: .01em;
+}
+.md .callout-goal    { --cal:#a855f7; --cal-bg:rgba(168,85,247,.12);  --cal-ico:"🎯"; }
+.md .callout-idea    { --cal:#3b82f6; --cal-bg:rgba(59,130,246,.12);  --cal-ico:"🧠"; }
+.md .callout-tip     { --cal:#0ea5e9; --cal-bg:rgba(14,165,233,.12);  --cal-ico:"💡"; }
+.md .callout-warn    { --cal:#f59e0b; --cal-bg:rgba(245,158,11,.14);  --cal-ico:"⚠️"; }
+.md .callout-danger  { --cal:#ef4444; --cal-bg:rgba(239,68,68,.12);   --cal-ico:"❌"; }
+.md .callout-success { --cal:#22c55e; --cal-bg:rgba(34,197,94,.12);   --cal-ico:"✅"; }
+.md .callout-step    { --cal:#14b8a6; --cal-bg:rgba(20,184,166,.12);  --cal-ico:"🔢"; }
+.md .callout-example { --cal:#8b5cf6; --cal-bg:rgba(139,92,246,.10);  --cal-ico:"🔬"; }
+.md .callout-try     { --cal:#ec4899; --cal-bg:rgba(236,72,153,.12);  --cal-ico:"🧪"; }
+.md .callout-note    { --cal:var(--accent); --cal-bg:var(--accent-soft); --cal-ico:"📝"; }
+/* L'emoji est déjà dans le texte des citations auto-typées : on masque l'icône. */
+.md blockquote.callout { padding-left: 1em; }
+.md blockquote.callout::before { content: none; }
+
+/* Pseudo-code : un bloc de code neutre, étiqueté, pour raisonner AVANT de coder. */
+.md pre.pseudo {
+  background: repeating-linear-gradient(-45deg, var(--bg-soft), var(--bg-soft) 10px, transparent 10px, transparent 20px), var(--bg-code);
+  border-style: dashed;
+  padding-top: 1.9em;
+}
+.md pre.pseudo::before {
+  content: "PSEUDO-CODE — le raisonnement, pas encore du Python";
+  position: absolute;
+  top: .5em; left: 1em;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
 .md code {
   font-family: var(--mono);
   font-size: .84em;

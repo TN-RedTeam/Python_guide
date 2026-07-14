@@ -206,6 +206,15 @@ def main() -> None:
             continue
         modules.append(construire_module(dossier))
 
+    # Module de FONDATION « Penser comme un dev » : dossier sans préfixe
+    # numérique (donc ignoré par le scan ci-dessus), inséré juste après
+    # « Démarrer ». Il n'a pas de numéro : c'est le chapitre 0 du raisonnement.
+    fondation = RACINE / "penser_comme_un_dev"
+    if fondation.is_dir():
+        mod = construire_module(fondation)
+        mod["num"] = ""          # module de fondation, affiché sans numéro
+        modules.insert(1, mod)
+
     guides = []
     for nom_fichier, titre, emoji in GUIDES:
         chemin = RACINE / nom_fichier
