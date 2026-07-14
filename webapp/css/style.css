@@ -503,6 +503,63 @@ body[data-theme="light"] .CodeMirror { background: #fff; color: #1c2138; }
 .score-banner.win { background: rgba(74, 222, 128, .14); color: var(--ok); border: 1px solid rgba(74, 222, 128, .4); }
 .score-banner.partial { background: rgba(251, 191, 36, .12); color: var(--warn); border: 1px solid rgba(251, 191, 36, .4); }
 
+/* ─────────── Quiz (QCM auto-corrigé) ─────────── */
+.quiz { display: flex; flex-direction: column; gap: 1rem; }
+.quiz-q {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: 12px;
+  padding: .9rem 1rem;
+  margin: 0;
+  background: var(--bg-soft);
+}
+.quiz-q legend {
+  font-weight: 600;
+  padding: 0 .3rem;
+  line-height: 1.5;
+}
+.quiz-q legend code { font-size: .85em; }
+.quiz-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em; height: 1.5em;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: .8rem;
+  margin-right: .45rem;
+  vertical-align: -.15em;
+}
+.quiz-opts { display: flex; flex-direction: column; gap: .4rem; margin-top: .7rem; }
+.quiz-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  padding: .55rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .12s, border-color .12s;
+}
+.quiz-opt:hover { border-color: var(--accent); }
+.quiz-opt input { margin-top: .2rem; accent-color: var(--accent); }
+.quiz-opt.is-correct { border-color: var(--ok); background: rgba(74, 222, 128, .12); }
+.quiz-opt.is-wrong { border-color: var(--ko); background: rgba(248, 113, 113, .12); }
+.quiz-opt.is-correct::after { content: "✓"; margin-left: auto; color: var(--ok); font-weight: 700; }
+.quiz-opt.is-wrong::after { content: "✗"; margin-left: auto; color: var(--ko); font-weight: 700; }
+.quiz-q.correct { border-left-color: var(--ok); }
+.quiz-q.wrong { border-left-color: var(--ko); }
+.quiz-expl {
+  margin-top: .7rem;
+  padding: .55rem .75rem;
+  font-size: .88rem;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.quiz-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+
 /* ─────────── Pas à pas (visionneuse d'exécution) ─────────── */
 .trace-panel {
   background: var(--bg-card);

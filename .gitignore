@@ -149,3 +149,9 @@ go/**/build/
 asm/**/build/
 # Miroir Pyodide local utilisé pour les tests de la webapp (jamais versionné)
 webapp/.pyodide-test/
+
+# Tests webapp (Playwright)
+node_modules/
+webapp/tests/node_modules/
+test-results/
+playwright-report/

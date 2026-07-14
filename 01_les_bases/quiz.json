@@ -1,0 +1,32 @@
+[
+  {
+    "q": "Comment se lit `age = 25` ?",
+    "options": ["« age est égal à 25 »", "« age reçoit 25 »", "« 25 reçoit age »"],
+    "correct": 1,
+    "explanation": "Le `=` est une affectation : la variable `age` reçoit la valeur 25 (ce n'est pas l'égalité mathématique, qui s'écrit `==`)."
+  },
+  {
+    "q": "Quel est le type de la valeur `1.75` ?",
+    "options": ["int", "float", "str"],
+    "correct": 1,
+    "explanation": "Un nombre à virgule (le point décimal) est un `float`."
+  },
+  {
+    "q": "Que vaut `7 % 2` ?",
+    "options": ["3.5", "1", "2"],
+    "correct": 1,
+    "explanation": "`%` est le modulo : le reste de la division. 7 = 3×2 + 1, donc le reste est 1 (utile pour tester si un nombre est pair)."
+  },
+  {
+    "q": "Pour répéter une action un nombre connu de fois, on utilise…",
+    "options": ["`if`", "`for`", "`def`"],
+    "correct": 1,
+    "explanation": "La boucle `for` répète ; `if` décide, `def` définit une fonction."
+  },
+  {
+    "q": "Que se passe-t-il avec `\"25\" + 1` ?",
+    "options": ["Ça vaut 26", "Ça plante (TypeError)", "Ça vaut \"251\""],
+    "correct": 1,
+    "explanation": "On ne peut pas additionner du texte et un nombre. Il faut convertir d'abord : `int(\"25\") + 1`."
+  }
+]

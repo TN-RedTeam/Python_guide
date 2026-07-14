@@ -1,0 +1,32 @@
+[
+  {
+    "q": "Pour associer une clé à une valeur (annuaire *nom → téléphone*), on choisit…",
+    "options": ["une liste", "un dictionnaire", "un set"],
+    "correct": 1,
+    "explanation": "Le dictionnaire stocke des paires clé → valeur."
+  },
+  {
+    "q": "Quelle collection garantit des éléments **uniques** (aucun doublon) ?",
+    "options": ["le set", "le tuple", "la liste"],
+    "correct": 0,
+    "explanation": "Le `set` élimine automatiquement les doublons."
+  },
+  {
+    "q": "Une collection **ordonnée et modifiable** (on peut ajouter/retirer), c'est…",
+    "options": ["le tuple", "la liste", "le set"],
+    "correct": 1,
+    "explanation": "La liste est ordonnée et modifiable ; le tuple est ordonné mais figé, le set n'est pas ordonné."
+  },
+  {
+    "q": "Que renvoie `d.get(\"x\", 0)` si la clé `\"x\"` n'existe pas ?",
+    "options": ["une erreur KeyError", "0 (la valeur par défaut)", "None puis plante"],
+    "correct": 1,
+    "explanation": "`.get(clé, defaut)` renvoie la valeur par défaut au lieu de planter — pratique pour le pattern compteur."
+  },
+  {
+    "q": "Avant même de coder, choisir la bonne collection relève surtout…",
+    "options": ["du hasard", "de la modélisation (raisonnement)", "de la syntaxe"],
+    "correct": 1,
+    "explanation": "« Ordre ? doublons ? clé→valeur ? » : bien modéliser ses données, c'est déjà à moitié résoudre le problème."
+  }
+]

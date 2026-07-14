@@ -1,11 +1,12 @@
 name: CI — Cours Python
 
-# Ce workflow est destiné au DÉPÔT PYTHON AUTONOME (quand le dossier python/ est
-# promu à la racine via `git subtree split`). Dans le mono-dépôt multi-langages,
-# GitHub l'ignore : il ne lit les workflows que dans le .github/ RACINE.
-#
-# But : à chaque modification, vérifier que tout le code Python du cours est
-# valide (pas d'erreur de syntaxe) et que les exercices corrigés passent au vert.
+# Vérifie, à chaque push / PR :
+#   • que tout le Python du cours compile (pas d'erreur de syntaxe) ;
+#   • que les corrigés (solutions.py) tournent ET affichent un score PLEIN ;
+#   • que le contenu est cohérent (content.json à jour, exercices ↔ solutions,
+#     liens internes) — via webapp/validate_content.py ;
+#   • que la plateforme e-learning se charge et navigue sans erreur JS
+#     (test de fumée Playwright, job « webapp »).
 
 on:
   push:
@@ -26,24 +27,49 @@ jobs:
           python-version: "3.12"
 
       - name: Installer les dépendances (pandas, requests, ...)
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt ruff
 
-      # --- 1) Compiler tous les .py : détecte les erreurs de syntaxe ---
+      # 1) Compiler tous les .py : détecte les erreurs de syntaxe
       - name: Compiler tout le Python
-        run: |
-          set -e
-          echo "::group::py_compile"
-          python -m py_compile $(find . -name '*.py')
-          echo "::endgroup::"
+        run: python -m py_compile $(find . -name '*.py')
 
-      # --- 2) Lancer les corrigés : ils doivent tous passer au vert ---
-      #     (les solutions.py n'utilisent que la bibliothèque standard)
-      - name: Vérifier les exercices corrigés (solutions.py)
+      # 1bis) Lint conservateur (vrais bugs, pas le style — voir pyproject.toml)
+      #       + formatage vérifié UNIQUEMENT sur l'outillage (pas le cours).
+      - name: Lint (ruff)
         run: |
-          set -e
-          echo "::group::solutions"
-          for f in $(find . -name 'solutions.py' | sort); do
-            echo "▶ $f"
-            python "$f"
-          done
-          echo "::endgroup::"
+          ruff check .
+          ruff format --check webapp/build_content.py webapp/validate_content.py \
+                              webapp/check_solutions.py webapp/make_icons.py
+
+      # 2) Corrigés : ils doivent tourner ET afficher « N/N réussis »
+      - name: Vérifier les corrigés (solutions.py) — score plein
+        run: python webapp/check_solutions.py
+
+      # 3) Cohérence du contenu (structure, exercices/solutions, liens, fraîcheur)
+      - name: Valider le contenu et content.json
+        run: python webapp/validate_content.py
+
+  webapp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Garde-fou JS bon marché : la syntaxe des scripts de l'app doit être valide.
+      - name: Vérifier la syntaxe JS
+        run: node --check webapp/js/app.js && node --check webapp/sw.js
+
+      - name: Installer Playwright + Chromium
+        working-directory: webapp/tests
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Test de fumée de la plateforme
+        working-directory: webapp/tests
+        run: node smoke.mjs

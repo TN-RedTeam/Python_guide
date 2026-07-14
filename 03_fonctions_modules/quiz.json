@@ -1,0 +1,44 @@
+[
+  {
+    "q": "À quoi sert principalement une **fonction** ?",
+    "options": [
+      "À ralentir le programme",
+      "À nommer un sous-problème et éviter de copier-coller",
+      "À créer des variables globales"
+    ],
+    "correct": 1,
+    "explanation": "Une fonction emballe une étape sous un nom réutilisable : c'est la décomposition rendue concrète."
+  },
+  {
+    "q": "Que fait `return` dans une fonction ?",
+    "options": [
+      "Il affiche une valeur à l'écran",
+      "Il renvoie une valeur à l'appelant",
+      "Il arrête complètement Python"
+    ],
+    "correct": 1,
+    "explanation": "`return` renvoie un résultat (différent de `print`, qui ne fait qu'afficher)."
+  },
+  {
+    "q": "Dans `def saluer(nom=\"ami\")`, `nom` est…",
+    "options": [
+      "un paramètre obligatoire",
+      "un paramètre avec une valeur par défaut",
+      "une variable globale"
+    ],
+    "correct": 1,
+    "explanation": "Si on appelle `saluer()` sans argument, `nom` vaudra `\"ami\"`."
+  },
+  {
+    "q": "« Une fonction = un sous-problème » illustre le principe de…",
+    "options": ["la décomposition", "la récursivité", "l'héritage"],
+    "correct": 0,
+    "explanation": "On découpe un gros problème en petites fonctions nommées : c'est la décomposition."
+  },
+  {
+    "q": "Pour réutiliser une fonction définie dans un autre fichier, on fait…",
+    "options": ["un copier-coller", "un `import`", "un `print`"],
+    "correct": 1,
+    "explanation": "`import` permet de charger les fonctions d'un module sans les recopier."
+  }
+]

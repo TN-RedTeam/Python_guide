@@ -1,0 +1,44 @@
+[
+  {
+    "q": "Face à un problème, dans quel ordre travailler ?",
+    "options": [
+      "Coder tout de suite, puis réfléchir si ça plante",
+      "Comprendre → Décomposer → Pseudo-code → Traduire & tester",
+      "Traduire en Python, puis comprendre l'énoncé"
+    ],
+    "correct": 1,
+    "explanation": "Le clavier vient en dernier : 90 % du travail (comprendre et découper) se fait avant d'écrire du Python."
+  },
+  {
+    "q": "À quoi sert le **pseudo-code** ?",
+    "options": [
+      "À écrire du Python déjà valide",
+      "À raisonner la logique en français, avant de se battre avec la syntaxe",
+      "À documenter le code une fois qu'il est fini"
+    ],
+    "correct": 1,
+    "explanation": "Le pseudo-code isole la partie difficile (le raisonnement) de la traduction en Python."
+  },
+  {
+    "q": "Faire la **somme** des éléments d'une liste en la parcourant, c'est le pattern…",
+    "options": ["accumulateur", "recherche + drapeau", "filtre"],
+    "correct": 0,
+    "explanation": "On part de 0 et on ajoute au fur et à mesure : c'est l'accumulateur."
+  },
+  {
+    "q": "Pour répondre « est-ce que X existe dans la liste ? » (vrai/faux), on utilise…",
+    "options": ["le compteur", "la recherche + drapeau", "le champion (max)"],
+    "correct": 1,
+    "explanation": "Un booléen qui démarre à False et passe à True si on trouve : c'est la recherche + drapeau."
+  },
+  {
+    "q": "Avant de déclarer « c'est fini », quel réflexe adopter ?",
+    "options": [
+      "Tester les cas limites (liste vide, zéro, valeur négative…)",
+      "Supprimer tous les commentaires",
+      "Renommer les variables en une seule lettre"
+    ],
+    "correct": 0,
+    "explanation": "Les bugs se cachent aux extrêmes : `moyenne([])` divise par zéro si on n'y a pas pensé."
+  }
+]

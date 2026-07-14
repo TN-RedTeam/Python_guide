@@ -23,12 +23,14 @@ def ecrire_png(chemin: Path, pixels: list[list[tuple]]) -> None:
     hauteur, largeur = len(pixels), len(pixels[0])
 
     def bloc(genre: bytes, donnees: bytes) -> bytes:
-        return (struct.pack(">I", len(donnees)) + genre + donnees
-                + struct.pack(">I", zlib.crc32(genre + donnees)))
+        return (
+            struct.pack(">I", len(donnees))
+            + genre
+            + donnees
+            + struct.pack(">I", zlib.crc32(genre + donnees))
+        )
 
-    brut = b"".join(
-        b"\x00" + b"".join(bytes(px) for px in ligne) for ligne in pixels
-    )
+    brut = b"".join(b"\x00" + b"".join(bytes(px) for px in ligne) for ligne in pixels)
     entete = struct.pack(">IIBBBBB", largeur, hauteur, 8, 6, 0, 0, 0)
     chemin.write_bytes(
         b"\x89PNG\r\n\x1a\n"
@@ -51,10 +53,10 @@ def melanger(dessous: tuple, dessus: tuple, alpha: float) -> tuple:
 
 def dessiner_icone(taille: int, pleine: bool) -> list[list[tuple]]:
     """`pleine=True` : fond bord à bord (icône « maskable » Android)."""
-    s = taille / 512.0                       # facteur d'échelle
+    s = taille / 512.0  # facteur d'échelle
     rayon_coin = 0 if pleine else 96 * s
-    haut = (93, 110, 255)                    # indigo (accent de l'app)
-    bas = (147, 51, 234)                     # violet
+    haut = (93, 110, 255)  # indigo (accent de l'app)
+    bas = (147, 51, 234)  # violet
 
     pixels = []
     for y in range(taille):
@@ -68,7 +70,7 @@ def dessiner_icone(taille: int, pleine: bool) -> list[list[tuple]]:
             dehors = math.hypot(dx, dy) - rayon_coin
             if dehors > 0.5:
                 ligne.append((0, 0, 0, 0))
-            elif dehors > -0.5:               # bord adouci
+            elif dehors > -0.5:  # bord adouci
                 a = 0.5 - dehors
                 ligne.append((fond[0], fond[1], fond[2], round(255 * a)))
             else:
@@ -89,11 +91,11 @@ def dessiner_icone(taille: int, pleine: bool) -> list[list[tuple]]:
     vert_sombre = (22, 163, 74)
     marge = 150 * s if not pleine else 170 * s
     for i in range(120):
-        t = i / 119.0                                        # 0 = queue, 1 = tête
+        t = i / 119.0  # 0 = queue, 1 = tête
         cx = taille / 2 + math.sin(t * math.pi * 2.1 + 0.4) * (taille / 2 - marge)
         cy = (taille - 2 * marge) * (1 - t) + marge
         r = (10 + 30 * t) * s
-        disque(cx, cy, r * 1.18, vert_sombre)               # liseré sombre
+        disque(cx, cy, r * 1.18, vert_sombre)  # liseré sombre
         disque(cx, cy, r, vert)
 
     # tête un peu plus large + œil
