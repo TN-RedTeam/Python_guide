@@ -197,7 +197,12 @@ def construire_pentest() -> dict:
     return {"readme": lire(base / "README.md"), "groupes": groupes}
 
 
-def main() -> None:
+def construire_contenu() -> dict:
+    """Construit le dictionnaire de contenu (sans écrire de fichier).
+
+    Séparé de main() pour que la validation puisse comparer ce contenu au
+    content.json commité et détecter un fichier périmé.
+    """
     modules = []
     for dossier in sorted(RACINE.iterdir()):
         if not dossier.is_dir() or dossier.name in EXCLUS:
@@ -226,25 +231,26 @@ def main() -> None:
                 "md": lire(chemin),
             })
 
-    pentest = construire_pentest()
-
-    contenu = {
+    return {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "modules": modules,
         "guides": guides,
         "projets": construire_projets(),
-        "pentest": pentest,
+        "pentest": construire_pentest(),
         "modele_script": lire(RACINE / "modele_script.py"),
     }
 
+
+def main() -> None:
+    contenu = construire_contenu()
     SORTIE.write_text(
         json.dumps(contenu, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
     taille = SORTIE.stat().st_size / 1024
-    nb_scripts = sum(len(g["files"]) for g in pentest["groupes"])
-    print(f"✅ {SORTIE.name} généré : {len(modules)} modules, {len(guides)} guides, "
-          f"pentest ({nb_scripts} scripts) — {taille:.0f} Ko")
+    nb_scripts = sum(len(g["files"]) for g in contenu["pentest"]["groupes"])
+    print(f"✅ {SORTIE.name} généré : {len(contenu['modules'])} modules, "
+          f"{len(contenu['guides'])} guides, pentest ({nb_scripts} scripts) — {taille:.0f} Ko")
 
 
 if __name__ == "__main__":
