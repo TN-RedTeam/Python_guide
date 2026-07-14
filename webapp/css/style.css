@@ -668,3 +668,20 @@ body[data-theme="light"] .CodeMirror { background: #fff; color: #1c2138; }
 @media (min-width: 640px) and (max-width: 1023px) {
   .cards { grid-template-columns: 1fr 1fr; }
 }
+
+/* ─────────────────────────── Accessibilité ─────────────────────────── */
+/* Focus clavier bien visible (navigation sans souris). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Respecte « animations réduites » : on coupe transitions/animations/défilement. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
