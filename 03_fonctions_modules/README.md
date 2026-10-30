@@ -256,12 +256,25 @@ print(aire_cercle(2))
 
 ---
 
+## 🤖 Pourquoi ce module est essentiel pour l'IA
+
+En IA, **tout est fonction** : `model.fit()`, `model.predict()`, `train_test_split()`. Tu passes
+des arguments (tes données), la fonction fait le calcul, et elle te renvoie un résultat. Et tu
+utilises `import` pour charger NumPy, pandas, scikit-learn... Exemple :
+```python
+from sklearn.model_selection import train_test_split   # import d'une fonction
+
+X_train, X_test = train_test_split(X, test_size=0.2)  # argument nommé = module 03 !
+```
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
-(✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
+de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
 
 ```bash
 python3 03_fonctions_modules/exercices.py

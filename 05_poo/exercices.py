@@ -58,15 +58,56 @@ EXERCICES — Module 05 : la POO (classes)
 """
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 1 — ta première classe : __init__ + une méthode
+# ─────────────────────────────────────────────────────────────────────
+
+class Animal:
+    """OBJECTIF : un animal avec un nom et un cri.
+
+    Exemple : Animal("Rex", "Wouf").parler()  ->  "Rex fait Wouf !"
+
+    RAPPEL DU COURS (section 2 — définir une classe) :
+        class Voiture:
+            def __init__(self, marque, couleur):   # le constructeur
+                self.marque = marque               # on RANGE dans l'objet
+                self.couleur = couleur
+            def klaxonner(self):                    # une méthode
+                return f"La {self.marque} fait : POUT POUT !"
+
+    C'est le MEME schéma ici :
+      - __init__ reçoit nom et cri, et les RANGE dans self ;
+      - parler() les RELIT avec self.nom et self.cri.
+
+    Tu dois compléter 2 méthodes :
+      - __init__(self, nom, cri) : range self.nom = nom  et  self.cri = cri ;
+      - parler(self) : renvoie f"{self.nom} fait {self.cri} !"
+    """
+
+    def __init__(self, nom, cri):
+        ...   # ⬅️ range nom et cri dans self (self.nom = nom, self.cri = cri)
+
+    def parler(self):
+        ...   # ⬅️ renvoie f"{self.nom} fait {self.cri} !"
+
+
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 1 — une classe avec __init__ + deux méthodes de calcul
+# ─────────────────────────────────────────────────────────────────────
+
 class Rectangle:
     """OBJECTIF : un rectangle défini par sa largeur et sa hauteur.
 
     Exemple : Rectangle(3, 4).aire() -> 12   ;   Rectangle(3, 4).perimetre() -> 14
 
+    RAPPEL DU COURS (section 2) : c'est exactement le schéma Voiture ci-dessus.
+      - __init__ RANGE les données dans self ;
+      - les méthodes les RELISENT avec self.xxx.
+
     Tu dois compléter 3 méthodes :
       - __init__(self, largeur, hauteur) : RANGE les deux valeurs dans l'objet
         (self.largeur = largeur, et pareil pour hauteur) ;
-      - aire(self)      : renvoie largeur * hauteur (relis-les avec self.largeur…) ;
+      - aire(self)      : renvoie largeur * hauteur (relis-les avec self.largeur...) ;
       - perimetre(self) : renvoie 2 * (largeur + hauteur).
     """
 
@@ -80,11 +121,24 @@ class Rectangle:
         ...   # ⬅️ renvoie 2 * (self.largeur + self.hauteur)
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 2 — héritage : réutiliser une classe existante
+# ─────────────────────────────────────────────────────────────────────
+
 class Carre(Rectangle):
     """OBJECTIF : un carré EST un rectangle dont les deux côtés sont égaux.
     Il HÉRITE donc de Rectangle (il a déjà aire() et perimetre() gratuitement).
 
     Exemple : Carre(5).aire() -> 25   ;   Carre(5).perimetre() -> 20
+
+    RAPPEL DU COURS (section 4 — héritage) :
+        class Voiture(Vehicule):
+            def __init__(self, nom, vitesse_max, nb_portes):
+                super().__init__(nom, vitesse_max)   # appelle le parent
+                self.nb_portes = nb_portes
+
+    C'est le MEME schéma : super().__init__(...) appelle le constructeur de
+    Rectangle. Comme un carré a TOUS les côtés égaux, on passe cote deux fois.
 
     À compléter : __init__(self, cote) doit appeler le constructeur du PARENT
     avec le même côté pour la largeur ET la hauteur :  super().__init__(cote, cote).
@@ -94,11 +148,25 @@ class Carre(Rectangle):
         ...   # ⬅️ appelle super().__init__(cote, cote)
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 3 — une classe avec logique : vérification avant action
+# ─────────────────────────────────────────────────────────────────────
+
 class CompteBancaire:
     """OBJECTIF : un compte qui mémorise un solde.
 
-    Scénario : CompteBancaire(100), deposer(50) → 150, retirer(200) refusé → 150,
-               retirer(30) → 120.
+    Scénario : CompteBancaire(100), deposer(50) -> 150, retirer(200) refusé -> 150,
+               retirer(30) -> 120.
+
+    RAPPEL DU COURS (section 2 + section 3) :
+      Dans __init__, on RANGE les données :
+          self.solde = solde
+      Dans une méthode, on MODIFIE les données de l'objet :
+          self.solde += montant      (augmente)
+          self.solde -= montant      (diminue)
+      Et on peut ajouter un if pour PROTÉGER (comme le if du module 01) :
+          if montant <= self.solde:
+              self.solde -= montant
 
     Tu dois compléter 3 méthodes :
       - __init__(self, solde=0) : range le solde de départ dans self (self.solde = solde) ;
@@ -155,6 +223,8 @@ def scenario_compte():
 if __name__ == "__main__":
     print("--- Module 05 : la POO (classes) ---\n")
     resultats = [
+        verifie("Animal('Rex', 'Wouf').parler()", lambda: Animal("Rex", "Wouf").parler(), attendu="Rex fait Wouf !"),
+        verifie("Animal('Mia', 'Miaou').parler()", lambda: Animal("Mia", "Miaou").parler(), attendu="Mia fait Miaou !"),
         verifie("Rectangle(3, 4).aire()",      lambda: Rectangle(3, 4).aire(),      attendu=12),
         verifie("Rectangle(3, 4).perimetre()", lambda: Rectangle(3, 4).perimetre(), attendu=14),
         verifie("Carre(5).aire()",             lambda: Carre(5).aire(),             attendu=25),

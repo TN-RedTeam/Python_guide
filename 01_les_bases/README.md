@@ -277,13 +277,33 @@ modulo, f-string. Relis-le jusqu'à comprendre **chaque** symbole.
 
 ---
 
+## 🤖 Pourquoi ce module est essentiel pour l'IA
+
+Tout code IA commence par des **variables** (stocker des données), des **conditions** (si
+la prédiction est bonne...) et des **boucles** (parcourir chaque donnée). Exemple concret :
+```python
+precision = 0.92
+if precision > 0.9:
+    print("Le modèle est bon !")
+for epoch in range(10):
+    print(f"Entraînement tour {epoch}...")
+```
+Sans ce module, tu ne peux rien lire ni écrire en IA.
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter (dont **FizzBuzz** et le
-**compte à rebours**), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où
-tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
+(✅/❌ en direct). Les exercices sont organisés en **4 niveaux** :
+- **Niveau 1** : tu reproduis exactement ce que le cours a montré.
+- **Niveau 2** : même logique, petit changement.
+- **Niveau 3** : tu combines les concepts du module.
+- **Niveau 4** : le défi optionnel.
+
+Chaque exercice contient un **RAPPEL DU COURS** : le code exact du cours que tu dois adapter.
 
 ```bash
 python3 01_les_bases/exercices.py

@@ -35,6 +35,18 @@ navigateur, avec toutes les bibliothèques du guide préinstallées (gratuit : 6
 
 ---
 
+## 🤖 Tu veux apprendre Python pour l'IA ?
+
+Tu n'as pas besoin de tout ce guide. Le **[PARCOURS_IA.md](./PARCOURS_IA.md)** te donne
+**exactement** quoi apprendre, dans quel ordre, et ce que tu peux sauter — avec un
+premier projet Machine Learning complet à la clé.
+
+> **Chaque exercice a maintenant 4 niveaux de difficulté** (Reproduction → Adaptation
+> → Combinaison → Défi) et un **rappel du cours** intégré. Tu ne devrais plus jamais
+> bloquer sur un exercice sans savoir quel concept du cours utiliser.
+
+---
+
 ## 🆚 Pourquoi Python ?
 
 Si tu as déjà jeté un œil au C, au Go ou à l'Assembleur, Python va te sembler être du
@@ -84,8 +96,15 @@ appliqué** (automatisation) pour mettre les concepts en pratique.
 
 - **🎯 Exercices auto-corrigés dans CHAQUE module** : un fichier `exercices.py` (des fonctions
   à compléter, avec une **auto-correction** intégrée — tu lances, tu vois ✅/❌ en direct) et un
-  `solutions.py` commenté. C'est **le** moyen de passer de « je lis du code » à « j'écris du
-  code ». Commence par [`01_les_bases/exercices.py`](./01_les_bases/exercices.py).
+  `solutions.py` commenté. **4 niveaux de difficulté** dans chaque fichier :
+  - **Niveau 1 — Reproduction** : tu refais exactement ce que le cours a montré.
+  - **Niveau 2 — Adaptation** : même logique, petit changement.
+  - **Niveau 3 — Combinaison** : tu mélanges les concepts du module.
+  - **Niveau 4 — Défi** : le challenge optionnel.
+
+  Chaque exercice contient un **RAPPEL DU COURS** avec le code exact à adapter — tu n'as plus
+  besoin de retourner dans le README pour chercher. Commence par
+  [`01_les_bases/exercices.py`](./01_les_bases/exercices.py).
 
   > 💾 **Pour ne jamais perdre ton travail lors d'un `git pull`** : ne code pas directement dans
   > `exercices.py` (il est suivi par git, donc une mise à jour du guide entrerait en conflit avec
@@ -120,6 +139,7 @@ appliqué** (automatisation) pour mettre les concepts en pratique.
 
 ## 📚 Ressources indispensables
 
+- **[PARCOURS_IA.md](./PARCOURS_IA.md)** : Le parcours accéléré pour apprendre Python et passer à l'IA.
 - **[ANATOMIE_D_UN_SCRIPT.md](./ANATOMIE_D_UN_SCRIPT.md)** : Comment structurer un fichier `.py`.
 - **[AIDE_MEMOIRE.md](./AIDE_MEMOIRE.md)** : La syntaxe résumée sur une page.
 - **[GLOSSAIRE.md](./GLOSSAIRE.md)** : Le dictionnaire des termes techniques.

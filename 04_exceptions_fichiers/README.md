@@ -166,12 +166,26 @@ except FileNotFoundError:
 
 ---
 
+## 🤖 Pourquoi ce module est essentiel pour l'IA
+
+Tes données arrivent de **fichiers** (CSV, JSON, images). Et quand tu charges un dataset
+qui n'existe pas, ou qu'une valeur est corrompue, ton programme **plante** — sauf si tu gères
+les exceptions. Exemple concret :
+```python
+try:
+    donnees = open("dataset.csv")
+except FileNotFoundError:
+    print("Fichier introuvable ! Vérifie le chemin.")
+```
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
-(✅/❌ en direct). C'est **LE** fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
+de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
 
 ```bash
 python3 04_exceptions_fichiers/exercices.py

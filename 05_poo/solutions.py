@@ -8,6 +8,17 @@ Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
 """
 
 
+class Animal:
+    """Animal (nom, cri)."""
+
+    def __init__(self, nom, cri):
+        self.nom = nom              # on RANGE le nom dans l'objet
+        self.cri = cri              # on RANGE le cri dans l'objet
+
+    def parler(self):
+        return f"{self.nom} fait {self.cri} !"   # on RELIT self.nom et self.cri
+
+
 class Rectangle:
     """Rectangle (largeur, hauteur)."""
 
@@ -64,6 +75,8 @@ def _verifier():
     c.retirer(200)
     c.retirer(30)
     res = [
+        _check("Animal('Rex','Wouf').parler()", Animal("Rex", "Wouf").parler(), "Rex fait Wouf !"),
+        _check("Animal('Mia','Miaou').parler()", Animal("Mia", "Miaou").parler(), "Mia fait Miaou !"),
         _check("Rectangle(3,4).aire()", Rectangle(3, 4).aire(), 12),
         _check("Rectangle(3,4).perimetre()", Rectangle(3, 4).perimetre(), 14),
         _check("Carre(5).aire()", Carre(5).aire(), 25),

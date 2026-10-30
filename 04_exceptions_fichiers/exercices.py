@@ -52,11 +52,23 @@ EXERCICES — Module 04 : exceptions & fichiers
 """
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 1 — try/except basique (un seul type d'erreur à attraper)
+# ─────────────────────────────────────────────────────────────────────
+
 def division_sure(a, b):
     """OBJECTIF : renvoyer a / b, mais renvoyer None si b vaut 0 (au lieu de
     laisser le programme planter).
 
     Exemples : division_sure(10, 2)  ->  5.0       division_sure(10, 0)  ->  None
+
+    RAPPEL DU COURS (section 2 — try/except) :
+        try:
+            resultat = 10 / nombre
+        except ZeroDivisionError:
+            print("Impossible de diviser par zéro !")
+
+    C'est le MEME schéma ici : mets a / b dans le try, attrape ZeroDivisionError.
 
     Comment t'y prendre :
       - mets le calcul a / b dans un bloc  try: ... ;
@@ -72,6 +84,14 @@ def convertir_entier(texte):
 
     Exemples : convertir_entier("42")  ->  42        convertir_entier("abc")  ->  None
 
+    RAPPEL DU COURS (section 2 — try/except) :
+        try:
+            nombre = int(input("Donne un nombre : "))
+        except ValueError:
+            print("Ce n'est pas un nombre valide.")
+
+    C'est le MEME schéma : int(texte) dans le try, ValueError dans le except.
+
     Comment t'y prendre :
       - dans un  try:  renvoie int(texte) ;
       - int("abc") lève une ValueError : attrape-la avec  except ValueError:
@@ -80,11 +100,26 @@ def convertir_entier(texte):
     ...   # ⬅️ remplace cette ligne par ton code
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 2 — lire et écrire un fichier avec with open(...)
+# ─────────────────────────────────────────────────────────────────────
+
 def ecrire_puis_lire(chemin, contenu):
     """OBJECTIF : écrire `contenu` dans le fichier `chemin`, puis le relire et
     renvoyer ce qu'il contient.
 
     Exemple : ecrire_puis_lire("/tmp/x.txt", "salut")  ->  "salut"
+
+    RAPPEL DU COURS (section 3 — with open) :
+      ÉCRIRE :
+        with open("test.txt", "w", encoding="utf-8") as f:
+            f.write("Salut Python !")
+
+      LIRE :
+        with open("test.txt", "r", encoding="utf-8") as f:
+            contenu = f.read()
+
+    Tu fais les DEUX ici : d'abord écrire ("w"), puis relire ("r").
 
     Comment t'y prendre :
       1. ÉCRIRE : with open(chemin, "w", encoding="utf-8") as f:  puis  f.write(contenu) ;
@@ -95,9 +130,23 @@ def ecrire_puis_lire(chemin, contenu):
     ...   # ⬅️ remplace cette ligne par ton code
 
 
+# ─────────────────────────────────────────────────────────────────────
+# NIVEAU 3 — combiner try/except + lecture de fichier
+# ─────────────────────────────────────────────────────────────────────
+
 def compter_lignes(chemin):
     """OBJECTIF : renvoyer le nombre de lignes du fichier `chemin`.
     Si le fichier n'existe pas, renvoyer 0 (sans planter).
+
+    RAPPEL DU COURS (section 4 — combiner les deux) :
+        try:
+            with open("config.txt", "r", encoding="utf-8") as f:
+                contenu = f.read()
+        except FileNotFoundError:
+            contenu = ""
+
+    C'est le MEME schéma : le with open() est DANS le try, et si le fichier
+    n'existe pas, on attrape FileNotFoundError et on renvoie une valeur de repli.
 
     Comment t'y prendre :
       - dans un  try: , ouvre le fichier : with open(chemin, "r", encoding="utf-8") as f: ;
