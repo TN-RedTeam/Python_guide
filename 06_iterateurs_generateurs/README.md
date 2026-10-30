@@ -132,13 +132,23 @@ total = sum(n ** 2 for n in nombres)   # pas de liste créée : on additionne au
 
 ---
 
+## 🤖 Pourquoi ce module est utile pour l'IA
+
+Les **list comprehensions** sont partout en data science :
+```python
+scores = [model.predict(x) for x in dataset]   # prédiction pour chaque donnée
+positifs = [s for s in scores if s > 0.5]       # filtrer les résultats positifs
+```
+Ce sont les mêmes `[... for ... in ... if ...]` que tu apprends ici.
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter (filtrer, transformer, et écrire
-un **générateur** de nombres pairs), avec **correction automatique** (✅/❌ en direct). C'est
-**LE** fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **niveaux**
+de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
 
 ```bash
 python3 06_iterateurs_generateurs/exercices.py

@@ -150,13 +150,26 @@ print(Voiture("Tesla"))                # "Voiture Tesla"  (au lieu du charabia)
 
 ---
 
+## 🤖 Pourquoi ce module est essentiel pour l'IA
+
+En IA, **tous les modèles sont des classes**. Quand tu écris :
+```python
+modele = RandomForestClassifier()   # crée un OBJET (comme Voiture("Tesla"))
+modele.fit(X_train, y_train)        # appelle une METHODE (comme .klaxonner())
+modele.predict(X_test)              # une autre METHODE
+```
+C'est exactement ce que tu apprends ici : `__init__` (créer l'objet), `self` (l'objet courant),
+et les méthodes (les actions de l'objet). Tu n'as pas besoin de *créer* des classes pour l'IA,
+mais tu dois savoir les **lire et les utiliser**.
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des classes à compléter (`Rectangle`, `Carre` par
-héritage, `CompteBancaire`…), avec **correction automatique** (✅/❌ en direct). C'est **LE**
-fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des classes à compléter, organisées en **niveaux**
+de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
 
 ```bash
 python3 05_poo/exercices.py

@@ -246,13 +246,28 @@ set     { }   unique, non ordonné                     → dédoublonner, ensemb
 
 ---
 
+## 🤖 Pourquoi ce module est essentiel pour l'IA
+
+**80% du code IA manipule des listes et des dictionnaires.** Un dataset, c'est une liste
+de dictionnaires. Les prédictions d'un modèle, c'est une liste de nombres. Les hyperparamètres,
+c'est un dictionnaire. Exemple concret :
+```python
+dataset = [
+    {"age": 25, "salaire": 30000, "achete": True},
+    {"age": 45, "salaire": 60000, "achete": False},
+]
+for client in dataset:
+    print(f"Client de {client['age']} ans")
+```
+
+---
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter (compter des occurrences,
-dédoublonner, inverser un dictionnaire…), avec **correction automatique** (✅/❌ en direct).
-C'est **LE** fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
+de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
 
 ```bash
 python3 02_collections/exercices.py
