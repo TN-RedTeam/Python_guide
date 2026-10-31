@@ -32,6 +32,10 @@ EXERCICES — Module 02 : les collections (listes, dicts, tuples, sets)
       TROU a remplir. Efface ce « ... » et ecris ton code a la place.
     - Garde les 4 espaces en debut de ligne (l'indentation).
     - Pense au « return » : une fonction doit RENVOYER son resultat.
+      ❌ print(resultat)   → AFFICHE mais renvoie None (le test echoue)
+      ✅ return resultat    → RENVOIE le resultat (le test reussit)
+    - Les PARAMETRES (entre parentheses) sont DEJA remplis. N'ecris PAS
+      liste = [...] ou panier = {...} dans la fonction !
 
   Exemple — au depart, la fonction a un trou :
 
@@ -67,8 +71,8 @@ def deuxieme_element(liste):
     ║  Les positions commencent a 0 :                              ║
     ║      fruits = ["pomme", "banane", "cerise"]                  ║
     ║      #          index 0   index 1   index 2                  ║
-    ║      print(fruits[0])   # "pomme"  (le 1er)                  ║
-    ║      print(fruits[1])   # "banane" (le 2e)                   ║
+    ║      fruits[0]   # → "pomme"  (le 1er)                      ║
+    ║      fruits[1]   # → "banane" (le 2e)                       ║
     ╚══════════════════════════════════════════════════════════════╝
 
     Comment t'y prendre :
@@ -87,9 +91,9 @@ def total_panier(panier):
 
     ╔══ RAPPEL DU COURS ═══════════════════════════════════════════╗
     ║  pilote = {"nom": "Hamilton", "titres": 7}                   ║
-    ║  print(pilote.values())   # toutes les valeurs               ║
-    ║  # sum(...) additionne tous les elements d'une serie :       ║
-    ║  print(sum([1, 2, 3]))    # 6                                ║
+    ║  pilote.values()          # → toutes les valeurs             ║
+    ║  sum([1, 2, 3])           # → 6  (additionne les elements)   ║
+    ║  sum(pilote.values())     # → somme des valeurs du dict      ║
     ╚══════════════════════════════════════════════════════════════╝
 
     Comment t'y prendre :
@@ -193,10 +197,11 @@ def inverser_dictionnaire(d):
     ╔══ RAPPEL DU COURS ═══════════════════════════════════════════╗
     ║  # Parcourir un dict avec .items() :                         ║
     ║  for cle, valeur in pilote.items():                          ║
-    ║      print(f"{cle} = {valeur}")                              ║
+    ║      # cle et valeur sont disponibles ici                    ║
     ║                                                              ║
     ║  # Ajouter une paire a un dict :                             ║
-    ║  pilote["points"] = 25                                       ║
+    ║  resultat[valeur] = cle    # la valeur devient la nouvelle   ║
+    ║                            # cle, et vice versa              ║
     ╚══════════════════════════════════════════════════════════════╝
 
     Comment t'y prendre :

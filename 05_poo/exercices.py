@@ -23,6 +23,11 @@ EXERCICES — Module 05 : la POO (classes)
       dit « ce code est À L'INTÉRIEUR de la méthode ».
     • « self » = l'objet en cours. Dans __init__, on RANGE les données dans
       self (self.xxx = ...). Les autres méthodes les RELISENT avec self.xxx.
+    • Pense au « return » : une méthode doit RENVOYER son résultat.
+      ❌ print(f"...")   → AFFICHE mais renvoie None (le test échoue)
+      ✅ return f"..."    → RENVOIE le texte (le test réussit)
+    • Les PARAMÈTRES (comme nom, cri) sont DÉJÀ remplis. N'écris PAS
+      nom = "Rex" dans __init__ — utilise-les tels quels : self.nom = nom.
 
   Exemple — au départ, la classe a des trous :
 

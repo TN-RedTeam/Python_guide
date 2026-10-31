@@ -32,6 +32,10 @@ EXERCICES — Module 03 : fonctions & modules
       TROU a remplir. Efface ce « ... » et ecris ton code a la place.
     - Garde les 4 espaces en debut de ligne (l'indentation).
     - Pense au « return » : une fonction doit RENVOYER son resultat.
+      ❌ print(resultat)   → AFFICHE mais renvoie None (le test echoue)
+      ✅ return resultat    → RENVOIE le resultat (le test reussit)
+    - Les PARAMETRES (entre parentheses) sont DEJA remplis. N'ecris PAS
+      nom = "Ada" ou liste = [...] dans la fonction !
 
   Exemple — au depart, la fonction a un trou :
 

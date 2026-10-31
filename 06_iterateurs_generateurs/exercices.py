@@ -23,6 +23,10 @@ EXERCICES — Module 06 : itérateurs & générateurs
       (l'indentation) signifie « ce code est À L'INTÉRIEUR de la fonction ».
     • Pense au « return » (ou au « yield » pour un générateur) : une fonction
       doit PRODUIRE son résultat, sinon le test échoue.
+      ❌ print(resultat)   → AFFICHE mais renvoie None (le test échoue)
+      ✅ return resultat    → RENVOIE le résultat (le test réussit)
+    • Les PARAMÈTRES (entre parenthèses) sont DÉJÀ remplis. N'écris PAS
+      nombres = [...] ou noms = [...] dans la fonction !
 
   Exemple — au départ, la fonction a un trou :
 

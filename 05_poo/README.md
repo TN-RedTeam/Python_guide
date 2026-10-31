@@ -43,7 +43,7 @@ class Voiture:                              # convention : nom de classe en Maju
         self.couleur = couleur
 
     def klaxonner(self):                     # une méthode = une fonction DANS la classe
-        print(f"La {self.marque} fait : POUT POUT !")
+        return f"La {self.marque} fait : POUT POUT !"
 ```
 
 ### `__init__` : le constructeur
@@ -78,7 +78,7 @@ ma_caisse.klaxonner()    # tu n'écris PAS ma_caisse.klaxonner(ma_caisse) :
 ma_caisse = Voiture("Tesla", "Rouge")   # APPELLE __init__ → fabrique un objet
                                         # "Tesla"→marque, "Rouge"→couleur (self est implicite)
 print(ma_caisse.marque)                 # "Tesla"     ← lire un attribut (avec le point)
-ma_caisse.klaxonner()                   # "La Tesla fait : POUT POUT !"  ← appeler une méthode
+print(ma_caisse.klaxonner())             # "La Tesla fait : POUT POUT !"  ← appeler une méthode
 
 autre = Voiture("Renault", "Bleu")      # un AUTRE objet, indépendant : sa propre marque/couleur
 ```

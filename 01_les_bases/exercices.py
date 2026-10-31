@@ -28,8 +28,6 @@ EXERCICES — Module 01 : les bases (variables, conditions, boucles)
       TROU à remplir. Efface ce « ... » et écris ton code à la place.
     • Garde les 4 espaces en début de ligne : en Python, ce décalage
       (l'indentation) signifie « ce code est À L'INTÉRIEUR de la fonction ».
-    • Pense au « return » : une fonction doit RENVOYER son résultat. Sans
-      « return », elle ne renvoie « rien » (None) et le test échoue.
 
   Exemple — au départ, la fonction a un trou :
 
@@ -44,6 +42,37 @@ EXERCICES — Module 01 : les bases (variables, conditions, boucles)
   Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE,
   un RAPPEL DU COURS (le bout de code dont tu as besoin), et les ÉTAPES.
   Tu n'as PAS besoin de lire le bas du fichier.
+
+▶ ⚠️ DEUX PIÈGES QUI FONT ÉCHOUER 90 % DES DÉBUTANTS :
+
+  PIÈGE 1 — « return » et PAS « print »
+  ──────────────────────────────────────
+  Dans les exercices, ta fonction doit RENVOYER le résultat avec « return ».
+  Si tu utilises « print », le texte s'AFFICHE à l'écran mais la fonction
+  renvoie None (= rien), et le test échoue.
+
+      ❌ FAUX :   print(f"Bonjour {nom}")     → affiche, mais renvoie None
+      ✅ JUSTE :  return f"Bonjour {nom}"      → renvoie le texte au test
+
+  print = AFFICHER à l'écran (pour toi).
+  return = RENVOYER la réponse (pour le programme qui appelle ta fonction).
+
+  PIÈGE 2 — les paramètres sont DÉJÀ remplis, ne les réécris pas
+  ───────────────────────────────────────────────────────────────
+  Quand tu écris  def presenter(nom, age):  les variables « nom » et « age »
+  sont DÉJÀ remplies par celui qui appelle ta fonction. N'écris PAS
+  nom = "Ada" ou age = 25 dans la fonction : ça ÉCRASE la vraie valeur.
+
+      def presenter(nom, age):        # nom et age sont DÉJÀ là !
+          ❌ nom = "Ada"              # ÉCRASE nom → toujours "Ada"
+          ❌ age = 25                 # ÉCRASE age → toujours 25
+          return f"... {nom} ... {age} ..."
+
+      def presenter(nom, age):        # nom et age sont DÉJÀ là !
+          ✅ return f"... {nom} ... {age} ..."    # UTILISE nom et age tels quels
+
+  Imagine que les paramètres sont des BOÎTES déjà remplies par l'appelant.
+  Toi, tu les OUVRES (tu les utilises), tu ne les REMPLIS PAS toi-même.
 
 ▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
   Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
@@ -69,21 +98,35 @@ def presenter(nom, age):
 
     Exemple : presenter("Ada", 25)  ->  "Je m'appelle Ada et j'ai 25 ans."
 
+    ⚠️ ATTENTION — lis bien avant de coder :
+      - « nom » et « age » sont les PARAMÈTRES de la fonction : ils sont
+        DÉJÀ remplis par celui qui appelle. N'écris PAS nom = "Ada" !
+      - Utilise « return » (pas print) pour RENVOYER le texte.
+
     RAPPEL DU COURS (section « Les f-strings ») :
     ┌─────────────────────────────────────────────────────┐
-    │  nom = "Baba"                                       │
-    │  score = 100                                        │
-    │  print(f"Joueur : {nom} | Score : {score}")         │
+    │  def message_joueur(nom, score):                    │
+    │      return f"Joueur : {nom} | Score : {score}"     │
+    │                                                     │
+    │  message_joueur("Baba", 100)                        │
     │  # → "Joueur : Baba | Score : 100"                  │
+    │                                                     │
+    │  message_joueur("Toto", 50)                         │
+    │  # → "Joueur : Toto | Score : 50"                   │
+    │                                                     │
+    │  Le f devant les guillemets dit à Python : remplace  │
+    │  {nom} par la valeur de nom, {score} par celle de    │
+    │  score. « return » renvoie le texte au programme.    │
     └─────────────────────────────────────────────────────┘
-    Le f devant les guillemets dit à Python : « remplace {nom} et {age}
-    par leur valeur ».
+    C'est le MÊME schéma ici :
+      - {nom} sera remplacé par "Ada" (ou "Bob", ou n'importe quel nom
+        qu'on passe à l'appel) ;
+      - {age} sera remplacé par 25 (ou 17, ou tout autre nombre).
 
-    Comment t'y prendre :
-      - construis le texte avec une f-string : f"Je m'appelle {nom} et j'ai {age} ans."
-      - renvoie-le avec return.
+    Comment t'y prendre (UNE SEULE LIGNE suffit) :
+      return f"Je m'appelle {nom} et j'ai {age} ans."
     """
-    ...   # ⬅️ remplace cette ligne par ton code
+    ...   # ⬅️ remplace cette ligne par ton code (UNE seule ligne avec return)
 
 
 def categorie_age(age):
@@ -95,25 +138,34 @@ def categorie_age(age):
     Exemples : categorie_age(10) -> "Enfant"   categorie_age(15) -> "Adolescent"
                categorie_age(20) -> "Majeur"
 
+    ⚠️ ATTENTION : « age » est le PARAMÈTRE — il est DÉJÀ rempli.
+      N'écris PAS age = 20. Utilise « return » (pas print).
+
     RAPPEL DU COURS (section « if / elif / else ») :
     ┌─────────────────────────────────────────────────────┐
-    │  age = 20                                           │
-    │  if age >= 18:                                      │
-    │      print("Majeur")                                │
-    │  elif age >= 13:                                    │
-    │      print("Adolescent")                            │
-    │  else:                                              │
-    │      print("Enfant")                                │
+    │  def categorie(age):                                │
+    │      if age >= 18:                                  │
+    │          return "Majeur"                            │
+    │      elif age >= 13:                                │
+    │          return "Adolescent"                        │
+    │      else:                                          │
+    │          return "Enfant"                            │
+    │                                                     │
+    │  categorie(10)   # → "Enfant"                       │
+    │  categorie(15)   # → "Adolescent"                   │
+    │  categorie(20)   # → "Majeur"                       │
     └─────────────────────────────────────────────────────┘
-    C'est EXACTEMENT ce code, sauf qu'au lieu de print(...) tu fais
-    return "..." pour RENVOYER le texte.
+    C'est EXACTEMENT ce code. Tu peux le recopier tel quel.
 
     Comment t'y prendre :
-      - if age >= 18: return "Majeur"
-      - elif age >= 13: return "Adolescent"
-      - else: return "Enfant"
+      if age >= 18:
+          return "Majeur"
+      elif age >= 13:
+          return "Adolescent"
+      else:
+          return "Enfant"
     """
-    ...   # ⬅️ remplace cette ligne par ton code
+    ...   # ⬅️ remplace ces lignes par le if / elif / else avec return
 
 
 # ┌──────────────────────────────────────────────────────────────────┐
@@ -260,14 +312,21 @@ def fizzbuzz(n):
 #  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
 #
 #  C'est ICI qu'on APPELLE tes fonctions, avec des exemples concrets.
-#  → Les valeurs d'exemple ci-dessous (comme "Ada", 25, 5...) sont juste
+#  → Les valeurs ci-dessous (comme "Ada", 25, "Bob", 17...) sont juste
 #    des ARGUMENTS qu'on passe à l'appel. Rien de magique ni de caché.
-#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
-#  UTILISE (définir une fonction ≠ l'appeler).
 #
-#  Comment lire une ligne d'essai :
+#  POURQUOI PLUSIEURS TESTS PAR FONCTION ?
+#  On teste presenter("Ada", 25) ET presenter("Bob", 17) pour vérifier
+#  que ta fonction marche avec N'IMPORTE QUEL nom et N'IMPORTE QUEL age
+#  — pas seulement avec "Ada". Si ton code dit toujours "Ada" même quand
+#  on lui donne "Bob", c'est que tu as écrit nom = "Ada" dans la fonction
+#  au lieu d'UTILISER le paramètre nom tel quel.
+#
+#  Comment lire une ligne de test :
 #      verifie(presenter, "Ada", 25, attendu="Je m'appelle Ada et j'ai 25 ans.")
-#   ↑  appelle  presenter("Ada", 25)  et compare le résultat au texte attendu.
+#   → appelle  presenter("Ada", 25)  et compare le résultat au texte attendu.
+#      verifie(presenter, "Bob", 17, attendu="Je m'appelle Bob et j'ai 17 ans.")
+#   → appelle  presenter("Bob", 17)  — ta fonction doit marcher aussi pour Bob !
 # ════════════════════════════════════════════════════════════════════
 import types as _types
 
