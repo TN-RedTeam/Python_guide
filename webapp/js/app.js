@@ -884,7 +884,7 @@ function viewHome() {
   const cards = CONTENT.modules.map((m) => {
     const p = progress.of(m.id);
     const sub = p.total > 0 ? `Exercices : ${p.ok}/${p.total} réussis`
-      : m.exercices ? "Exercices auto-corrigés" : "Lecture + démos";
+      : m.exercices ? "Cours + exercices" : "Lecture + démos";
     return `<a class="card" href="#/module/${m.id}">
       <span class="emoji">${m.emoji}</span>
       <span class="card-body">
@@ -901,7 +901,7 @@ function viewHome() {
   view.innerHTML = `
     <div class="hero">
       <h1>Apprends Python,<br>directement dans ton navigateur 🐍</h1>
-      <p>Cours en français, exercices auto-corrigés et un vrai Python intégré —
+      <p>Cours en français, exercices à faire toi-même et un vrai Python intégré —
          aucune installation, même sur ton téléphone Android.</p>
       ${cont}
       <div class="progress-track" style="margin-top:1rem"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -972,8 +972,9 @@ function viewModule(id, tab) {
     host.appendChild(md);
     renderMarkdown(mod.readme, md);
   } else if (tab === "exercices") {
-    const note = mod.note || "Complète les fonctions (remplace les « ... »), puis ▶ Exécuter : "
-      + "tu verras tes ✅/❌ en direct. Ton code est sauvegardé sur cet appareil.";
+    const note = mod.note || "Lis la consigne de chaque exercice, écris ton code dans l'espace "
+      + "« ✏️ ton code ici », puis ▶ Exécuter et compare ce qui s'affiche au « 👀 Résultat "
+      + "attendu » indiqué juste au-dessus. Ton code est sauvegardé sur cet appareil.";
     createIDE(host, {
       code: mod.exercices,
       storageKey: id + ":exo",

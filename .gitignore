@@ -136,6 +136,10 @@ dmypy.json
 *_perso.py
 mon_travail/
 
+# Petits fichiers créés par les exercices sur les fichiers (modules 04, 10…)
+essai.txt
+journal.txt
+
 # Binaires compilés (C, C++, Go, Asm) — on ne versionne que le code source
 *.o
 *.out
