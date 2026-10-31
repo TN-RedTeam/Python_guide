@@ -6,15 +6,15 @@ EXERCICES — Module 02 : les collections (listes, dictionnaires, sets)
 
 ──────────────────────────────────────────────────────────────────────
  COMMENT ÇA MARCHE (lis-les une fois) :
-   • Chaque exercice te donne les données de départ — elles sont ÉCRITES,
-     tu les VOIS (une liste, un dict…). Rien n'est caché.
+   • Chaque exercice part de données CONCRÈTES et VISIBLES — ici, des
+     fichiers de ton ordinateur (noms, tailles, extensions).
    • Tu écris ton code dans l'espace « ✏️ ton code ici », puis print.
-   • Tu lances le fichier, tu regardes ce qui s'affiche, et tu compares
-     avec le « 👀 Résultat attendu » écrit au-dessus. C'est tout.
+   • Tu lances, tu compares l'affichage au « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
- Pas de fonction, pas de correction automatique. Tu peux changer les
- données de départ pour tester toi-même.
+ Les données sont écrites ici en dur pour que ce soit simple à tester.
+ Les notes « 💡 Sur ton PC » montrent comment faire pareil pour de vrai
+ (tu le feras au module 10 « fichiers & dossiers »).
 
  Lancer :   python3 exercices.py
  Cours : README.md   •   Corrigé (si bloqué) : solutions.py
@@ -22,99 +22,101 @@ EXERCICES — Module 02 : les collections (listes, dictionnaires, sets)
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 1 — Lire un élément d'une liste
+#  EXERCICE 1 — Le 2e fichier de la liste
 # ══════════════════════════════════════════════════════════════════════
-#  La liste  fruits  contient 3 fruits. Affiche le DEUXIÈME.
+#  fichiers  est la liste des fichiers d'un dossier. Affiche le DEUXIÈME.
 #  Rappel : les positions commencent à 0 (donc le 2e est à l'index 1).
 #
-#  👀 Résultat attendu :
-#     banane
-
-fruits = ["pomme", "banane", "cerise"]
-
-# ✏️ ton code ici (affiche fruits[?]) :
-
-
-
-# ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 2 — Le total d'un panier (dictionnaire)
-# ══════════════════════════════════════════════════════════════════════
-#  Le dict  panier  associe chaque produit à son prix.
-#  Affiche la somme de tous les prix.
-#  Indice :  panier.values()  donne tous les prix  →  sum(...) les additionne.
+#  💡 Sur ton PC : cette liste, c'est ce que renvoie os.listdir("mon_dossier").
 #
 #  👀 Résultat attendu :
-#     2.0
+#     photo.jpg
 
-panier = {"pain": 1.2, "lait": 0.8}
+fichiers = ["rapport.pdf", "photo.jpg", "notes.txt"]
+
+# ✏️ ton code ici (affiche fichiers[?]) :
+
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 2 — La taille totale du dossier
+# ══════════════════════════════════════════════════════════════════════
+#  tailles_mo  donne la taille (en Mo) de chaque fichier. Affiche la
+#  taille TOTALE du dossier (la somme de toutes les tailles).
+#  Indice :  tailles_mo.values()  donne les tailles  →  sum(...) les additionne.
+#
+#  👀 Résultat attendu :
+#     705
+
+tailles_mo = {"film.mp4": 700, "photo.jpg": 4, "cv.pdf": 1}
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 3 — Compter dans une liste
+#  EXERCICE 3 — Compter les photos (.jpg)
 # ══════════════════════════════════════════════════════════════════════
-#  Dans la liste  notes, compte combien de fois apparaît la note 2,
+#  Dans la liste  fichiers, compte combien se terminent par ".jpg",
 #  et affiche ce nombre.
-#  Indice : pars d'un compteur à 0, parcours la liste avec un for,
-#           et à chaque fois que l'élément vaut 2, ajoute 1.
+#  Indice :  "photo.jpg".endswith(".jpg")  vaut True. Pars d'un compteur à 0,
+#            parcours la liste, et +1 à chaque fichier qui finit par ".jpg".
 #
 #  👀 Résultat attendu :
 #     3
 
-notes = [1, 2, 2, 3, 2]
+fichiers = ["vacances.jpg", "cv.pdf", "chat.jpg", "notes.txt", "profil.jpg"]
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 4 — Les produits en rupture (parcourir un dict)
+#  EXERCICE 4 — Trouver les fichiers vides
 # ══════════════════════════════════════════════════════════════════════
-#  Le dict  stock  associe chaque produit à sa quantité.
-#  Affiche le nom de chaque produit dont la quantité vaut 0.
-#  Indice :  for produit, quantite in stock.items():   puis un if.
+#  tailles  donne la taille (en octets) de chaque fichier. Affiche le nom
+#  de chaque fichier VIDE (taille 0) — pratique pour faire le ménage.
+#  Indice :  for nom, taille in tailles.items():   puis un if.
 #
-#  👀 Résultat attendu (une ligne par produit en rupture) :
-#     poires
-#     kiwis
+#  👀 Résultat attendu (une ligne par fichier vide) :
+#     vide.txt
+#     temp.log
 
-stock = {"pommes": 5, "poires": 0, "kiwis": 0}
+tailles = {"notes.txt": 12, "vide.txt": 0, "temp.log": 0}
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 5 — Enlever les doublons et trier
+#  EXERCICE 5 — La liste des types de fichiers présents
 # ══════════════════════════════════════════════════════════════════════
-#  La liste  valeurs  contient des doublons. Affiche la liste des valeurs
-#  DISTINCTES, triées dans l'ordre croissant.
+#  extensions  contient l'extension de chaque fichier (avec des répétitions).
+#  Affiche la liste des extensions DISTINCTES, triées par ordre alphabétique.
 #  Indice :  set(...) enlève les doublons,  sorted(...) trie et renvoie une liste.
 #
 #  👀 Résultat attendu :
-#     [1, 2, 3]
+#     ['.jpg', '.pdf', '.txt']
 
-valeurs = [3, 1, 2, 3, 1]
+extensions = [".jpg", ".txt", ".jpg", ".pdf", ".txt"]
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 6 — Compter chaque mot (le défi)
+#  EXERCICE 6 — Combien de fichiers par type ? (le défi)
 # ══════════════════════════════════════════════════════════════════════
-#  La liste  mots  contient des mots répétés. Construis un dictionnaire
-#  qui dit combien de fois chaque mot apparaît, puis affiche-le.
-#  Indice : pars d'un dict vide, et pour chaque mot :
-#           compteur[mot] = compteur.get(mot, 0) + 1
-#           (.get(mot, 0) renvoie le compte actuel, ou 0 si le mot est nouveau)
+#  À partir de  extensions, construis un dictionnaire qui dit combien de
+#  fichiers il y a de chaque type, puis affiche-le.
+#  Indice : pars d'un dict vide, et pour chaque extension :
+#           compteur[ext] = compteur.get(ext, 0) + 1
+#           (.get(ext, 0) renvoie le compte actuel, ou 0 si c'est un nouveau type)
 #
 #  👀 Résultat attendu :
-#     {'a': 2, 'b': 1}
+#     {'.jpg': 2, '.txt': 1}
 
-mots = ["a", "b", "a"]
+extensions = [".jpg", ".txt", ".jpg"]
 
 # ✏️ ton code ici :
 

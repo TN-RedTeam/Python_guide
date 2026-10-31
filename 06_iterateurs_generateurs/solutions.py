@@ -10,30 +10,30 @@ Lance-le (python3 solutions.py) pour voir tous les résultats attendus.
 """
 
 
-# ── EXERCICE 1 — Filtrer une liste ───────────────────────────────────
-nombres = [3, -1, 0, 7, -2]
-print([n for n in nombres if n > 0])      # [3, 7]
-# Lecture : [ ce qu'on garde  for n in source  if condition ]
+# ── EXERCICE 1 — Garder seulement les photos ─────────────────────────
+fichiers = ["vacances.jpg", "cv.pdf", "chat.jpg", "notes.txt"]
+print([f for f in fichiers if f.endswith(".jpg")])   # ['vacances.jpg', 'chat.jpg']
+# Lecture : [ ce qu'on garde  for f in source  if condition ]
 
 
-# ── EXERCICE 2 — Transformer une liste ───────────────────────────────
-noms = ["ada", "bob"]
-print([nom.upper() for nom in noms])      # ['ADA', 'BOB']
+# ── EXERCICE 2 — Normaliser des noms de fichiers ─────────────────────
+noms = ["Rapport.PDF", "CV.Pdf"]
+print([nom.lower() for nom in noms])                 # ['rapport.pdf', 'cv.pdf']
 
 
-# ── EXERCICE 3 — Additionner au vol ──────────────────────────────────
-n = 4
-print(sum(i ** 2 for i in range(n)))      # 0+1+4+9 -> 14
-# Les parenthèses (au lieu de crochets) créent un générateur : aucune
-# liste n'est construite, sum additionne les carrés au fur et à mesure.
+# ── EXERCICE 3 — Taille totale des gros fichiers ─────────────────────
+tailles = [120, 4, 700, 12]
+print(sum(t for t in tailles if t > 10))             # 120 + 700 + 12 -> 832
+# Les parenthèses (au lieu de crochets) créent un générateur : aucune liste
+# n'est construite, sum additionne au fur et à mesure, en ignorant le 4.
 
 
-# ── EXERCICE 4 — Écrire un générateur (yield) ────────────────────────
-def pairs_jusqua(limite):
-    n = 0
-    while n < limite:
-        yield n          # livre n, met la fonction en pause, reprend ici ensuite
-        n += 2
+# ── EXERCICE 4 — Lire les lignes non vides (générateur) ──────────────
+def lignes_utiles(texte):
+    for ligne in texte.splitlines():   # découpe en lignes : ['achat lait', '', 'achat pain']
+        if ligne.strip():              # ignore les lignes vides
+            yield ligne                # livre la ligne, se met en pause, reprend ensuite
 
-print(list(pairs_jusqua(10)))             # [0, 2, 4, 6, 8]
+texte = "achat lait\n\nachat pain\n"
+print(list(lignes_utiles(texte)))      # ['achat lait', 'achat pain']
 # list(...) déroule le générateur jusqu'au bout pour tout afficher.

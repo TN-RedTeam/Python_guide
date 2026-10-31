@@ -48,6 +48,10 @@ chemin = Path(tempfile.mkdtemp()) / "note.txt"
 #  Indice : Path(dossier).iterdir() donne les éléments ; element.name = le nom ;
 #           sorted(...) trie.
 #
+#  💡 Sur ton PC : remplace  dossier  par un vrai chemin, ex.
+#     dossier = "/home/toi/Documents" (ou "C:/Users/Toi/Documents"), pour
+#     lister TES propres fichiers.
+#
 #  👀 Résultat attendu :
 #     ['a.txt', 'b.txt', 'c.csv']
 
@@ -103,6 +107,9 @@ chemin_json = Path(tempfile.mkdtemp()) / "data.json"
 #  Le dossier contient a.txt, b.txt, c.csv.
 #  Affiche la liste triée des noms qui se terminent par ".txt".
 #  Indice : garde l'élément si  element.suffix == ".txt".
+#
+#  💡 Sur ton PC : pointe  dossier5  vers un vrai dossier pour retrouver, par
+#     exemple, tous tes .pdf ou tes .jpg (change ".txt" par l'extension voulue).
 #
 #  👀 Résultat attendu :
 #     ['a.txt', 'b.txt']

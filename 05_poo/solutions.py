@@ -10,16 +10,16 @@ Lance-le (python3 solutions.py) pour voir tous les résultats attendus.
 """
 
 
-# ── EXERCICE 1 — Ta première classe ──────────────────────────────────
-class Animal:
-    def __init__(self, nom, cri):
+# ── EXERCICE 1 — Ta première classe : un Fichier ─────────────────────
+class Fichier:
+    def __init__(self, nom, taille_mo):
         self.nom = nom              # on RANGE les valeurs reçues dans l'objet
-        self.cri = cri
-    def parler(self):
-        return f"{self.nom} fait {self.cri} !"   # on RELIT self.nom et self.cri
+        self.taille_mo = taille_mo
+    def description(self):
+        return f"{self.nom} ({self.taille_mo} Mo)"   # on RELIT self.nom et self.taille_mo
 
-rex = Animal("Rex", "Wouf")         # c'est TOI qui donnes "Rex" et "Wouf"
-print(rex.parler())                 # Rex fait Wouf !
+f = Fichier("video.mp4", 700)       # c'est TOI qui donnes "video.mp4" et 700
+print(f.description())              # video.mp4 (700 Mo)
 
 
 # ── EXERCICE 2 — Une classe avec des calculs ─────────────────────────
@@ -48,7 +48,7 @@ print(c.aire())        # 25
 print(c.perimetre())   # 20
 
 
-# ── EXERCICE 4 — Un objet qui garde un état ──────────────────────────
+# ── EXERCICE 4 — Un objet qui garde un état : un compte ──────────────
 class CompteBancaire:
     def __init__(self, solde=0):
         self.solde = solde

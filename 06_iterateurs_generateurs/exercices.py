@@ -6,8 +6,8 @@ EXERCICES — Module 06 : itérateurs & générateurs
 
 ──────────────────────────────────────────────────────────────────────
  COMMENT ÇA MARCHE :
-   • Les données de départ sont ÉCRITES et VISIBLES (une liste, un nombre).
-   • Tu écris ton code dans l'espace prévu, puis tu affiches le résultat.
+   • Les données de départ sont ÉCRITES et VISIBLES (des fichiers, des
+     tailles, du texte). Tu écris ton code, puis tu affiches le résultat.
    • Tu lances, tu compares l'affichage au « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
@@ -16,68 +16,71 @@ EXERCICES — Module 06 : itérateurs & générateurs
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 1 — Filtrer une liste (compréhension)
+#  EXERCICE 1 — Garder seulement les photos (compréhension + filtre)
 # ══════════════════════════════════════════════════════════════════════
-#  Dans la liste  nombres, garde seulement les nombres > 0, et affiche la
-#  liste obtenue.
-#  Indice (compréhension de liste) :  [n for n in nombres if n > 0]
+#  Dans la liste  fichiers, garde seulement ceux qui finissent par ".jpg",
+#  et affiche la liste obtenue.
+#  Indice (compréhension de liste) :  [f for f in fichiers if f.endswith(".jpg")]
 #
 #  👀 Résultat attendu :
-#     [3, 7]
+#     ['vacances.jpg', 'chat.jpg']
 
-nombres = [3, -1, 0, 7, -2]
+fichiers = ["vacances.jpg", "cv.pdf", "chat.jpg", "notes.txt"]
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 2 — Transformer une liste (compréhension)
+#  EXERCICE 2 — Normaliser des noms de fichiers (compréhension + transfo)
 # ══════════════════════════════════════════════════════════════════════
-#  Mets chaque nom de la liste  noms  en MAJUSCULES, et affiche la liste.
-#  Indice :  "ada".upper()  ->  "ADA"  ;  en compréhension : [x.upper() for x in noms]
+#  Mets chaque nom de la liste  noms  en minuscules (pour uniformiser),
+#  et affiche la liste.
+#  Indice :  "Rapport.PDF".lower()  ->  "rapport.pdf"  ;  [x.lower() for x in noms]
 #
 #  👀 Résultat attendu :
-#     ['ADA', 'BOB']
+#     ['rapport.pdf', 'cv.pdf']
 
-noms = ["ada", "bob"]
+noms = ["Rapport.PDF", "CV.Pdf"]
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 3 — Additionner au vol (expression génératrice)
+#  EXERCICE 3 — Taille totale des gros fichiers (expression génératrice)
 # ══════════════════════════════════════════════════════════════════════
-#  n vaut 4. Calcule et affiche la somme des carrés de 0 à n-1 :
-#  0² + 1² + 2² + 3²  (= 0 + 1 + 4 + 9).
-#  Indice :  sum(i ** 2 for i in range(n))   (pas de liste créée, on additionne au vol)
+#  tailles  est la taille (en Mo) de plusieurs fichiers. Additionne et
+#  affiche uniquement la taille des fichiers de PLUS de 10 Mo.
+#  Indice :  sum(t for t in tailles if t > 10)   (on additionne au vol, sans
+#            créer de liste intermédiaire)
 #
 #  👀 Résultat attendu :
-#     14
+#     832
 
-n = 4
+tailles = [120, 4, 700, 12]
 
 # ✏️ ton code ici :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 4 — Écrire un générateur (yield) — le défi
+#  EXERCICE 4 — Lire les lignes non vides (écrire un générateur) — défi
 # ══════════════════════════════════════════════════════════════════════
-#  Écris un GÉNÉRATEUR  pairs_jusqua(limite)  qui PRODUIT (yield) les
-#  nombres pairs de 0 jusqu'à limite (exclu), un par un.
+#  texte  est le contenu d'un fichier (avec des lignes vides). Écris un
+#  GÉNÉRATEUR  lignes_utiles(texte)  qui PRODUIT (yield) seulement les lignes
+#  NON vides, une par une.
 #  Indice :
-#     def pairs_jusqua(limite):
-#         n = 0
-#         while n < limite:
-#             yield n          # livre n, puis se met en pause
-#             n += 2
-#  Puis appelle-le et affiche la liste :  print(list(pairs_jusqua(10)))
-#  (list(...) déroule le générateur pour tout voir d'un coup)
+#     def lignes_utiles(texte):
+#         for ligne in texte.splitlines():   # découpe le texte en lignes
+#             if ligne.strip():              # vraie seulement si la ligne a du contenu
+#                 yield ligne
+#  Puis appelle-le et affiche la liste :  print(list(lignes_utiles(texte)))
 #
 #  👀 Résultat attendu :
-#     [0, 2, 4, 6, 8]
+#     ['achat lait', 'achat pain']
+
+texte = "achat lait\n\nachat pain\n"
 
 # ✏️ ton code ici (le générateur, puis le print) :
 
