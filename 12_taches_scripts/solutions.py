@@ -4,47 +4,38 @@
 """
 SOLUTIONS — Module 12 : scripts réutilisables (argparse)
 
-Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
+Le corrigé des exercices de exercices.py, code complet et commenté.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
+
+Lance-le (python3 solutions.py) : il affiche les résultats attendus.
 """
 
 import argparse
 
 
-def construire_parseur():
-    """Parseur avec --source (obligatoire) et --destination (défaut)."""
-    parseur = argparse.ArgumentParser(description="Sauvegarde un dossier")
-    parseur.add_argument("--source", required=True, help="Dossier à sauvegarder")
-    parseur.add_argument("--destination", default="sauvegardes", help="Où copier")
-    return parseur
+# ── EXERCICE 1 — Construire un nom d'archive ─────────────────────────
+source = "docs"
+date = "2026-06-19"
+print(f"{source}_{date}.zip")
 
 
-def nom_archive(source, date):
-    """Nom d'archive : <source>_<date>.zip."""
-    return f"{source}_{date}.zip"
+# ── EXERCICE 2 — Un parseur avec une option par défaut ───────────────
+parseur = argparse.ArgumentParser(description="Sauvegarde un dossier")
+parseur.add_argument("--source", required=True)            # obligatoire
+parseur.add_argument("--destination", default="sauvegardes")  # défaut si absent
+args = parseur.parse_args(["--source", "docs"])
+print(args.source)        # docs
+print(args.destination)   # sauvegardes (la valeur par défaut)
 
 
-# ════════════════════════════════════════════════════════════════════
-#  Auto-vérification
-# ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
+# ── EXERCICE 3 — Quand l'option est fournie ──────────────────────────
+args2 = parseur.parse_args(["--source", "docs", "--destination", "sav"])
+print(args2.source)        # docs
+print(args2.destination)   # sav (la valeur donnée remplace le défaut)
 
 
-def _verifier():
-    print("--- Vérification — module 12 (solutions) ---")
-    p = construire_parseur()
-    res = [
-        _check("destination par défaut", p.parse_args(["--source", "docs"]).destination, "sauvegardes"),
-        _check("source lue", p.parse_args(["--source", "docs", "--destination", "sav"]).source, "docs"),
-        _check("nom_archive('docs','2026-06-19')", nom_archive("docs", "2026-06-19"), "docs_2026-06-19.zip"),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+# ── EXERCICE 4 — Un drapeau vrai/faux (--verbose) ────────────────────
+parseur2 = argparse.ArgumentParser()
+parseur2.add_argument("--verbose", action="store_true")   # présent = True
+args3 = parseur2.parse_args(["--verbose"])
+print(args3.verbose)       # True

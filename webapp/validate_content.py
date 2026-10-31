@@ -9,10 +9,9 @@ erreur (code 1) au premier problème, en listant TOUT ce qui ne va pas.
 Contrôles :
   1. Structure de content.json : chaque module a id / titre / emoji / readme ;
      un module avec `exercices` a des `solutions` (et inversement).
-  2. Parité exercices ↔ solutions : mêmes fonctions définies de part et d'autre
-     (sinon un corrigé « décalé » passe inaperçu).
-  3. Contrat d'auto-correction : chaque `solutions.py` imprime bien « N/N réussis ».
-  4. Liens internes des cours (.md) : les chemins relatifs pointent sur des
+  2. Parité exercices ↔ solutions : toute fonction/classe définie DANS un
+     exercice (ex. les fonctions buggées du module 07) existe dans le corrigé.
+  3. Liens internes des cours (.md) : les chemins relatifs pointent sur des
      fichiers/dossiers qui existent vraiment (pas de lien mort).
 """
 
@@ -99,15 +98,11 @@ def valider_exercices() -> None:
         if not sol.exists():
             erreur(f"{module} : exercices.py sans solutions.py.")
             continue
-        # Contrat de scoring : l'app lit un bilan « … réussis » dans la sortie
-        # de l'EXERCICE. Sans lui, l'auto-correction (bandeau de score) est morte.
-        if "réussis" not in exo.read_text(encoding="utf-8"):
-            erreur(
-                f"{module}/exercices.py : pas de bilan « réussis » "
-                f"(l'auto-correction de l'app en dépend)."
-            )
-        # Parité : toute unité (fonction/classe) à compléter dans l'exercice doit
-        # être corrigée dans les solutions. On tolère des aides en plus côté sol.
+        # Parité : toute unité (fonction/classe) définie DANS l'exercice (ex. les
+        # fonctions buggées du module 07) doit exister aussi dans les solutions.
+        # Le nouveau format d'exercices n'impose plus de fonctions (l'apprenant
+        # écrit son code à partir de valeurs visibles), donc beaucoup d'exercices
+        # ne définissent rien au premier niveau : la parité est alors triviale.
         manquantes = unites_pedagogiques(exo) - unites_pedagogiques(sol)
         if manquantes:
             erreur(

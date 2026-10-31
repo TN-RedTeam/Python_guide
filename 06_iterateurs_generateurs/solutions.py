@@ -4,55 +4,36 @@
 """
 SOLUTIONS — Module 06 : itérateurs & générateurs
 
-Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
+Le corrigé des exercices, avec le code complet et commenté.
+Lance-le (python3 solutions.py) pour voir tous les résultats attendus.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
 """
 
 
-def filtrer_positifs(nombres):
-    """Garde les nombres > 0."""
-    return [n for n in nombres if n > 0]
+# ── EXERCICE 1 — Filtrer une liste ───────────────────────────────────
+nombres = [3, -1, 0, 7, -2]
+print([n for n in nombres if n > 0])      # [3, 7]
+# Lecture : [ ce qu'on garde  for n in source  if condition ]
 
 
-def noms_en_majuscules(noms):
-    """Chaque nom en majuscules."""
-    return [nom.upper() for nom in noms]
+# ── EXERCICE 2 — Transformer une liste ───────────────────────────────
+noms = ["ada", "bob"]
+print([nom.upper() for nom in noms])      # ['ADA', 'BOB']
 
 
-def somme_carres(n):
-    """Somme des carrés de 0 à n-1 (expression génératrice : pas de liste créée)."""
-    return sum(i ** 2 for i in range(n))
+# ── EXERCICE 3 — Additionner au vol ──────────────────────────────────
+n = 4
+print(sum(i ** 2 for i in range(n)))      # 0+1+4+9 -> 14
+# Les parenthèses (au lieu de crochets) créent un générateur : aucune
+# liste n'est construite, sum additionne les carrés au fur et à mesure.
 
 
+# ── EXERCICE 4 — Écrire un générateur (yield) ────────────────────────
 def pairs_jusqua(limite):
-    """Générateur des pairs de 0 à limite (exclu)."""
     n = 0
     while n < limite:
-        yield n          # livre n, met en pause, reprend ici au next suivant
+        yield n          # livre n, met la fonction en pause, reprend ici ensuite
         n += 2
 
-
-# ════════════════════════════════════════════════════════════════════
-#  Auto-vérification
-# ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
-
-
-def _verifier():
-    print("--- Vérification — module 06 (solutions) ---")
-    res = [
-        _check("filtrer_positifs", filtrer_positifs([3, -1, 0, 7, -2]), [3, 7]),
-        _check("noms_en_majuscules", noms_en_majuscules(["ada", "bob"]), ["ADA", "BOB"]),
-        _check("somme_carres(4)", somme_carres(4), 14),
-        _check("list(pairs_jusqua(10))", list(pairs_jusqua(10)), [0, 2, 4, 6, 8]),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+print(list(pairs_jusqua(10)))             # [0, 2, 4, 6, 8]
+# list(...) déroule le générateur jusqu'au bout pour tout afficher.

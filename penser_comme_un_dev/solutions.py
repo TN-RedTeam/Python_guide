@@ -4,77 +4,60 @@
 """
 SOLUTIONS — 🧭 Penser comme un dev : les 5 patterns
 
-⚠️ Le corrigé n'aide que si tu as VRAIMENT essayé d'abord. Compare-le à TA
-version : l'écart entre les deux, c'est ta leçon.
+Le corrigé des exercices, en code complet et commenté.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
+L'écart entre TA version et celle-ci, c'est ta leçon.
+
+Lance-le (python3 solutions.py) : il affiche les résultats attendus.
 """
 
 
-# 1. ACCUMULATEUR
-def somme_liste(nombres):
-    total = 0
-    for n in nombres:
-        total = total + n
-    return total
+# ── EXERCICE 1 — ACCUMULATEUR ────────────────────────────────────────
+nombres = [2, 5, 3]
+total = 0                         # le « sac » qui démarre vide
+for n in nombres:
+    total = total + n             # on ajoute chaque nombre au sac
+print(total)                      # 10
 
 
-# 2. COMPTEUR
-def compter_mots_longs(mots):
-    compte = 0
-    for mot in mots:
-        if len(mot) > 3:
-            compte = compte + 1
-    return compte
+# ── EXERCICE 2 — COMPTEUR ────────────────────────────────────────────
+mots = ["ok", "chien", "a", "table"]
+compte = 0
+for mot in mots:
+    if len(mot) > 3:              # la condition à compter
+        compte = compte + 1
+print(compte)                     # 2  (chien, table)
 
 
-# 3. RECHERCHE + DRAPEAU
-def contient(nombres, cible):
-    trouve = False
-    for x in nombres:
-        if x == cible:
-            trouve = True
-    return trouve
+# ── EXERCICE 3 — RECHERCHE + DRAPEAU ─────────────────────────────────
+valeurs = [4, 8, 15]
+cible = 8
+trouve = False                    # le « drapeau » : pas encore vu
+for x in valeurs:
+    if x == cible:
+        trouve = True             # on lève le drapeau
+if trouve:
+    print("trouvé")
+else:
+    print("absent")               # trouvé
 
 
-# 4. FILTRE
-def garder_pairs(nombres):
-    gardes = []
-    for n in nombres:
-        if n % 2 == 0:
-            gardes.append(n)
-    return gardes
+# ── EXERCICE 4 — FILTRE ──────────────────────────────────────────────
+serie = [1, 2, 3, 4]
+gardes = []                       # la liste des élus démarre vide
+for n in serie:
+    if n % 2 == 0:
+        gardes.append(n)
+print(gardes)                     # [2, 4]
 
 
-# 5. CHAMPION (max) + cas limite
-def plus_grand(nombres):
-    if not nombres:
-        return None
-    meilleur = nombres[0]
-    for n in nombres:
-        if n > meilleur:
+# ── EXERCICE 5 — CHAMPION (max) + cas limite ─────────────────────────
+classement = [3, 9, 2]
+if not classement:                # CAS LIMITE : liste vide -> pas de champion
+    print(None)
+else:
+    meilleur = classement[0]      # on parie sur le premier
+    for n in classement:
+        if n > meilleur:          # quelqu'un fait mieux ? il devient champion
             meilleur = n
-    return meilleur
-
-
-def verifie(fonction, *arguments, attendu):
-    try:
-        obtenu = fonction(*arguments)
-    except Exception as e:
-        obtenu = f"ERREUR: {e}"
-    ok = (obtenu == attendu)
-    args_lisibles = ", ".join(repr(a) for a in arguments)
-    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
-    return ok
-
-
-if __name__ == "__main__":
-    resultats = [
-        verifie(somme_liste, [2, 5, 3], attendu=10),
-        verifie(somme_liste, [], attendu=0),
-        verifie(compter_mots_longs, ["ok", "chien", "a", "table"], attendu=2),
-        verifie(contient, [4, 8, 15], 8, attendu=True),
-        verifie(contient, [4, 8, 15], 9, attendu=False),
-        verifie(garder_pairs, [1, 2, 3, 4], attendu=[2, 4]),
-        verifie(plus_grand, [3, 9, 2], attendu=9),
-        verifie(plus_grand, [], attendu=None),
-    ]
-    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")
+    print(meilleur)               # 9

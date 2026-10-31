@@ -271,10 +271,11 @@ X_train, X_test = train_test_split(X, test_size=0.2)  # argument nommé = module
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
-de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même** (ici, tu
+écris la fonction PUIS tu l'appelles avec une valeur que tu choisis). Pas de correction
+automatique : chaque exercice montre un **résultat attendu**, tu lances, tu **compares**.
 
 ```bash
 python3 03_fonctions_modules/exercices.py

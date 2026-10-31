@@ -4,52 +4,40 @@
 """
 SOLUTIONS — Module 11 : web & APIs
 
-Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
+Le corrigé des exercices de exercices.py, code complet et commenté.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
+
+Lance-le (python3 solutions.py) : il affiche les résultats attendus.
 """
 
 import json
 
 
-def extraire_temperature(reponse_texte):
-    """Lit le JSON et renvoie la température."""
-    donnees = json.loads(reponse_texte)   # texte JSON → dict Python
-    return donnees["temperature"]
+# ── EXERCICE 1 — Lire une réponse JSON (texte → dict) ────────────────
+reponse_texte = '{"ville": "Paris", "temperature": 18}'
+donnees = json.loads(reponse_texte)    # texte JSON → dict Python
+print(donnees["temperature"])          # 18
+# Dans la vraie vie :
+#   import requests
+#   reponse = requests.get("https://.../meteo")
+#   donnees = reponse.json()            # requests fait le json.loads pour toi
 
 
-def noms_des_resultats(reponse):
-    """Liste des noms dans reponse["results"]."""
-    return [item["name"] for item in reponse["results"]]
+# ── EXERCICE 2 — Extraire une liste de champs ────────────────────────
+reponse = {"results": [{"name": "Ada"}, {"name": "Bob"}]}
+print([item["name"] for item in reponse["results"]])
 
 
-def statut_ok(code):
-    """Succès HTTP = code de la famille 2xx."""
-    return 200 <= code <= 299
+# ── EXERCICE 3 — Vérifier un code HTTP ───────────────────────────────
+code = 404
+if 200 <= code <= 299:        # la famille 2xx = succès
+    print("OK")
+else:
+    print("Erreur")
 
 
-# ════════════════════════════════════════════════════════════════════
-#  Auto-vérification
-# ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
-
-
-def _verifier():
-    print("--- Vérification — module 11 (solutions) ---")
-    res = [
-        _check("extraire_temperature(...)",
-               extraire_temperature('{"ville": "Paris", "temperature": 18}'), 18),
-        _check("noms_des_resultats(...)",
-               noms_des_resultats({"results": [{"name": "Ada"}, {"name": "Bob"}]}), ["Ada", "Bob"]),
-        _check("statut_ok(200)", statut_ok(200), True),
-        _check("statut_ok(404)", statut_ok(404), False),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+# ── EXERCICE 4 — Parser une réponse complète ─────────────────────────
+reponse_texte_2 = '{"count": 2, "results": [{"name": "pikachu"}, {"name": "bulbasaur"}]}'
+donnees2 = json.loads(reponse_texte_2)
+print(donnees2["count"])
+print([item["name"] for item in donnees2["results"]])

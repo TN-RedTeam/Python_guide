@@ -4,98 +4,48 @@
 """
 SOLUTIONS — Module 02 : les collections
 
-Corrige commente. Lance :   python3 solutions.py   (doit etre tout vert).
-⚠️ A consulter APRES avoir essaye exercices.py par toi-meme.
+Le corrigé des exercices, avec le code complet et commenté.
+Lance-le (python3 solutions.py) pour voir tous les résultats attendus.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
 """
 
 
-# ── NIVEAU 1 — REPRODUCTION ─────────────────────────────────────────
-
-def deuxieme_element(liste):
-    """Deuxieme element : index 1 (le premier est a l'index 0)."""
-    return liste[1]
+# ── EXERCICE 1 — Lire un élément d'une liste ─────────────────────────
+fruits = ["pomme", "banane", "cerise"]
+print(fruits[1])          # index 1 = le 2e élément (on compte à partir de 0)
 
 
-def total_panier(panier):
-    """Somme des prix (les valeurs du dict)."""
-    return sum(panier.values())       # .values() donne toutes les valeurs
+# ── EXERCICE 2 — Le total d'un panier ────────────────────────────────
+panier = {"pain": 1.2, "lait": 0.8}
+print(sum(panier.values()))   # .values() -> 1.2 et 0.8 ; sum les additionne -> 2.0
 
 
-# ── NIVEAU 2 — ADAPTATION ───────────────────────────────────────────
-
-def compter_occurrences(liste, valeur):
-    """Compte les apparitions de `valeur` — pattern COMPTEUR."""
-    total = 0
-    for element in liste:
-        if element == valeur:
-            total += 1
-    return total
-    # Variante : return liste.count(valeur)
+# ── EXERCICE 3 — Compter dans une liste ──────────────────────────────
+notes = [1, 2, 2, 3, 2]
+compteur = 0
+for note in notes:
+    if note == 2:
+        compteur = compteur + 1
+print(compteur)               # 3
+# Variante courte : print(notes.count(2))
 
 
-def produits_en_rupture(stock):
-    """Liste des produits dont la quantite vaut 0 — pattern .items() + filtre."""
-    resultat = []
-    for produit, quantite in stock.items():
-        if quantite == 0:
-            resultat.append(produit)
-    return resultat
-    # Variante : return [p for p, q in stock.items() if q == 0]
+# ── EXERCICE 4 — Les produits en rupture ─────────────────────────────
+stock = {"pommes": 5, "poires": 0, "kiwis": 0}
+for produit, quantite in stock.items():   # .items() donne (clé, valeur)
+    if quantite == 0:
+        print(produit)                     # poires, puis kiwis
 
 
-# ── NIVEAU 3 — COMBINAISON ──────────────────────────────────────────
-
-def sans_doublons_tries(liste):
-    """Valeurs distinctes, triees — combine set() + sorted()."""
-    return sorted(set(liste))     # set() retire les doublons, sorted() trie et renvoie une liste
+# ── EXERCICE 5 — Enlever les doublons et trier ───────────────────────
+valeurs = [3, 1, 2, 3, 1]
+print(sorted(set(valeurs)))   # set() enlève les doublons, sorted() trie -> [1, 2, 3]
 
 
-def inverser_dictionnaire(d):
-    """Echange cles et valeurs — combine .items() + construction d'un dict."""
-    inverse = {}
-    for cle, valeur in d.items():     # .items() donne (cle, valeur)
-        inverse[valeur] = cle         # la valeur devient la cle, et inversement
-    return inverse
-    # Variante : return {v: k for k, v in d.items()}
-
-
-# ── NIVEAU 4 — DEFI ─────────────────────────────────────────────────
-
-def compter_mots_liste(mots):
-    """Compte combien de fois chaque mot apparait — pattern compteur sur dict."""
-    compteur = {}
-    for mot in mots:
-        compteur[mot] = compteur.get(mot, 0) + 1
-    return compteur
-
-
-# ════════════════════════════════════════════════════════════════════
-#  Auto-verification
-# ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
-
-
-def _verifier():
-    print("--- Verification — module 02 (solutions) ---")
-    res = [
-        _check("deuxieme_element", deuxieme_element(["a", "b", "c"]), "b"),
-        _check("total_panier", total_panier({"pain": 1.2, "lait": 0.8}), 2.0),
-        _check("compter_occurrences", compter_occurrences([1, 2, 2, 3, 2], 2), 3),
-        _check("produits_en_rupture",
-               produits_en_rupture({"pommes": 5, "poires": 0, "kiwis": 0}),
-               ["poires", "kiwis"]),
-        _check("sans_doublons_tries", sans_doublons_tries([3, 1, 2, 3, 1]), [1, 2, 3]),
-        _check("inverser_dictionnaire", inverser_dictionnaire({"a": 1, "b": 2}), {1: "a", 2: "b"}),
-        _check("compter_mots_liste", compter_mots_liste(["a", "b", "a"]), {"a": 2, "b": 1}),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+# ── EXERCICE 6 — Compter chaque mot ──────────────────────────────────
+mots = ["a", "b", "a"]
+compteur_mots = {}
+for mot in mots:
+    compteur_mots[mot] = compteur_mots.get(mot, 0) + 1
+print(compteur_mots)          # {'a': 2, 'b': 1}
+# .get(mot, 0) : le compte actuel du mot, ou 0 s'il n'est pas encore dans le dict.

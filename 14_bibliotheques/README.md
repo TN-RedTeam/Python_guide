@@ -209,11 +209,11 @@ print(est_disponible("requests"))   # True seulement si tu l'as installé
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter (vérifier qu'un module est
-installé), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où tu écris ton
-code pour ce module.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même**, avec des
+données de départ **visibles** et un **résultat attendu** affiché. Pas de correction
+automatique : tu lances, tu regardes ce qui s'affiche, tu **compares**.
 
 ```bash
 python3 14_bibliotheques/exercices.py

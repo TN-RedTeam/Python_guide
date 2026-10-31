@@ -120,9 +120,10 @@ Un outil ne remplace pas le raisonnement. Face à un bug :
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : ici c'est une **chasse aux bugs**. Le fichier contient des
-fonctions **déjà écrites mais buggées** : lance-le, lis les ❌, trouve et corrige chaque bug
-jusqu'à tout passer au vert. C'est **LE** fichier où tu travailles pour ce module.
+**[`exercices.py`](./exercices.py)** : ici c'est une **chasse aux bugs** (le seul module où le
+code est fourni, car débugger c'est justement lire du code existant). Chaque fonction est **déjà
+écrite mais buggée**, et appelée juste en dessous avec une valeur visible : lance-le, compare le
+résultat affiché au **résultat attendu**, trouve la ligne fautive (repère 🐞) et corrige-la.
 
 ```bash
 python3 07_debugger/exercices.py

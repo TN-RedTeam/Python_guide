@@ -4,43 +4,35 @@
 """
 SOLUTIONS — Module 14 : les bibliothèques
 
-Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
+Le corrigé des exercices, en code complet et commenté.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
+
+Lance-le (python3 solutions.py) : il affiche les résultats attendus.
 """
 
-import importlib.util
+
+# ── EXERCICE 1 — Importer et utiliser math ───────────────────────────
+import math
+print(math.sqrt(16))              # 4.0
+# import math  charge TOUT le module ; on accède au contenu avec math.xxx
 
 
-def est_disponible(nom_module):
-    """True si le module est importable."""
-    return importlib.util.find_spec(nom_module) is not None   # None = introuvable
+# ── EXERCICE 2 — Importer juste une fonction ─────────────────────────
+from statistics import mean
+notes = [10, 20, 30]
+print(mean(notes))                # 20
+# from … import mean  amène SEULEMENT mean dans ton code (pas besoin de statistics.mean)
 
 
-def ligne_requirement(nom, version):
-    """Ligne requirements.txt avec version figée."""
-    return f"{nom}=={version}"
+# ── EXERCICE 3 — Renommer un module (import … as) ────────────────────
+import random as rnd
+rnd.seed(0)                       # fixe le hasard -> résultat reproductible
+print(rnd.randint(1, 6))          # 4  (toujours 4 grâce à seed(0))
+# "as rnd" donne un surnom plus court au module (comme numpy as np plus tard)
 
 
-# ════════════════════════════════════════════════════════════════════
-#  Auto-vérification
-# ════════════════════════════════════════════════════════════════════
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
-
-
-def _verifier():
-    print("--- Vérification — module 14 (solutions) ---")
-    res = [
-        _check("est_disponible('json')", est_disponible("json"), True),
-        _check("est_disponible('xyz_introuvable')", est_disponible("module_qui_nexiste_pas_xyz"), False),
-        _check("ligne_requirement('requests','2.31.0')", ligne_requirement("requests", "2.31.0"), "requests==2.31.0"),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+# ── EXERCICE 4 — Ligne de requirements.txt ───────────────────────────
+paquet = "requests"
+version = "2.31.0"
+print(f"{paquet}=={version}")     # requests==2.31.0
+# Le == fige la version : tout le monde installe EXACTEMENT la même.

@@ -147,9 +147,10 @@ Du code lisible se relit et se corrige plus vite. Deux familles d'outils :
 
 ### 🎯 L'exercice principal — commence par ça
 
-**[`exercices.py`](./exercices.py)** : ici, les **tests sont déjà écrits**. Ton travail :
-implémenter les fonctions pour faire passer les tests au vert (la démarche **TDD** : rouge →
-vert). C'est **LE** fichier où tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : pour chaque exercice, tu écris **toi-même** une fonction
+PUIS tu écris quelques `assert` pour la tester (c'est tout l'intérêt du module). Un `assert` faux
+plante (le « rouge ») ; quand tous passent, ton `print` final s'affiche (le « vert »). Tu lances
+et tu **compares** au résultat attendu.
 
 ```bash
 python3 09_tests_qualite/exercices.py

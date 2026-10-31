@@ -264,16 +264,19 @@ for client in dataset:
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
-de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même**. Pas de
+fonction à compléter, pas de correction automatique. Chacun te donne les **données de départ**
+(elles sont écrites, tu les vois), un **résultat attendu**, et un **espace** où tu écris ton code.
+Tu lances, tu regardes ce qui s'affiche, tu **compares** au résultat attendu.
 
 ```bash
 python3 02_collections/exercices.py
 ```
 
-Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py)
+(tu peux le lancer pour voir tous les résultats attendus).
 
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 

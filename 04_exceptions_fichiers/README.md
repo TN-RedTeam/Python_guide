@@ -182,10 +182,11 @@ except FileNotFoundError:
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, organisées en **4 niveaux**
-de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même**, avec des
+valeurs de départ **visibles** et un **résultat attendu** affiché. Pas de correction
+automatique : tu lances, tu regardes ce qui s'affiche, tu **compares**.
 
 ```bash
 python3 04_exceptions_fichiers/exercices.py

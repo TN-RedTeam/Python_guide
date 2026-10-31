@@ -149,11 +149,11 @@ prix = soup.find("p", class_="prix").text     # le <p class="prix">
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter pour **traiter une réponse JSON**
-(sans Internet), avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où tu
-écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même** pour
+**traiter une réponse JSON** (sans Internet). Les données de départ sont **visibles** et un
+**résultat attendu** est affiché. Pas de correction automatique : tu lances et tu **compares**.
 
 ```bash
 python3 11_web_apis/exercices.py
