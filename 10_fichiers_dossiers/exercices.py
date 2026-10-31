@@ -2,148 +2,115 @@
 # -*- coding: utf-8 -*-
 
 """
-EXERCICES — Module 10 : fichiers & dossiers (pathlib, json)
+EXERCICES — Module 10 : fichiers & dossiers
 
-══════════════════════════════════════════════════════════════════════
- C'EST QUOI CE FICHIER ?
- Une série de fonctions À TROUS que tu complètes toi-même. Tu lances le
- fichier, et il TESTE tes réponses : ✅ = réussi, ❌ = encore à corriger.
-══════════════════════════════════════════════════════════════════════
+──────────────────────────────────────────────────────────────────────
+ COMMENT ÇA MARCHE (lis-les une fois) :
+   • Chaque exercice prépare un petit dossier de test (tu VOIS le code qui
+     le crée) dans un dossier temporaire — rien n'est touché chez toi.
+   • Tu écris ton code dans l'espace « ✏️ ton code ici ».
+   • Tu lances le fichier, tu regardes ce qui s'affiche, et tu compares
+     avec le « 👀 Résultat attendu ».
+──────────────────────────────────────────────────────────────────────
 
-▶ AVANT DE COMMENCER (dans cet ordre) :
-    1. Lis le cours du module       →  README.md  (dans ce dossier)
-    2. Observe l'exemple commenté   →  lire_ecrire.py  (puis csv_json.py)
-  Les exercices ne demandent RIEN de plus que ce qui y est expliqué.
+ Pas de correction automatique : juste toi, du code, et ce qui s'affiche.
 
-▶ COMMENT COMPLÉTER UNE FONCTION :
-    • Chaque fonction contient une ligne « ... » (trois points) : c'est le
-      TROU à remplir. Efface ce « ... » et écris ton code à la place, juste
-      sous le commentaire « # TODO ».
-    • Garde les 4 espaces en début de ligne : en Python, ce décalage
-      (l'indentation) signifie « ce code est À L'INTÉRIEUR de la fonction ».
-    • Pense au « return » : une fonction doit RENVOYER son résultat. Sans
-      « return », elle ne renvoie « rien » (None) et le test échoue.
-
-  Exemple — au départ, la fonction a un trou :
-
-      def double(n):
-          ...
-
-  À toi de remplacer le « ... » par la vraie réponse :
-
-      def double(n):
-          return n * 2
-
-  Chaque fonction t'explique tout ce qu'il faut : son OBJECTIF, un EXEMPLE, et
-  les ÉTAPES pour y arriver. Tu n'as PAS besoin de lire le bas du fichier.
-
-▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
-  Ne code pas directement dans ce fichier (il est suivi par git). Copie-le et
-  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
-  guide (« git pull ») ne touchera jamais ton travail :
-      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
-
-▶ LANCER LES TESTS :   python3 exercices.py
-  Pour chaque ❌, le test affiche ce qu'il ATTENDAIT et ce que TA fonction
-  a renvoyé : compare les deux, ton erreur est dans l'écart.
-
-▶ BLOQUÉ ? Réessaie en relisant l'indice écrit dans la fonction. En tout
-  dernier recours, ouvre solutions.py (le corrigé commenté).
+ Lancer :   python3 exercices.py
+ Cours dans README.md ; corrigé (si vraiment bloqué) dans solutions.py.
 """
 
 from pathlib import Path
-import json
+import tempfile, json
 
 
-def lister_noms(dossier):
-    """OBJECTIF : renvoyer la liste TRIÉE des noms des fichiers/dossiers présents
-    dans `dossier` (un chemin, str ou Path).
-
-    Exemple : si le dossier contient a.txt et b.txt  ->  ["a.txt", "b.txt"]
-
-    Comment t'y prendre :
-      1. Path(dossier).iterdir() donne chaque élément du dossier (un Path) ;
-      2. l'attribut .name donne le nom court (ex. "a.txt") ;
-      3. construis la liste des .name, puis renvoie-la triée avec sorted(...).
-    """
-    ...   # ⬅️ remplace cette ligne par ton code
-
-
-def compter_par_extension(dossier):
-    """OBJECTIF : renvoyer un dict {extension: nombre} comptant les fichiers de
-    `dossier` par extension.
-
-    Exemple : pour a.txt, b.txt, c.csv  ->  {".txt": 2, ".csv": 1}
-
-    Comment t'y prendre :
-      1. crée un dict vide : compte = {} ;
-      2. parcours Path(dossier).iterdir() ; l'attribut .suffix donne l'extension (".txt") ;
-      3. incrémente : compte[ext] = compte.get(ext, 0) + 1
-         (.get(ext, 0) renvoie 0 si l'extension n'a pas encore été vue) ;
-      4. renvoie compte.
-    """
-    ...   # ⬅️ remplace cette ligne par ton code
-
-
-def sauver_puis_charger_json(chemin, donnees):
-    """OBJECTIF : écrire `donnees` (un dict) au format JSON dans `chemin`, puis
-    le recharger depuis le fichier et le renvoyer.
-
-    Exemple : sauver_puis_charger_json("/tmp/x.json", {"a": 1})  ->  {"a": 1}
-
-    Comment t'y prendre :
-      1. ÉCRIRE : with open(chemin, "w", encoding="utf-8") as f:  puis  json.dump(donnees, f) ;
-      2. LIRE   : with open(chemin, "r", encoding="utf-8") as f:  puis  resultat = json.load(f) ;
-      3. renvoie resultat.
-    """
-    ...   # ⬅️ remplace cette ligne par ton code
-
-
-# ════════════════════════════════════════════════════════════════════
-#  ▶ ON TESTE TON CODE — lance le fichier pour voir tes ✅ / ❌
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 1 — Écrire puis relire un fichier
+# ══════════════════════════════════════════════════════════════════════
+#  On te donne un chemin de fichier (dans un dossier temporaire).
+#  Écris le texte "Bonjour" dedans, puis relis-le et affiche-le.
+#  Indice : chemin.write_text("...", encoding="utf-8")  pour écrire,
+#           chemin.read_text(encoding="utf-8")          pour relire.
 #
-#  C'est ICI qu'on APPELLE tes fonctions, avec un vrai dossier de test
-#  (créé pour l'occasion, tes vrais fichiers ne sont pas touchés).
-#  → Le chemin du dossier est juste l'ARGUMENT qu'on passe à l'appel.
-#  C'est normal : en HAUT on DÉFINIT les fonctions, et plus bas on les
-#  UTILISE (définir une fonction ≠ l'appeler).
+#  👀 Résultat attendu :
+#     Bonjour
+
+chemin = Path(tempfile.mkdtemp()) / "note.txt"
+
+# ✏️ ton code ici :
+
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 2 — Lister le contenu d'un dossier (par ordre alphabétique)
+# ══════════════════════════════════════════════════════════════════════
+#  Le dossier contient 3 fichiers : a.txt, b.txt, c.csv.
+#  Affiche la liste de leurs noms, triés par ordre alphabétique.
+#  Indice : Path(dossier).iterdir() donne les éléments ; element.name = le nom ;
+#           sorted(...) trie.
 #
-#  Comment lire une ligne d'essai :
-#      verifie(lister_noms, dossier, attendu=["a.txt", "b.txt", "c.csv"])
-#   ↑  appelle  lister_noms(dossier)  et compare au résultat attendu.
-# ════════════════════════════════════════════════════════════════════
-import types as _types
+#  👀 Résultat attendu :
+#     ['a.txt', 'b.txt', 'c.csv']
+
+dossier = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier) / nom).write_text("x", encoding="utf-8")
+
+# ✏️ ton code ici :
 
 
-def verifie(fonction, *arguments, attendu):
-    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
-    try:
-        obtenu = fonction(*arguments)
-        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
-            obtenu = list(obtenu)
-    except Exception as e:
-        obtenu = f"ERREUR: {e}"
-    ok = (obtenu == attendu)
-    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
-    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
-    if not ok:
-        print(f"     ⚠️  ton code a renvoyé : {obtenu!r}")
-    return ok
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 3 — Compter les fichiers par extension
+# ══════════════════════════════════════════════════════════════════════
+#  Le dossier contient a.txt, b.txt, c.csv.
+#  Construis un dictionnaire {extension: nombre} et affiche-le.
+#  Indice : element.suffix donne ".txt" ;
+#           compteur[ext] = compteur.get(ext, 0) + 1
+#
+#  👀 Résultat attendu (l'ordre des clés peut varier) :
+#     {'.txt': 2, '.csv': 1}
+
+dossier3 = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier3) / nom).write_text("x", encoding="utf-8")
+
+# ✏️ ton code ici :
 
 
-if __name__ == "__main__":
-    import tempfile, os
-    print("--- Module 10 : fichiers & dossiers ---\n")
 
-    # On prépare un dossier temporaire avec quelques fichiers pour les tests.
-    dossier = tempfile.mkdtemp()
-    for nom_fichier in ["a.txt", "b.txt", "c.csv"]:
-        Path(dossier, nom_fichier).write_text("x", encoding="utf-8")
-    chemin_json = os.path.join(dossier, "data.json")
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 4 — Sauver un dictionnaire en JSON, puis le relire
+# ══════════════════════════════════════════════════════════════════════
+#  On te donne un dictionnaire et un chemin de fichier.
+#  Écris le dictionnaire en JSON dans le fichier (json.dump), puis relis-le
+#  (json.load) et affiche le dictionnaire relu.
+#  Indice : with open(chemin_json, "w", encoding="utf-8") as f: json.dump(donnees, f)
+#           with open(chemin_json, "r", encoding="utf-8") as f: ... = json.load(f)
+#
+#  👀 Résultat attendu :
+#     {'ville': 'Paris', 'jours': 3}
 
-    resultats = [
-        verifie(lister_noms, dossier,                       attendu=["a.txt", "b.txt", "c.csv"]),
-        verifie(compter_par_extension, dossier,             attendu={".txt": 2, ".csv": 1}),
-        verifie(sauver_puis_charger_json, chemin_json, {"a": 1}, attendu={"a": 1}),
-    ]
-    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")
+donnees = {"ville": "Paris", "jours": 3}
+chemin_json = Path(tempfile.mkdtemp()) / "data.json"
+
+# ✏️ ton code ici :
+
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 5 — Ne garder que les fichiers .txt
+# ══════════════════════════════════════════════════════════════════════
+#  Le dossier contient a.txt, b.txt, c.csv.
+#  Affiche la liste triée des noms qui se terminent par ".txt".
+#  Indice : garde l'élément si  element.suffix == ".txt".
+#
+#  👀 Résultat attendu :
+#     ['a.txt', 'b.txt']
+
+dossier5 = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier5) / nom).write_text("x", encoding="utf-8")
+
+# ✏️ ton code ici :
+
+

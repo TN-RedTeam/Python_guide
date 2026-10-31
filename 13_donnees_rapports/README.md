@@ -110,11 +110,11 @@ ca_par_produit.to_excel("rapport.xlsx")            # en Excel (nécessite openpy
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter qui reproduisent la logique d'un
-rapport **sans pandas**, avec **correction automatique** (✅/❌ en direct). C'est **LE** fichier où
-tu écris ton code pour ce module.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même**, qui
+reproduisent la logique d'un rapport **sans pandas**. Les données de départ sont **visibles** et un
+**résultat attendu** est affiché. Pas de correction automatique : tu lances et tu **compares**.
 
 ```bash
 python3 13_donnees_rapports/exercices.py

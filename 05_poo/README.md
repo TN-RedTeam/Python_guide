@@ -166,10 +166,11 @@ mais tu dois savoir les **lire et les utiliser**.
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des classes à compléter, organisées en **niveaux**
-de difficulté avec un **RAPPEL DU COURS** dans chaque exercice.
+**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même** (tu écris
+la classe PUIS tu crées un objet avec des valeurs que tu choisis). Pas de correction
+automatique : chaque exercice montre un **résultat attendu**, tu lances, tu **compares**.
 
 ```bash
 python3 05_poo/exercices.py

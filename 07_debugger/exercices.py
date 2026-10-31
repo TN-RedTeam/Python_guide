@@ -4,112 +4,110 @@
 """
 EXERCICES — Module 07 : débugger (TROUVE ET CORRIGE LES BUGS)
 
-══════════════════════════════════════════════════════════════════════
- C'EST QUOI CE FICHIER ? (différent des autres modules !)
- Ici, PAS de trous à remplir. Les fonctions sont DÉJÀ écrites, mais elles
- CONTIENNENT DES BUGS volontaires. Ton travail : les trouver et corriger,
- jusqu'à ce que tous les tests passent au ✅.
-══════════════════════════════════════════════════════════════════════
+──────────────────────────────────────────────────────────────────────
+ COMMENT ÇA MARCHE (différent des autres modules !) :
+   • Les fonctions sont DÉJÀ écrites, mais elles contiennent un BUG.
+   • Juste en dessous, on les appelle avec une valeur VISIBLE et on
+     affiche le résultat — tu vois donc tout de suite le mauvais chiffre.
+   • Ton travail : corriger la ligne fautive, relancer, et vérifier que
+     l'affichage correspond au « 👀 Résultat attendu ».
+──────────────────────────────────────────────────────────────────────
 
-▶ AVANT DE COMMENCER :
-    1. Lis le cours du module       →  README.md  (dans ce dossier)
-    2. Observe l'exemple commenté   →  demo_debug.py
+ Outils de débogage : ajoute un print(...) au milieu du calcul pour voir
+ une valeur, ou pose un breakpoint() pour mettre en pause (n = ligne
+ suivante, p nom = afficher une variable, c = continuer, q = quitter).
 
-▶ LA MÉTHODE, ÉTAPE PAR ÉTAPE :
-    1. Lance :   python3 exercices.py   →  tu verras des ❌.
-    2. Pour chaque ❌, lis ce que le test ATTENDAIT et ce que la fonction a
-       renvoyé. L'écart entre les deux te met sur la piste du bug.
-    3. Comprends POURQUOI c'est faux. Deux outils :
-         • ajoute un print(...) pour voir une valeur au milieu du calcul ;
-         • ou pose un breakpoint() pour mettre le programme en pause et
-           inspecter les variables (commandes : n = ligne suivante, c =
-           continuer, p nom = afficher une variable, q = quitter).
-    4. Corrige la ligne fautive, relance, et recommence jusqu'à 100 % de ✅.
-
-  💡 Astuce : certains bugs sont signalés par un commentaire « 🐞 BUG ».
-     Ils ne le seront pas tous dans la vraie vie, mais ici c'est pour
-     t'apprendre à reconnaître les erreurs classiques.
-
-▶ 💾 ASTUCE « git pull » (pour ne jamais perdre ton travail) :
-  Ne corrige pas directement dans ce fichier (il est suivi par git). Copie-le et
-  travaille dans la copie — elle est ignorée par git, donc une mise à jour du
-  guide (« git pull ») ne touchera jamais ton travail :
-      cp exercices.py exercices_perso.py      # puis :  python3 exercices_perso.py
-
-▶ BLOQUÉ ? Réessaie vraiment d'abord. En dernier recours, ouvre
-  solutions.py (le corrigé, avec l'explication de chaque bug).
+ Lancer :   python3 exercices.py
+ Corrigé (en dernier recours) :  solutions.py
 """
 
 
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 1 — Corrige la moyenne
+# ══════════════════════════════════════════════════════════════════════
+#  Avec [10, 20, 30], moyenne() devrait donner 20.0. Elle se trompe.
+#  Trouve et corrige le bug dans la fonction.
+#
+#  👀 Résultat attendu :
+#     Exercice 1 : 20.0
+
 def moyenne(notes):
-    """Devrait renvoyer la moyenne d'une liste de notes.
-    moyenne([10, 20, 30]) devrait valoir 20.0
-    """
     total = 0
     for note in notes:
-        total = note          # 🐞 BUG : à chaque tour, on ÉCRASE total au lieu de l'additionner
+        total = note          # 🐞 ici, on ÉCRASE total au lieu de l'additionner
     return total / len(notes)
 
+print("Exercice 1 :", moyenne([10, 20, 30]))
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 2 — Corrige le maximum
+# ══════════════════════════════════════════════════════════════════════
+#  maximum([-5, -2, -9]) devrait donner -2 (le plus grand des négatifs).
+#  La fonction renvoie 0 : pourquoi ? Corrige-la.
+#
+#  👀 Résultat attendu :
+#     Exercice 2 : -2
 
 def maximum(liste):
-    """Devrait renvoyer le plus grand élément.
-    maximum([-5, -2, -9]) devrait valoir -2
-    """
-    plus_grand = 0            # 🐞 BUG : partir de 0 casse tout si tous les nombres sont négatifs
+    plus_grand = 0            # 🐞 partir de 0 casse tout si tous les nombres sont négatifs
     for valeur in liste:
         if valeur > plus_grand:
             plus_grand = valeur
     return plus_grand
 
+print("Exercice 2 :", maximum([-5, -2, -9]))
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 3 — Corrige le compteur de voyelles
+# ══════════════════════════════════════════════════════════════════════
+#  compter_voyelles("bonjour") devrait donner 3 (o, o, u). La condition
+#  est à l'envers : elle compte les consonnes. Corrige-la.
+#
+#  👀 Résultat attendu :
+#     Exercice 3 : 3
 
 def compter_voyelles(mot):
-    """Devrait compter les voyelles (a, e, i, o, u).
-    compter_voyelles("bonjour") devrait valoir 3   (o, o, u)
-    """
     voyelles = "aeiou"
     total = 0
     for lettre in mot:
-        if lettre not in voyelles:   # 🐞 BUG : la condition est INVERSÉE (compte les consonnes)
+        if lettre not in voyelles:   # 🐞 condition INVERSÉE
             total += 1
     return total
 
+print("Exercice 3 :", compter_voyelles("bonjour"))
 
-# ════════════════════════════════════════════════════════════════════
-#  ▶ ON TESTE TES CORRECTIONS — lance le fichier pour voir tes ✅ / ❌
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 4 — Corrige le compte de 1 à n inclus
+# ══════════════════════════════════════════════════════════════════════
+#  somme_1_a_n(5) devrait donner 15 (1+2+3+4+5). Elle donne 10 : il manque
+#  le 5. C'est le piège classique du range (la fin est EXCLUE). Corrige.
 #
-#  C'est ICI qu'on APPELLE les fonctions (avec des exemples concrets) pour
-#  révéler les bugs. Les valeurs comme [10, 20, 30] sont juste les ARGUMENTS
-#  passés à l'appel. Corrige le code des fonctions plus haut jusqu'à tout ✅.
+#  👀 Résultat attendu :
+#     Exercice 4 : 15
+
+def somme_1_a_n(n):
+    total = 0
+    for i in range(1, n):     # 🐞 range(1, n) s'arrête à n-1 : le n n'est jamais compté
+        total += i
+    return total
+
+print("Exercice 4 :", somme_1_a_n(5))
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  EXERCICE 5 — Corrige l'addition qui plante
+# ══════════════════════════════════════════════════════════════════════
+#  additionner_un("41") devrait donner 42. Mais le code plante avec une
+#  TypeError : on ne peut pas faire "41" + 1 (texte + nombre). Il faut
+#  convertir le texte en entier AVANT d'ajouter 1.
 #
-#  Comment lire une ligne d'essai :
-#      verifie(moyenne, [10, 20, 30], attendu=20.0)
-#   ↑  appelle  moyenne([10, 20, 30])  et compare le résultat à 20.0.
-# ════════════════════════════════════════════════════════════════════
-import types as _types
+#  👀 Résultat attendu :
+#     Exercice 5 : 42
 
+def additionner_un(texte):
+    return texte + 1          # 🐞 "41" est du TEXTE : convertis-le avec int(...) d'abord
 
-def verifie(fonction, *arguments, attendu):
-    """Appelle fonction(*arguments) et compare au résultat attendu. (Mécanique du test.)"""
-    try:
-        obtenu = fonction(*arguments)
-        if isinstance(obtenu, _types.GeneratorType):   # un générateur → on le déroule en liste
-            obtenu = list(obtenu)
-    except Exception as e:
-        obtenu = f"ERREUR: {e}"
-    ok = (obtenu == attendu)
-    args_lisibles = ", ".join(a.__name__ if callable(a) else repr(a) for a in arguments)
-    print(f"{'✅' if ok else '❌'} {fonction.__name__}({args_lisibles})  ->  {attendu!r}")
-    if not ok:
-        print(f"     ⚠️  le code a renvoyé : {obtenu!r}")
-    return ok
-
-
-if __name__ == "__main__":
-    print("--- Module 07 : corrige les bugs ! ---\n")
-    resultats = [
-        verifie(moyenne, [10, 20, 30],   attendu=20.0),
-        verifie(maximum, [-5, -2, -9],   attendu=-2),
-        verifie(maximum, [3, 9, 4],      attendu=9),
-        verifie(compter_voyelles, "bonjour", attendu=3),
-    ]
-    print(f"\n{sum(resultats)}/{len(resultats)} réussis ✅")
+print("Exercice 5 :", additionner_un("41"))

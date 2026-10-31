@@ -4,66 +4,53 @@
 """
 SOLUTIONS — Module 10 : fichiers & dossiers
 
-Corrigé commenté. Lance :   python3 solutions.py   (doit être tout vert).
+Le corrigé des exercices de exercices.py, code complet et commenté.
+⚠️ N'ouvre ce fichier qu'APRÈS avoir vraiment essayé par toi-même.
+
+Lance-le (python3 solutions.py) : il affiche les résultats attendus.
+Compare-les à ce que TON code produit.
 """
 
 from pathlib import Path
-import json
+import tempfile, json
 
 
-def lister_noms(dossier):
-    """Noms triés du contenu d'un dossier."""
-    return sorted(element.name for element in Path(dossier).iterdir())
+# ── EXERCICE 1 — Écrire puis relire un fichier ───────────────────────
+chemin = Path(tempfile.mkdtemp()) / "note.txt"
+chemin.write_text("Bonjour", encoding="utf-8")   # écrit le texte dans le fichier
+print(chemin.read_text(encoding="utf-8"))        # relit tout le fichier
 
 
-def compter_par_extension(dossier):
-    """Compte les fichiers par extension."""
-    compteur = {}
-    for element in Path(dossier).iterdir():
-        if element.is_file():                     # on ignore les sous-dossiers
-            ext = element.suffix                  # ".txt", ".csv", ...
-            compteur[ext] = compteur.get(ext, 0) + 1   # +1, ou 1 si jamais vu
-    return compteur
+# ── EXERCICE 2 — Lister le contenu d'un dossier ──────────────────────
+dossier = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier) / nom).write_text("x", encoding="utf-8")
+print(sorted(e.name for e in Path(dossier).iterdir()))
+# iterdir() liste les éléments ; e.name = le nom ; sorted() trie.
 
 
-def sauver_puis_charger_json(chemin, donnees):
-    """Écrit un dict en JSON puis le relit."""
-    with open(chemin, "w", encoding="utf-8") as f:
-        json.dump(donnees, f)        # dict Python → texte JSON dans le fichier
-    with open(chemin, "r", encoding="utf-8") as f:
-        return json.load(f)          # texte JSON → dict Python
+# ── EXERCICE 3 — Compter les fichiers par extension ──────────────────
+dossier3 = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier3) / nom).write_text("x", encoding="utf-8")
+compteur = {}
+for e in Path(dossier3).iterdir():
+    if e.is_file():                                # on ignore les sous-dossiers
+        compteur[e.suffix] = compteur.get(e.suffix, 0) + 1   # +1, ou 1 si nouveau
+print(compteur)
 
 
-# ════════════════════════════════════════════════════════════════════
-#  Auto-vérification
-# ════════════════════════════════════════════════════════════════════
-import tempfile
-import os
+# ── EXERCICE 4 — Sauver en JSON puis relire ──────────────────────────
+donnees = {"ville": "Paris", "jours": 3}
+chemin_json = Path(tempfile.mkdtemp()) / "data.json"
+with open(chemin_json, "w", encoding="utf-8") as f:
+    json.dump(donnees, f)        # dict Python → texte JSON dans le fichier
+with open(chemin_json, "r", encoding="utf-8") as f:
+    print(json.load(f))          # texte JSON → dict Python
 
 
-def _check(nom, obtenu, attendu):
-    ok = obtenu == attendu
-    print(f"{'✅' if ok else '❌'} {nom}")
-    if not ok:
-        print(f"     attendu : {attendu!r}")
-        print(f"     obtenu  : {obtenu!r}")
-    return ok
-
-
-def _verifier():
-    print("--- Vérification — module 10 (solutions) ---")
-    dossier = tempfile.mkdtemp()
-    for nom_fichier in ["a.txt", "b.txt", "c.csv"]:
-        Path(dossier, nom_fichier).write_text("x", encoding="utf-8")
-    chemin_json = os.path.join(dossier, "data.json")
-
-    res = [
-        _check("lister_noms(...)", lister_noms(dossier), ["a.txt", "b.txt", "c.csv"]),
-        _check("compter_par_extension(...)", compter_par_extension(dossier), {".txt": 2, ".csv": 1}),
-        _check("sauver_puis_charger_json(...)", sauver_puis_charger_json(chemin_json, {"a": 1}), {"a": 1}),
-    ]
-    print(f"\n{sum(res)}/{len(res)} réussis")
-
-
-if __name__ == "__main__":
-    _verifier()
+# ── EXERCICE 5 — Ne garder que les .txt ──────────────────────────────
+dossier5 = tempfile.mkdtemp()
+for nom in ["a.txt", "b.txt", "c.csv"]:
+    (Path(dossier5) / nom).write_text("x", encoding="utf-8")
+print(sorted(e.name for e in Path(dossier5).iterdir() if e.suffix == ".txt"))
