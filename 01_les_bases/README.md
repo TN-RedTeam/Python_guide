@@ -213,15 +213,76 @@ On l'utilise pour **parcourir** une série d'éléments, ou **répéter** un nom
 ```python
 # Parcourir une liste, élément par élément
 for fruit in ["pomme", "poire", "kiwi"]:
-    print(fruit)
+    print(fruit)        # affiche pomme, puis poire, puis kiwi
+```
 
-# Répéter un nombre précis de fois avec range()
-for i in range(5):        # range(5) produit 0, 1, 2, 3, 4  (5 valeurs, à partir de 0)
+Ici `fruit` est une **variable que la boucle remplit toute seule** : au 1er tour elle vaut
+`"pomme"`, au 2e `"poire"`, au 3e `"kiwi"`. Tu n'écris **jamais** `fruit = ...` toi-même —
+c'est le `for` qui met une nouvelle valeur dedans à chaque tour.
+
+#### `range()` : répéter avec un compteur
+
+Quand tu veux répéter un nombre **précis** de fois, tu utilises `range()`, qui fabrique une
+suite de nombres :
+
+```python
+for i in range(5):          # range(5) → 0, 1, 2, 3, 4  (5 nombres, en partant de 0)
     print(f"Tour numéro {i}")
 ```
 
-> 🔎 **`range(5)` commence à 0 et s'arrête AVANT 5** : tu obtiens `0,1,2,3,4`, soit bien 5 tours.
-> On peut aussi écrire `range(2, 6)` → `2,3,4,5`, ou `range(0, 10, 2)` → `0,2,4,6,8` (pas de 2).
+Ce qui s'affiche, **tour par tour** — observe bien que `i` **change de valeur à chaque passage** :
+
+```
+Tour numéro 0      ← au 1er tour, i vaut 0
+Tour numéro 1      ← au 2e tour, i vaut 1
+Tour numéro 2      ← i vaut 2
+Tour numéro 3      ← i vaut 3
+Tour numéro 4      ← i vaut 4, PUIS la boucle s'arrête (5 est exclu)
+```
+
+> 🧠 **`i`, c'est quoi ?** Juste une variable (on aurait pu l'appeler `tour` ou `compteur`). La
+> boucle y range **le nombre courant** à chaque tour. C'est ton compteur : tu peux t'en servir
+> dans le corps de la boucle, comme ici dans la f-string `{i}`.
+
+> 🔑 **La règle du `range` à retenir** : `range(5)` **commence à 0** et **s'arrête AVANT 5**. Tu
+> obtiens `0, 1, 2, 3, 4` — bien **5** valeurs, mais la dernière est **4**, pas 5. C'est le piège
+> n°1 des débutants : « pourquoi ça s'arrête à 4 ? » → parce que **la borne de fin est exclue**.
+
+Les façons d'utiliser `range` :
+
+```python
+range(5)         # → 0, 1, 2, 3, 4      (de 0 à 5 exclu)
+range(2, 6)      # → 2, 3, 4, 5         (de 2 à 6 exclu : on choisit le DÉBUT)
+range(1, 11)     # → 1, 2, 3, …, 10     (pratique pour compter de 1 à 10)
+range(0, 10, 2)  # → 0, 2, 4, 6, 8      (le 3e nombre = le PAS, ici on avance de 2 en 2)
+```
+
+> 💡 Besoin de compter **de 1 à n inclus** (et pas à partir de 0) ? Écris `range(1, n + 1)`. Le
+> `+ 1` est là parce que la fin est exclue : pour **inclure** `n`, il faut viser « un cran plus
+> loin ». Exemple : pour aller de 1 à 5, on écrit `range(1, 6)`.
+
+#### Se servir de `i` comme position (index) dans une liste
+
+Chaque élément d'une liste a une **position** (un *index*), qui commence à **0**. Avec
+`range(len(liste))`, `i` prend justement chaque position, et `liste[i]` donne l'élément à cette
+position :
+
+```python
+noms = ["Ada", "Bob", "Zoé"]
+
+for i in range(len(noms)):      # len(noms) vaut 3 → i prend 0, puis 1, puis 2
+    print(f"Position {i} : {noms[i]}")
+```
+
+```
+Position 0 : Ada       ← i = 0, noms[0] = "Ada"
+Position 1 : Bob       ← i = 1, noms[1] = "Bob"
+Position 2 : Zoé       ← i = 2, noms[2] = "Zoé"
+```
+
+> 🔎 La plupart du temps tu n'as **pas besoin** de la position : `for nom in noms:` suffit et se
+> lit plus simplement. Utilise `range(len(...))` **seulement** quand tu as vraiment besoin du
+> numéro `i` (pour l'afficher, ou pour comparer deux listes position par position).
 
 ### La boucle `while` — « tant que… »
 
@@ -294,22 +355,24 @@ Sans ce module, tu ne peux rien lire ni écrire en IA.
 
 ## 🏁 S'entraîner
 
-### 🎯 L'exercice principal — commence par ça
+### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des fonctions à compléter, avec **correction automatique**
-(✅/❌ en direct). Les exercices sont organisés en **4 niveaux** :
-- **Niveau 1** : tu reproduis exactement ce que le cours a montré.
-- **Niveau 2** : même logique, petit changement.
-- **Niveau 3** : tu combines les concepts du module.
-- **Niveau 4** : le défi optionnel.
+**[`exercices.py`](./exercices.py)** : 6 petits exercices que tu écris **toi-même**. Pas de
+fonction, pas de correction automatique compliquée. Chacun te donne :
 
-Chaque exercice contient un **RAPPEL DU COURS** : le code exact du cours que tu dois adapter.
+- les **valeurs de départ** (elles sont écrites, tu les vois : `nombre = 7`…) ;
+- un **résultat attendu** affiché juste à côté ;
+- un **espace** où tu écris ton code.
+
+Tu lances, tu regardes ce qui s'affiche, tu **compares** au résultat attendu. Tu peux changer
+les valeurs de départ pour tester toi-même.
 
 ```bash
 python3 01_les_bases/exercices.py
 ```
 
-Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
+Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py)
+(tu peux le lancer pour voir tous les résultats attendus).
 
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
