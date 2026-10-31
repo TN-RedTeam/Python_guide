@@ -21,8 +21,11 @@ EXERCICES — Module 04 : exceptions & fichiers
       sous le commentaire « # TODO ».
     • Garde les 4 espaces en début de ligne : en Python, ce décalage
       (l'indentation) signifie « ce code est À L'INTÉRIEUR de la fonction ».
-    • Pense au « return » : une fonction doit RENVOYER son résultat. Sans
-      « return », elle ne renvoie « rien » (None) et le test échoue.
+    • Pense au « return » : une fonction doit RENVOYER son résultat.
+      ❌ print(resultat)   → AFFICHE mais renvoie None (le test échoue)
+      ✅ return resultat    → RENVOIE le résultat (le test réussit)
+    • Les PARAMÈTRES (entre parenthèses) sont DÉJÀ remplis. N'écris PAS
+      a = 10 ou texte = "42" dans la fonction !
 
   Exemple — au départ, la fonction a un trou :
 
@@ -63,12 +66,13 @@ def division_sure(a, b):
     Exemples : division_sure(10, 2)  ->  5.0       division_sure(10, 0)  ->  None
 
     RAPPEL DU COURS (section 2 — try/except) :
-        try:
-            resultat = 10 / nombre
-        except ZeroDivisionError:
-            print("Impossible de diviser par zéro !")
+        def diviser(a, b):
+            try:
+                return a / b                  # si tout va bien → renvoie le résultat
+            except ZeroDivisionError:
+                return None                   # si b vaut 0 → renvoie None
 
-    C'est le MEME schéma ici : mets a / b dans le try, attrape ZeroDivisionError.
+    C'est le MÊME schéma ici : mets a / b dans le try, attrape ZeroDivisionError.
 
     Comment t'y prendre :
       - mets le calcul a / b dans un bloc  try: ... ;
@@ -85,12 +89,13 @@ def convertir_entier(texte):
     Exemples : convertir_entier("42")  ->  42        convertir_entier("abc")  ->  None
 
     RAPPEL DU COURS (section 2 — try/except) :
-        try:
-            nombre = int(input("Donne un nombre : "))
-        except ValueError:
-            print("Ce n'est pas un nombre valide.")
+        def en_entier(texte):
+            try:
+                return int(texte)             # si ça marche → renvoie l'entier
+            except ValueError:
+                return None                   # si texte n'est pas un nombre → None
 
-    C'est le MEME schéma : int(texte) dans le try, ValueError dans le except.
+    C'est le MÊME schéma : int(texte) dans le try, ValueError dans le except.
 
     Comment t'y prendre :
       - dans un  try:  renvoie int(texte) ;
