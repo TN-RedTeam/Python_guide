@@ -8,8 +8,8 @@ EXERCICES — Module 05 : la POO (les classes)
  DANS CE MODULE : tu écris des CLASSES (un moule à objets).
  Comme pour les fonctions, le point clé est :
    → C'est TOI qui crées l'objet, avec les valeurs de TON choix :
-        rex = Animal("Rex", "Wouf")
-     Là, "Rex" et "Wouf" entrent dans l'objet. Rien de caché.
+        f = Fichier("video.mp4", 700)
+     Là, "video.mp4" et 700 entrent dans l'objet. Rien de caché.
  Donc chaque exercice te demande : (1) écrire la classe, (2) créer un
  objet toi-même avec des valeurs visibles, (3) appeler ses méthodes et
  afficher le résultat.
@@ -21,17 +21,17 @@ EXERCICES — Module 05 : la POO (les classes)
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 1 — Ta première classe
+#  EXERCICE 1 — Ta première classe : un Fichier
 # ══════════════════════════════════════════════════════════════════════
-#  Écris une classe  Animal  avec :
-#    - __init__(self, nom, cri) qui range self.nom et self.cri ;
-#    - parler(self) qui renvoie  "<nom> fait <cri> !".
-#  Puis crée un animal et affiche son cri :
-#    rex = Animal("Rex", "Wouf")
-#    print(rex.parler())
+#  Écris une classe  Fichier  avec :
+#    - __init__(self, nom, taille_mo) qui range self.nom et self.taille_mo ;
+#    - description(self) qui renvoie  "<nom> (<taille_mo> Mo)".
+#  Puis crée un fichier et affiche sa description :
+#    f = Fichier("video.mp4", 700)
+#    print(f.description())
 #
 #  👀 Résultat attendu :
-#     Rex fait Wouf !
+#     video.mp4 (700 Mo)
 
 # ✏️ ton code ici (la classe, puis les 2 lignes qui créent et affichent) :
 
@@ -74,7 +74,7 @@ EXERCICES — Module 05 : la POO (les classes)
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 4 — Un objet qui garde un état (le défi)
+#  EXERCICE 4 — Un objet qui garde un état : un compte (le défi)
 # ══════════════════════════════════════════════════════════════════════
 #  Écris  CompteBancaire  avec :
 #    - __init__(self, solde=0) ;
