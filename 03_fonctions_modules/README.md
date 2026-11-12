@@ -283,6 +283,17 @@ python3 03_fonctions_modules/exercices.py
 
 Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
 
+### 🏋️ La série 2 — l'entraînement
+
+**[`entrainement.py`](./entrainement.py)** : à faire **après** les exercices. La même matière,
+travaillée de trois façons : 👓 **lire** du code et prédire ce qu'il affiche, 🔧 **modifier** un
+script qui marche, ✍️ **écrire** de nouveaux exercices, cette fois **sans indice**. Le corrigé
+expliqué est dans [`entrainement_solutions.py`](./entrainement_solutions.py).
+
+```bash
+python3 03_fonctions_modules/entrainement.py
+```
+
 ### 🔬 Pour explorer (dans le terminal, sans correction automatique)
 
 1. **Lis et lance** [`fonctions.py`](./fonctions.py) (valeurs par défaut, `*args`).

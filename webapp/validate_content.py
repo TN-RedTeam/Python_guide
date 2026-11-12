@@ -56,6 +56,8 @@ def valider_structure() -> None:
         # exercices <-> solutions vont par paire
         if ("exercices" in m) != ("solutions" in m):
             erreur(f"module {ident} : exercices et solutions doivent aller ensemble.")
+        if ("entrainement" in m) != ("entrainement_solutions" in m):
+            erreur(f"module {ident} : entrainement.py et son corrigé doivent aller ensemble.")
 
     pentest = data.get("pentest", {})
     for g in pentest.get("groupes", []):

@@ -287,6 +287,10 @@ Python te dit **où** (le numéro de ligne) et **quoi** (le type d'erreur).
 Passe à l'onglet **🧪 Exercices** : tu vas coder les **5 patterns** de tes propres
 mains (total, compteur, recherche, filtre, champion). Pour chacun, fais d'abord le
 pseudo-code dans ta tête, **puis** écris le Python. C'est en forgeant…
+
+Ensuite, l'onglet **🏋️ Entraînement** ([`entrainement.py`](./entrainement.py)) te fait
+travailler les mêmes patterns autrement : **lire** du code et prédire ce qu'il affiche,
+**modifier** un script, puis écrire **sans qu'on te dise quel pattern utiliser**.
 :::
 
 > ➡️ **La suite** : le module [🏗️ Les bases](../01_les_bases) te donne la syntaxe

@@ -211,6 +211,7 @@ function renderMarkdown(md, container) {
     const guide = CONTENT.guides.find((g) => g.id + ".md" === clean || g.id === clean);
     if (mod) a.setAttribute("href", `#/module/${mod.id}`);
     else if (guide) a.setAttribute("href", `#/guide/${guide.id}`);
+    else if (/^projets\/defis/.test(clean)) a.setAttribute("href", "#/projets/defis");
     else if (/^projets/.test(clean)) a.setAttribute("href", "#/projets");
     else { a.setAttribute("href", REPO_URL + clean); a.target = "_blank"; a.rel = "noopener"; }
   });
@@ -931,6 +932,7 @@ function viewHome() {
 function moduleTabs(mod, active) {
   const tabs = [["cours", "📖 Cours"]];
   if (mod.exercices) tabs.push(["exercices", "🧪 Exercices"]);
+  if (mod.entrainement) tabs.push(["entrainement", "🏋️ Entraînement"]);
   if (mod.quiz && mod.quiz.length) tabs.push(["quiz", "🧠 Quiz"]);
   if (mod.demos.length) tabs.push(["demo", "💻 Code du module"]);
   return `<div class="tabs">${tabs.map(([id, label]) =>
@@ -987,8 +989,20 @@ function viewModule(id, tab) {
       },
       extraButtons: mod.solutions ? [{
         label: "👀 Solution",
-        onClick: (cm, h) => toggleSolution(mod, h),
+        onClick: (cm, h) => toggleSolution(mod.solutions, h),
       }] : [],
+    });
+  } else if (tab === "entrainement") {
+    createIDE(host, {
+      code: mod.entrainement,
+      storageKey: id + ":entrainement",
+      note: "Série 2, à faire après les exercices. 👓 LIRE : écris ta prédiction AVANT d'exécuter. "
+        + "🔧 MODIFIER : change le script fourni. ✍️ ÉCRIRE : comme les exercices, sans indice. "
+        + "Puis ▶ Exécuter et compare.",
+      extraButtons: [{
+        label: "👀 Solution",
+        onClick: (cm, h) => toggleSolution(mod.entrainement_solutions, h),
+      }],
     });
   } else if (tab === "quiz") {
     viewQuiz(host, mod);
@@ -1010,14 +1024,14 @@ function viewModule(id, tab) {
   }
 }
 
-function toggleSolution(mod, host) {
+function toggleSolution(code, host) {
   let box = $(".solution-box", host);
   if (box) { box.remove(); return; }
   box = document.createElement("div");
   box.className = "solution-box md";
   box.innerHTML = `<div class="ide-note">⚠️ <div>Le corrigé n'aide que si tu as vraiment essayé
     d'abord. Compare-le à TA version : l'écart entre les deux, c'est ta leçon.</div></div>
-    <pre><code>${escapeHtml(mod.solutions)}</code></pre>`;
+    <pre><code>${escapeHtml(code)}</code></pre>`;
   $(".score-slot", host).before(box);
 }
 
@@ -1042,15 +1056,18 @@ function viewGuide(id) {
 
 function viewProjets(sub) {
   const pj = CONTENT.projets;
-  const files = sub === "fil_rouge" ? pj.fil_rouge.files : pj.files;
-  const readme = sub === "fil_rouge" ? pj.fil_rouge.readme : pj.readme;
+  if (sub !== "fil_rouge" && !(sub === "defis" && pj.defis)) sub = "";
+  const section = sub ? pj[sub] : pj;
+  const files = section.files;
+  const readme = section.readme;
   view.innerHTML = `
     <div class="module-head">
       <div class="crumbs"><a href="#/">Accueil</a> / Mini-projets</div>
     </div>
     <div class="tabs">
-      <button class="tab ${sub !== "fil_rouge" ? "active" : ""}" data-go="#/projets">🧩 Mini-projets</button>
+      <button class="tab ${!sub ? "active" : ""}" data-go="#/projets">🧩 Mini-projets</button>
       <button class="tab ${sub === "fil_rouge" ? "active" : ""}" data-go="#/projets/fil_rouge">🧵 Projet fil rouge</button>
+      ${pj.defis ? `<button class="tab ${sub === "defis" ? "active" : ""}" data-go="#/projets/defis">🎯 Défis à faire</button>` : ""}
     </div>
     <div class="md" id="pj-md"></div>
     <div class="section-title">💻 Ouvrir le code</div>
@@ -1068,7 +1085,10 @@ function viewProjets(sub) {
       createIDE($("#pj-ide"), {
         code: f.code,
         storageKey: "projets:" + (sub || "") + f.name,
-        note: "Certains projets utilisent input() : le navigateur ouvrira une boîte de dialogue. "
+        note: sub === "defis"
+          ? "Un défi se fait en plusieurs séances : ton code est sauvegardé sur cet appareil. "
+            + "Le corrigé est le fichier « …_solution.py » — ouvre-le seulement après avoir essayé."
+          : "Certains projets utilisent input() : le navigateur ouvrira une boîte de dialogue. "
             + "Ceux qui touchent au réseau ou aux vrais dossiers sont à lancer sur ta machine.",
       });
     }));

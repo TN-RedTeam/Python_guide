@@ -194,6 +194,17 @@ python3 16_numpy/exercices.py
 
 Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
 
+### 🏋️ La série 2 — l'entraînement
+
+**[`entrainement.py`](./entrainement.py)** : à faire **après** les exercices. La même matière,
+travaillée de trois façons : 👓 **lire** du code et prédire ce qu'il affiche, 🔧 **modifier** un
+script qui marche, ✍️ **écrire** de nouveaux exercices, cette fois **sans indice**. Le corrigé
+expliqué est dans [`entrainement_solutions.py`](./entrainement_solutions.py).
+
+```bash
+python3 16_numpy/entrainement.py
+```
+
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi)
 
 1. Reprends l'exercice des températures et change les valeurs pour celles de ta ville cette

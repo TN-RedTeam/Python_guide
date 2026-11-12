@@ -84,6 +84,13 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.waitForSelector(".CodeMirror", { timeout: 10000 });
   ok((await page.locator(".terminal-input").count()) === 1, "Exercices : terminal interactif monté");
 
+  // 3a. Onglet entraînement (série 2) : éditeur monté + bouton Solution fonctionnel
+  await page.click('.tab[data-tab="entrainement"]');
+  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
+  ok((await page.locator(".CodeMirror").innerText()).includes("ENTRAÎNEMENT"), "Entraînement : série 2 chargée");
+  await page.getByRole("button", { name: /Solution/ }).click();
+  ok((await page.locator(".solution-box").innerText()).includes("CORRIGÉ"), "Entraînement : corrigé affiché");
+
   // 3bis. Quiz : questions rendues + correction fonctionnelle
   await page.click('.tab[data-tab="quiz"]');
   await page.waitForSelector(".quiz-q", { timeout: 10000 });
@@ -98,6 +105,14 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.goto(`${BASE}/index.html#/pentest`, { waitUntil: "domcontentloaded" });
   await page.waitForSelector(".tabs .tab", { timeout: 10000 });
   ok((await page.locator(".tabs .tab").count()) >= 7, "Pentest : onglets des groupes");
+
+  // 4bis. Défis : onglet présent, énoncé chargé dans l'éditeur
+  await page.goto(`${BASE}/index.html#/projets/defis`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".file-pill", { timeout: 10000 });
+  ok((await page.locator(".file-pill").count()) >= 10, "Défis : énoncés et corrigés listés");
+  await page.locator(".file-pill").first().click();
+  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
+  ok((await page.locator(".CodeMirror").innerText()).includes("DÉFI 1"), "Défis : énoncé chargé");
 
   // 5. Bac à sable
   await page.goto(`${BASE}/index.html#/ide`, { waitUntil: "domcontentloaded" });

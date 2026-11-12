@@ -178,6 +178,17 @@ python3 05_poo/exercices.py
 
 Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
 
+### 🏋️ La série 2 — l'entraînement
+
+**[`entrainement.py`](./entrainement.py)** : à faire **après** les exercices. La même matière,
+travaillée de trois façons : 👓 **lire** du code et prédire ce qu'il affiche, 🔧 **modifier** un
+script qui marche, ✍️ **écrire** de nouveaux exercices, cette fois **sans indice**. Le corrigé
+expliqué est dans [`entrainement_solutions.py`](./entrainement_solutions.py).
+
+```bash
+python3 05_poo/entrainement.py
+```
+
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`poo.py`](./poo.py) : repère `__init__`, `self`, `super()`, l'override.

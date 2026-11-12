@@ -122,7 +122,13 @@ appliqué** (automatisation) pour mettre les concepts en pratique.
   > `exercices.py` ? Avant le prochain `git pull` : `git stash` → `git pull` → `git stash pop`.)*
 - **[15_construire_un_script/](./15_construire_un_script/)** : écrire un script de zéro en
   **raisonnant** (compter des fichiers, convertir JSON → SQL) — commenté pas à pas.
-- **[projets/](./projets/)** : mini-projets concrets (ranger des fichiers, carnet de contacts, suivi météo).
+- **🏋️ Une série d'entraînement par module** : `entrainement.py`, à faire après les exercices.
+  Tu y **lis** du code pour prédire ce qu'il affiche, tu **modifies** un script qui marche, puis
+  tu **écris** de nouveaux exercices sans indice. Corrigé expliqué dans `entrainement_solutions.py`.
+- **🎯 [projets/defis/](./projets/defis/)** : cinq projets **à écrire toi-même**, qui font
+  réutiliser plusieurs modules à la fois sur de vrais fichiers (relevé de dépenses, inventaire
+  d'un disque, comparaison de deux dossiers, renommage de photos, tableau de bord pandas).
+- **[projets/](./projets/)** : mini-projets concrets à lire et à modifier (ranger des fichiers, carnet de contacts, suivi météo).
 - **[pentest/](./pentest/)** : sécurité (éducatif) — scanners réseau et démos offensives.
 - **[modele_script.py](./modele_script.py)** : un squelette de script prêt à copier.
 
