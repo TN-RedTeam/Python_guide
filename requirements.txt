@@ -6,7 +6,8 @@
 # --- Parcours AUTOMATISATION (débutant) ---
 requests>=2.31.0        # Télécharger des pages / appeler des APIs (module 03)
 beautifulsoup4>=4.12.0  # Lire et extraire des infos d'une page HTML (module 03)
-pandas>=2.0.0           # Manipuler des tableaux de données (module 05)
+pandas>=2.0.0           # Manipuler des tableaux de données (module 13)
+numpy>=1.26.0           # Calculer sur des tableaux de nombres (module 16)
 openpyxl>=3.1.0         # Lire / écrire des fichiers Excel .xlsx (modules 02 et 05)
 schedule>=1.2.0         # Planifier des tâches répétées en pur Python (module 04)
 

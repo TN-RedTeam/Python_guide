@@ -974,7 +974,8 @@ function viewModule(id, tab) {
   } else if (tab === "exercices") {
     const note = mod.note || "Lis la consigne de chaque exercice, écris ton code dans l'espace "
       + "« ✏️ ton code ici », puis ▶ Exécuter et compare ce qui s'affiche au « 👀 Résultat "
-      + "attendu » indiqué juste au-dessus. Ton code est sauvegardé sur cet appareil.";
+      + "attendu ». Bloqué ? Les indices sont tout en bas du fichier. Ton code est "
+      + "sauvegardé sur cet appareil.";
     createIDE(host, {
       code: mod.exercices,
       storageKey: id + ":exo",

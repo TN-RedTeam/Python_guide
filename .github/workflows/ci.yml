@@ -41,8 +41,8 @@ jobs:
           ruff format --check webapp/build_content.py webapp/validate_content.py \
                               webapp/check_solutions.py webapp/make_icons.py
 
-      # 2) Corrigés : ils doivent tourner ET afficher « N/N réussis »
-      - name: Vérifier les corrigés (solutions.py) — score plein
+      # 2) Corrigés : ils doivent s'exécuter sans erreur
+      - name: Vérifier les corrigés (solutions.py)
         run: python webapp/check_solutions.py
 
       # 3) Cohérence du contenu (structure, exercices/solutions, liens, fraîcheur)

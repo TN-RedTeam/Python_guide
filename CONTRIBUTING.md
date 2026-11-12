@@ -11,7 +11,7 @@ Chaque module est un dossier `NN_nom` à la racine (ex. `03_fonctions_modules/`)
 ```
 03_fonctions_modules/
 ├── README.md        ← le cours (obligatoire)
-├── exercices.py     ← exercices à trous (optionnel)
+├── exercices.py     ← exercices à écrire soi-même (optionnel)
 ├── solutions.py     ← corrigé des exercices (obligatoire si exercices.py existe)
 ├── quiz.json        ← QCM auto-corrigé (optionnel)
 └── *.py             ← fichiers de démo montrés dans l'onglet « Code du module »
@@ -56,11 +56,22 @@ bouton **▶ Essayer** qui envoie le code dans l'IDE.
 > Réfléchis d'abord …`** (la logique avant la syntaxe), et le clôturer par une
 > section **`## 🔬 Le raisonnement en action`** (problème → pseudo-code → code).
 
-## 🧪 Exercices auto-corrigés
+## 🧪 Exercices
 
-`exercices.py` doit **imprimer un bilan `N/N réussis`** (c'est ce que lit
-l'auto-correction). `solutions.py` doit passer à **100 %**. Voir un module
-existant pour le format du harnais `verifie(...)`.
+Pas de harnais d'auto-correction : l'apprenant écrit son code, lance le fichier et
+**compare l'affichage au résultat attendu**. Chaque exercice de `exercices.py` suit ce format
+(voir `02_collections/exercices.py` comme modèle) :
+
+- des **données de départ concrètes et visibles** (pas de paramètre caché) ;
+- un énoncé court, **sans code-réponse** ;
+- une ligne **`🧰 Outils`** qui nomme ce qu'il faut utiliser, sans l'assembler ;
+- un bloc **`👀 Résultat attendu`** ;
+- un espace vide **`✏️ ton code ici`**.
+
+Les **indices** vont dans une section `💡 INDICES` tout **en bas** du fichier, jamais dans
+l'énoncé. Le fichier doit s'exécuter sans erreur tant que rien n'est rempli (sauf le
+module 07, où le plantage fait partie de l'exercice). `solutions.py` est un script simple
+qui affiche exactement les résultats attendus ; la CI vérifie qu'il s'exécute sans erreur.
 
 ## 🧠 Quiz (quiz.json)
 

@@ -123,7 +123,8 @@ Un outil ne remplace pas le raisonnement. Face à un bug :
 **[`exercices.py`](./exercices.py)** : ici c'est une **chasse aux bugs** (le seul module où le
 code est fourni, car débugger c'est justement lire du code existant). Chaque fonction est **déjà
 écrite mais buggée**, et appelée juste en dessous avec une valeur visible : lance-le, compare le
-résultat affiché au **résultat attendu**, trouve la ligne fautive (repère 🐞) et corrige-la.
+résultat affiché au **résultat attendu**, trouve la ligne fautive et corrige-la. Rien ne te
+désigne la ligne : les indices sont en bas du fichier, à ne lire que si tu bloques.
 
 ```bash
 python3 07_debugger/exercices.py

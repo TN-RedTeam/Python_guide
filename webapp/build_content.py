@@ -36,9 +36,12 @@ NOTES_NAVIGATEUR = {
     "lance les démos sur ta machine. Les exercices (JSON), eux, fonctionnent ici.",
     "12_taches_scripts": "La planification (cron / Planificateur Windows) se fait sur une "
     "vraie machine. Les exercices fonctionnent ici.",
-    "13_donnees_rapports": "Bonne nouvelle : pandas se télécharge automatiquement à la "
-    "première exécution (~15 Mo, sois patient·e). L'écriture de "
-    "fichiers Excel reste à tester sur ta machine.",
+    "13_donnees_rapports": "pandas se télécharge automatiquement à la première exécution "
+    "(~15 Mo, sois patient·e). Un avertissement « Pyarrow… » peut s'afficher en haut de "
+    "la sortie : ignore-le, ce n'est pas une erreur. L'écriture de fichiers Excel reste "
+    "à tester sur ta machine.",
+    "16_numpy": "NumPy se télécharge automatiquement à la première exécution "
+    "(quelques secondes). Ensuite, tout fonctionne comme sur ta machine.",
     "14_bibliotheques": "Ici, « pip install » est automatique : importe un paquet et il "
     "est téléchargé (paquets en pur Python + ceux portés par Pyodide). "
     "Sur ta machine, la vraie commande reste pip install.",

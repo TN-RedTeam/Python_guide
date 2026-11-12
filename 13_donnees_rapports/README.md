@@ -75,6 +75,17 @@ grosses_ventes = df[df["montant"] > 100]
 Lis `df[df["montant"] > 100]` comme : *« dans `df`, garde les lignes où la colonne montant
 dépasse 100 »*.
 
+On **trie** les lignes selon une colonne avec `sort_values` :
+
+```python
+df.sort_values("montant")                    # du plus petit au plus grand
+df.sort_values("montant", ascending=False)   # du plus grand au plus petit
+df.sort_values("montant", ascending=False).head(3)   # les 3 plus gros montants
+```
+
+Et pour récupérer une colonne sous forme de **liste Python** ordinaire (pratique pour
+l'afficher ou la réutiliser) : `df["produit"].tolist()`.
+
 ---
 
 ## 4. Regrouper : le cœur des rapports (`groupby`)
@@ -112,9 +123,11 @@ ca_par_produit.to_excel("rapport.xlsx")            # en Excel (nécessite openpy
 
 ### 🎯 Les exercices — commence par ça
 
-**[`exercices.py`](./exercices.py)** : des petits exercices que tu écris **toi-même**, qui
-reproduisent la logique d'un rapport **sans pandas**. Les données de départ sont **visibles** et un
-**résultat attendu** est affiché. Pas de correction automatique : tu lances et tu **compares**.
+**[`exercices.py`](./exercices.py)** : 6 exercices **avec pandas**, sur un vrai fichier
+`depenses.csv` (un relevé de dépenses) : charger, additionner, filtrer, trier, regrouper,
+exporter. Le fichier est créé par l'exercice et tu vois tout son contenu. Chaque exercice
+affiche un **résultat attendu** : tu lances et tu **compares**. Les indices sont regroupés
+**en bas du fichier**, à ne lire que si tu bloques.
 
 ```bash
 python3 13_donnees_rapports/exercices.py

@@ -13,10 +13,13 @@ EXERCICES — Module 10 : fichiers & dossiers
      avec le « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
- Pas de correction automatique : juste toi, du code, et ce qui s'affiche.
+ La ligne « 🧰 Outils » te dit QUOI utiliser, pas comment l'écrire.
+
+ BLOQUÉ ?  1) relis le cours (README.md)
+           2) lis l'indice de l'exercice, tout EN BAS de ce fichier
+           3) en dernier recours : solutions.py
 
  Lancer :   python3 exercices.py
- Cours dans README.md ; corrigé (si vraiment bloqué) dans solutions.py.
 """
 
 from pathlib import Path
@@ -26,10 +29,9 @@ import tempfile, json
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 1 — Écrire puis relire un fichier
 # ══════════════════════════════════════════════════════════════════════
-#  On te donne un chemin de fichier (dans un dossier temporaire).
+#  chemin  désigne un fichier (dans un dossier temporaire).
 #  Écris le texte "Bonjour" dedans, puis relis-le et affiche-le.
-#  Indice : chemin.write_text("...", encoding="utf-8")  pour écrire,
-#           chemin.read_text(encoding="utf-8")          pour relire.
+#  🧰 Outils : les méthodes .write_text et .read_text d'un Path
 #
 #  👀 Résultat attendu :
 #     Bonjour
@@ -45,8 +47,7 @@ chemin = Path(tempfile.mkdtemp()) / "note.txt"
 # ══════════════════════════════════════════════════════════════════════
 #  Le dossier contient 3 fichiers : a.txt, b.txt, c.csv.
 #  Affiche la liste de leurs noms, triés par ordre alphabétique.
-#  Indice : Path(dossier).iterdir() donne les éléments ; element.name = le nom ;
-#           sorted(...) trie.
+#  🧰 Outils : Path(...).iterdir(), l'attribut .name, sorted
 #
 #  💡 Sur ton PC : remplace  dossier  par un vrai chemin, ex.
 #     dossier = "/home/toi/Documents" (ou "C:/Users/Toi/Documents"), pour
@@ -67,9 +68,8 @@ for nom in ["a.txt", "b.txt", "c.csv"]:
 #  EXERCICE 3 — Compter les fichiers par extension
 # ══════════════════════════════════════════════════════════════════════
 #  Le dossier contient a.txt, b.txt, c.csv.
-#  Construis un dictionnaire {extension: nombre} et affiche-le.
-#  Indice : element.suffix donne ".txt" ;
-#           compteur[ext] = compteur.get(ext, 0) + 1
+#  Construis un dictionnaire {extension: nombre de fichiers} et affiche-le.
+#  🧰 Outils : .iterdir(), l'attribut .suffix, un dictionnaire, .get()
 #
 #  👀 Résultat attendu (l'ordre des clés peut varier) :
 #     {'.txt': 2, '.csv': 1}
@@ -85,11 +85,9 @@ for nom in ["a.txt", "b.txt", "c.csv"]:
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 4 — Sauver un dictionnaire en JSON, puis le relire
 # ══════════════════════════════════════════════════════════════════════
-#  On te donne un dictionnaire et un chemin de fichier.
-#  Écris le dictionnaire en JSON dans le fichier (json.dump), puis relis-le
-#  (json.load) et affiche le dictionnaire relu.
-#  Indice : with open(chemin_json, "w", encoding="utf-8") as f: json.dump(donnees, f)
-#           with open(chemin_json, "r", encoding="utf-8") as f: ... = json.load(f)
+#  Écris le dictionnaire  donnees  en JSON dans le fichier  chemin_json,
+#  puis relis ce fichier et affiche le dictionnaire relu.
+#  🧰 Outils : with open(...), json.dump, json.load
 #
 #  👀 Résultat attendu :
 #     {'ville': 'Paris', 'jours': 3}
@@ -105,8 +103,8 @@ chemin_json = Path(tempfile.mkdtemp()) / "data.json"
 #  EXERCICE 5 — Ne garder que les fichiers .txt
 # ══════════════════════════════════════════════════════════════════════
 #  Le dossier contient a.txt, b.txt, c.csv.
-#  Affiche la liste triée des noms qui se terminent par ".txt".
-#  Indice : garde l'élément si  element.suffix == ".txt".
+#  Affiche la liste triée des noms des fichiers ".txt" uniquement.
+#  🧰 Outils : .iterdir(), .suffix, .name, sorted (et une compréhension)
 #
 #  💡 Sur ton PC : pointe  dossier5  vers un vrai dossier pour retrouver, par
 #     exemple, tous tes .pdf ou tes .jpg (change ".txt" par l'extension voulue).
@@ -121,3 +119,26 @@ for nom in ["a.txt", "b.txt", "c.csv"]:
 # ✏️ ton code ici :
 
 
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  💡 INDICES — à ne lire QUE si tu bloques (cherche d'abord 10 minutes)
+# ══════════════════════════════════════════════════════════════════════
+#
+#  Exercice 1 : chemin.write_text("...", encoding="utf-8") écrit ;
+#               chemin.read_text(encoding="utf-8") renvoie le contenu.
+#
+#  Exercice 2 : Path(dossier).iterdir() donne chaque élément du dossier.
+#               Pour chacun, element.name est son nom. Construis la liste
+#               des noms, puis passe-la à sorted(...).
+#
+#  Exercice 3 : c'est le compteur par dictionnaire du module 02 : pour
+#               chaque élément, ext = element.suffix, puis
+#               compteur[ext] = compteur.get(ext, 0) + 1.
+#
+#  Exercice 4 : écrire :  with open(chemin_json, "w", encoding="utf-8") as f:
+#               puis json.dump(donnees, f).  Relire : ouvre en "r" et
+#               récupère le résultat de json.load(f).
+#
+#  Exercice 5 : comme l'exercice 2, avec un filtre : ne garde l'élément que
+#               si element.suffix == ".txt".

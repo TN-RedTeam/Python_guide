@@ -11,16 +11,22 @@ EXERCICES — Module 06 : itérateurs & générateurs
    • Tu lances, tu compares l'affichage au « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
- Pas de correction automatique. Cours : README.md • Corrigé : solutions.py
+ La ligne « 🧰 Outils » te dit QUOI utiliser, pas comment l'écrire.
+
+ BLOQUÉ ?  1) relis le cours (README.md)
+           2) lis l'indice de l'exercice, tout EN BAS de ce fichier
+           3) en dernier recours : solutions.py
+
+ Lancer :   python3 exercices.py
 """
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 1 — Garder seulement les photos (compréhension + filtre)
+#  EXERCICE 1 — Garder seulement les photos
 # ══════════════════════════════════════════════════════════════════════
 #  Dans la liste  fichiers, garde seulement ceux qui finissent par ".jpg",
-#  et affiche la liste obtenue.
-#  Indice (compréhension de liste) :  [f for f in fichiers if f.endswith(".jpg")]
+#  et affiche la liste obtenue. Fais-le en UNE ligne.
+#  🧰 Outils : une compréhension de liste avec un if, .endswith()
 #
 #  👀 Résultat attendu :
 #     ['vacances.jpg', 'chat.jpg']
@@ -32,11 +38,11 @@ fichiers = ["vacances.jpg", "cv.pdf", "chat.jpg", "notes.txt"]
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 2 — Normaliser des noms de fichiers (compréhension + transfo)
+#  EXERCICE 2 — Normaliser des noms de fichiers
 # ══════════════════════════════════════════════════════════════════════
 #  Mets chaque nom de la liste  noms  en minuscules (pour uniformiser),
-#  et affiche la liste.
-#  Indice :  "Rapport.PDF".lower()  ->  "rapport.pdf"  ;  [x.lower() for x in noms]
+#  et affiche la liste. En UNE ligne aussi.
+#  🧰 Outils : une compréhension de liste, la méthode .lower()
 #
 #  👀 Résultat attendu :
 #     ['rapport.pdf', 'cv.pdf']
@@ -48,12 +54,12 @@ noms = ["Rapport.PDF", "CV.Pdf"]
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 3 — Taille totale des gros fichiers (expression génératrice)
+#  EXERCICE 3 — Taille totale des gros fichiers
 # ══════════════════════════════════════════════════════════════════════
 #  tailles  est la taille (en Mo) de plusieurs fichiers. Additionne et
-#  affiche uniquement la taille des fichiers de PLUS de 10 Mo.
-#  Indice :  sum(t for t in tailles if t > 10)   (on additionne au vol, sans
-#            créer de liste intermédiaire)
+#  affiche uniquement la taille des fichiers de PLUS de 10 Mo, sans
+#  construire de liste intermédiaire.
+#  🧰 Outils : sum, une expression génératrice avec un if
 #
 #  👀 Résultat attendu :
 #     832
@@ -65,23 +71,38 @@ tailles = [120, 4, 700, 12]
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 4 — Lire les lignes non vides (écrire un générateur) — défi
+#  EXERCICE 4 — Lire les lignes non vides (le défi : un générateur)
 # ══════════════════════════════════════════════════════════════════════
 #  texte  est le contenu d'un fichier (avec des lignes vides). Écris un
-#  GÉNÉRATEUR  lignes_utiles(texte)  qui PRODUIT (yield) seulement les lignes
-#  NON vides, une par une.
-#  Indice :
-#     def lignes_utiles(texte):
-#         for ligne in texte.splitlines():   # découpe le texte en lignes
-#             if ligne.strip():              # vraie seulement si la ligne a du contenu
-#                 yield ligne
-#  Puis appelle-le et affiche la liste :  print(list(lignes_utiles(texte)))
+#  GÉNÉRATEUR  lignes_utiles(texte)  qui produit seulement les lignes NON
+#  vides, une par une. Puis affiche tout ce qu'il produit, sous forme de
+#  liste.
+#  🧰 Outils : def avec yield, .splitlines(), .strip(), list()
 #
 #  👀 Résultat attendu :
 #     ['achat lait', 'achat pain']
 
 texte = "achat lait\n\nachat pain\n"
 
-# ✏️ ton code ici (le générateur, puis le print) :
+# ✏️ ton code ici :
 
 
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  💡 INDICES — à ne lire QUE si tu bloques (cherche d'abord 10 minutes)
+# ══════════════════════════════════════════════════════════════════════
+#
+#  Exercice 1 : la forme est [ce_qu_on_garde for f in fichiers if condition].
+#               La condition : f.endswith(".jpg").
+#
+#  Exercice 2 : pas de if cette fois : on TRANSFORME chaque élément.
+#               "Rapport.PDF".lower() renvoie "rapport.pdf".
+#
+#  Exercice 3 : comme une compréhension, mais directement dans les
+#               parenthèses de sum(...) : sum(t for t in ... if ...).
+#
+#  Exercice 4 : texte.splitlines() découpe le texte en lignes. Dans une
+#               boucle for, ligne.strip() est « vrai » seulement si la ligne
+#               a du contenu : dans ce cas, yield ligne. Pour tout afficher :
+#               print(list(lignes_utiles(texte))).
