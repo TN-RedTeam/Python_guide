@@ -142,6 +142,10 @@ journal.txt
 depenses.csv
 rapport_depenses.csv
 logements.csv
+releve.csv
+rapport.txt
+depenses_2mois.csv
+tableau_de_bord.csv
 
 # Binaires compilés (C, C++, Go, Asm) — on ne versionne que le code source
 *.o

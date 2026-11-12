@@ -106,6 +106,14 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.waitForSelector(".tabs .tab", { timeout: 10000 });
   ok((await page.locator(".tabs .tab").count()) >= 7, "Pentest : onglets des groupes");
 
+  // 4bis. Défis : onglet présent, énoncé chargé dans l'éditeur
+  await page.goto(`${BASE}/index.html#/projets/defis`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".file-pill", { timeout: 10000 });
+  ok((await page.locator(".file-pill").count()) >= 10, "Défis : énoncés et corrigés listés");
+  await page.locator(".file-pill").first().click();
+  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
+  ok((await page.locator(".CodeMirror").innerText()).includes("DÉFI 1"), "Défis : énoncé chargé");
+
   // 5. Bac à sable
   await page.goto(`${BASE}/index.html#/ide`, { waitUntil: "domcontentloaded" });
   await page.waitForSelector(".CodeMirror", { timeout: 10000 });

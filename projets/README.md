@@ -26,6 +26,18 @@ la meilleure façon de comprendre **comment un programme grandit** — une notio
 
 ---
 
+## 🎯 Les défis (des projets à écrire toi-même)
+
+Les projets ci-dessous sont **finis** : tu les lis et tu les modifies. Les **[défis](./defis/)**,
+eux, sont **vides** : c'est toi qui écris le programme, étape par étape, avec un résultat
+attendu à chaque étape. Il y en a cinq, à faire à des moments précis du parcours (après les
+modules 04, 07, 10 et 13/16) : analyser un relevé de dépenses, inventorier un disque, comparer
+deux dossiers, renommer des photos en série, construire un tableau de bord avec pandas.
+
+👉 **[Ouvrir les défis](./defis/)**
+
+---
+
 ## 📂 Les projets disponibles
 
 ### 1. 📇 Carnet de contacts — [`carnet_contacts.py`](./carnet_contacts.py)

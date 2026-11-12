@@ -29,7 +29,8 @@ Ce que tu peux **reporter** (pas ignorer, reporter) :
 
 ### Phase 1 — Les fondations Python (1-2 semaines)
 
-Fais ces modules **dans l'ordre**, en faisant **tous les exercices** :
+Fais ces modules **dans l'ordre**. Pour chacun : le cours, puis `exercices.py`, puis
+`entrainement.py` (la série 2 : lire du code, le modifier, écrire sans indice).
 
 | # | Module | Pourquoi c'est essentiel pour l'IA |
 |---|--------|------------------------------------|
@@ -38,6 +39,10 @@ Fais ces modules **dans l'ordre**, en faisant **tous les exercices** :
 | 2 | [02_collections](./02_collections/) | Listes et dictionnaires — **80% du code IA** manipule des listes. |
 | 3 | [03_fonctions_modules](./03_fonctions_modules/) | Organiser son code. `import` = ta porte vers NumPy, pandas, etc. |
 | 4 | [04_exceptions_fichiers](./04_exceptions_fichiers/) | Lire des fichiers de données, gérer les erreurs. |
+
+> 🎯 **Point d'étape — [défi 1](./projets/defis/)** : avant de passer à la phase 2, écris le
+> programme qui analyse un relevé de dépenses. Il réutilise les modules 01 à 04 d'un coup :
+> si tu y arrives, tes fondations sont solides. Si tu bloques, tu sais quel module revoir.
 
 ### Phase 2 — Python appliqué aux données (1 semaine)
 
@@ -48,6 +53,15 @@ Fais ces modules **dans l'ordre**, en faisant **tous les exercices** :
 | 7 | [14_bibliotheques](./14_bibliotheques/) | pip, venv — installer et gérer NumPy, pandas, scikit-learn, etc. |
 | 8 | [16_numpy](./16_numpy/) | NumPy — calculer sur des tableaux de nombres. **La base de tout le reste.** |
 | 9 | [13_donnees_rapports](./13_donnees_rapports/) | pandas — **l'outil n°1** pour manipuler des données : charger un CSV, filtrer, trier, regrouper. |
+
+> 🎯 **Points d'étape de la phase 2** ([les défis](./projets/defis/)) :
+> - après le module 10 : **défi 3** (comparer deux dossiers) et **défi 4** (renommer des photos) ;
+> - après les modules 16 et 13 : **défi 5** (un tableau de bord avec pandas et NumPy) — c'est
+>   exactement le geste « charger et explorer un dataset » de la phase 3.
+>
+> Le **défi 2** (un inventaire avec des classes) demande aussi le
+> [module 06](./06_iterateurs_generateurs/) : fais-le si tu as pris le temps de ce module. Les
+> compréhensions de liste qu'il enseigne se retrouvent partout dans le code de data science.
 
 ### Phase 3 — Ton premier projet IA (dès que la phase 2 est finie)
 
