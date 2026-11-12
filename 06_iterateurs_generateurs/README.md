@@ -157,6 +157,17 @@ python3 06_iterateurs_generateurs/exercices.py
 
 Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
 
+### 🏋️ La série 2 — l'entraînement
+
+**[`entrainement.py`](./entrainement.py)** : à faire **après** les exercices. La même matière,
+travaillée de trois façons : 👓 **lire** du code et prédire ce qu'il affiche, 🔧 **modifier** un
+script qui marche, ✍️ **écrire** de nouveaux exercices, cette fois **sans indice**. Le corrigé
+expliqué est dans [`entrainement_solutions.py`](./entrainement_solutions.py).
+
+```bash
+python3 06_iterateurs_generateurs/entrainement.py
+```
+
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`generateurs.py`](./generateurs.py) (différence de consommation mémoire).

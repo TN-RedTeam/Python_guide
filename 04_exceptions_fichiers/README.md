@@ -194,6 +194,17 @@ python3 04_exceptions_fichiers/exercices.py
 
 Bloqué après un vrai essai ? Le corrigé commenté est dans [`solutions.py`](./solutions.py).
 
+### 🏋️ La série 2 — l'entraînement
+
+**[`entrainement.py`](./entrainement.py)** : à faire **après** les exercices. La même matière,
+travaillée de trois façons : 👓 **lire** du code et prédire ce qu'il affiche, 🔧 **modifier** un
+script qui marche, ✍️ **écrire** de nouveaux exercices, cette fois **sans indice**. Le corrigé
+expliqué est dans [`entrainement_solutions.py`](./entrainement_solutions.py).
+
+```bash
+python3 04_exceptions_fichiers/entrainement.py
+```
+
 ### 🔬 Pour explorer (dans le terminal ou un fichier à toi, sans correction automatique)
 
 1. **Lis et lance** [`fichiers.py`](./fichiers.py) (création + lecture d'un fichier de log).

@@ -84,6 +84,13 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.waitForSelector(".CodeMirror", { timeout: 10000 });
   ok((await page.locator(".terminal-input").count()) === 1, "Exercices : terminal interactif monté");
 
+  // 3a. Onglet entraînement (série 2) : éditeur monté + bouton Solution fonctionnel
+  await page.click('.tab[data-tab="entrainement"]');
+  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
+  ok((await page.locator(".CodeMirror").innerText()).includes("ENTRAÎNEMENT"), "Entraînement : série 2 chargée");
+  await page.getByRole("button", { name: /Solution/ }).click();
+  ok((await page.locator(".solution-box").innerText()).includes("CORRIGÉ"), "Entraînement : corrigé affiché");
+
   // 3bis. Quiz : questions rendues + correction fonctionnelle
   await page.click('.tab[data-tab="quiz"]');
   await page.waitForSelector(".quiz-q", { timeout: 10000 });
