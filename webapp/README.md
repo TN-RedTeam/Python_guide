@@ -1,7 +1,7 @@
 # 📱 La plateforme e-learning — Python Guide dans ton navigateur
 
 Ce dossier contient une **application web** (PWA) qui transforme tout le dépôt en
-**plateforme d'apprentissage interactive** : les cours, les exercices auto-corrigés
+**plateforme d'apprentissage interactive** : les cours, les exercices
 et un **vrai Python** qui s'exécute **dans le navigateur** — ordinateur, tablette
 ou **téléphone Android**, sans rien installer.
 
@@ -16,7 +16,7 @@ ou **téléphone Android**, sans rien installer.
 |---|---|
 | 📖 **Tous les cours** | Les 16 modules + les 7 guides (symboles, glossaire…) + les mini-projets, rendus joliment (hors pentest, volontairement). |
 | ⌨️ **IDE intégré** | Éditeur avec coloration syntaxique (CodeMirror) + **Python 3.12 réel** compilé en WebAssembly ([Pyodide](https://pyodide.org)) : ton code s'exécute localement, dans l'onglet. |
-| 🧪 **Exercices auto-corrigés** | Les `exercices.py` de chaque module, préchargés dans l'IDE : tu complètes, tu appuies sur ▶, tu vois tes ✅/❌. Le score est détecté automatiquement. |
+| 🧪 **Exercices** | Les `exercices.py` de chaque module, préchargés dans l'IDE : tu écris ton code, tu appuies sur ▶, et tu compares l'affichage au résultat attendu. Indices en bas du fichier, bouton « Solution » en dernier recours. |
 | 🔍 **Pas à pas** (style Python Tutor) | Exécute le programme **ligne par ligne** : la ligne courante est surlignée, on **voit les variables changer**, les entrées/sorties de fonctions et la sortie s'afficher au fil des étapes. L'outil idéal pour *comprendre* ce que fait vraiment le code. |
 | 📦 **Paquets automatiques** | `import numpy`, `import pandas`… : les paquets portés par Pyodide sont téléchargés automatiquement ; pour les autres, un `ModuleNotFoundError` déclenche une installation **micropip** depuis PyPI (paquets en pur Python). Autrement dit : le `pip install` est fait pour toi. |
 | 📊 **Progression** | Sauvegardée sur l'appareil (localStorage) : modules lus, scores d'exercices, reprise là où tu t'étais arrêté. Rien n'est envoyé à un serveur. |

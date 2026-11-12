@@ -14,13 +14,13 @@ de la cybersécurité (pentest), Python est l'outil de prédilection.
 ## 📱 NOUVEAU : la plateforme e-learning interactive
 
 Tout ce guide existe maintenant sous forme d'**application web interactive** — cours,
-exercices auto-corrigés et **IDE Python intégré** qui s'exécute **dans ton navigateur**,
+exercices et **IDE Python intégré** qui s'exécute **dans ton navigateur**,
 y compris sur **téléphone Android** (installable comme une vraie app, utilisable hors ligne) :
 
 > ### 🌐 [tn-redteam.github.io/Python_guide](https://tn-redteam.github.io/Python_guide/)
 >
 > - ⌨️ Un **vrai Python 3.12** dans le navigateur (aucune installation, paquets téléchargés automatiquement) ;
-> - 🧪 les exercices de chaque module **préchargés et auto-corrigés** (✅/❌ en direct) ;
+> - 🧪 les exercices de chaque module **préchargés** : tu écris, tu exécutes, tu compares au résultat attendu ;
 > - 🔍 l'exécution **pas à pas** : tu vois les **variables changer ligne par ligne** ;
 > - 📊 ta **progression sauvegardée** sur ton appareil (aucun compte, aucune donnée envoyée) ;
 > - 📲 sur Android : Chrome → menu ⋮ → **« Ajouter à l'écran d'accueil »**.
@@ -90,21 +90,24 @@ appliqué** (automatisation) pour mettre les concepts en pratique.
 14. **[13_donnees_rapports](./13_donnees_rapports/)** : Manipuler des données et générer des rapports (`pandas`).
 15. **[14_bibliotheques](./14_bibliotheques/)** : `pip`, environnements virtuels, `requirements.txt`.
 
+### Vers les données et l'IA
+16. **[16_numpy](./16_numpy/)** : Calculer sur des tableaux de nombres (`NumPy`) — la base de pandas,
+    scikit-learn et PyTorch. À faire avec le module 13 ; l'ordre conseillé est dans
+    [`PARCOURS_IA.md`](./PARCOURS_IA.md).
+
 ---
 
 ## 🛠️ Pratiquer & sécurité
 
-- **🎯 Exercices auto-corrigés dans CHAQUE module** : un fichier `exercices.py` (des fonctions
-  à compléter, avec une **auto-correction** intégrée — tu lances, tu vois ✅/❌ en direct) et un
-  `solutions.py` commenté. **4 niveaux de difficulté** dans chaque fichier :
-  - **Niveau 1 — Reproduction** : tu refais exactement ce que le cours a montré.
-  - **Niveau 2 — Adaptation** : même logique, petit changement.
-  - **Niveau 3 — Combinaison** : tu mélanges les concepts du module.
-  - **Niveau 4 — Défi** : le challenge optionnel.
+- **🎯 Des exercices dans CHAQUE module** : un fichier `exercices.py` et un `solutions.py`
+  commenté. Chaque exercice te donne :
+  - des **données de départ visibles** (des noms de fichiers, un relevé de dépenses, des notes…) ;
+  - une ligne **🧰 Outils** qui dit *quoi* utiliser, sans dire comment l'écrire ;
+  - le **👀 résultat attendu** : tu écris ton code, tu lances, tu compares.
 
-  Chaque exercice contient un **RAPPEL DU COURS** avec le code exact à adapter — tu n'as plus
-  besoin de retourner dans le README pour chercher. Commence par
-  [`01_les_bases/exercices.py`](./01_les_bases/exercices.py).
+  Les **indices** sont regroupés tout en bas de chaque fichier : tu ne les lis que si tu
+  bloques. L'ordre à suivre : relire le cours → l'indice → en dernier recours `solutions.py`.
+  Commence par [`01_les_bases/exercices.py`](./01_les_bases/exercices.py).
 
   > 💾 **Pour ne jamais perdre ton travail lors d'un `git pull`** : ne code pas directement dans
   > `exercices.py` (il est suivi par git, donc une mise à jour du guide entrerait en conflit avec

@@ -139,6 +139,8 @@ mon_travail/
 # Petits fichiers créés par les exercices sur les fichiers (modules 04, 10…)
 essai.txt
 journal.txt
+depenses.csv
+rapport_depenses.csv
 
 # Binaires compilés (C, C++, Go, Asm) — on ne versionne que le code source
 *.o

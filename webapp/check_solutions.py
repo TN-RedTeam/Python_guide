@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Lance chaque solutions.py et exige un score PLEIN (« N/N réussis »).
+Lance chaque solutions.py et exige qu'il s'exécute sans erreur.
 
-Un corrigé qui plante, ou qui n'atteint pas 100 %, fait échouer la CI :
-c'est la garantie que la référence montrée aux apprenants est correcte.
+Un corrigé qui plante fait échouer la CI. Si un corrigé imprime encore un
+bilan « N/N réussis » (ancien format), on exige en plus qu'il soit plein.
 """
 
 import re
@@ -38,7 +38,7 @@ def main() -> int:
         for e in echecs:
             print("  •", e)
         return 1
-    print(f"\n✅ Les {len(solutions)} corrigés passent (score plein).")
+    print(f"\n✅ Les {len(solutions)} corrigés s'exécutent sans erreur.")
     return 0
 
 

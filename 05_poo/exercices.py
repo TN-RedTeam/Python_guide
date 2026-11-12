@@ -15,36 +15,39 @@ EXERCICES — Module 05 : la POO (les classes)
  afficher le résultat.
 ──────────────────────────────────────────────────────────────────────
 
- Tu lances, tu compares au « 👀 Résultat attendu ». Pas de correction
- automatique. Cours : README.md • Corrigé : solutions.py
+ La ligne « 🧰 Outils » te dit QUOI utiliser, pas comment l'écrire.
+
+ BLOQUÉ ?  1) relis le cours (README.md)
+           2) lis l'indice de l'exercice, tout EN BAS de ce fichier
+           3) en dernier recours : solutions.py
+
+ Lancer :   python3 exercices.py
 """
 
 
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 1 — Ta première classe : un Fichier
 # ══════════════════════════════════════════════════════════════════════
-#  Écris une classe  Fichier  avec :
-#    - __init__(self, nom, taille_mo) qui range self.nom et self.taille_mo ;
-#    - description(self) qui renvoie  "<nom> (<taille_mo> Mo)".
-#  Puis crée un fichier et affiche sa description :
-#    f = Fichier("video.mp4", 700)
-#    print(f.description())
+#  Écris une classe  Fichier  qui retient un nom et une taille en Mo, avec
+#  une méthode  description()  qui renvoie  "<nom> (<taille> Mo)".
+#  Puis crée le fichier "video.mp4" de 700 Mo et affiche sa description.
+#  🧰 Outils : class, __init__, self, une méthode, une f-string
 #
 #  👀 Résultat attendu :
 #     video.mp4 (700 Mo)
 
-# ✏️ ton code ici (la classe, puis les 2 lignes qui créent et affichent) :
+# ✏️ ton code ici (la classe d'abord, puis la création de l'objet et le print) :
 
 
 
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 2 — Une classe avec des calculs
 # ══════════════════════════════════════════════════════════════════════
-#  Écris une classe  Rectangle  avec :
-#    - __init__(self, largeur, hauteur) ;
-#    - aire(self) qui renvoie largeur × hauteur ;
-#    - perimetre(self) qui renvoie 2 × (largeur + hauteur).
-#  Crée  Rectangle(3, 4)  et affiche son aire PUIS son périmètre.
+#  Écris une classe  Rectangle  (largeur, hauteur) avec deux méthodes :
+#    - aire()       -> largeur × hauteur
+#    - perimetre()  -> 2 × (largeur + hauteur)
+#  Crée un rectangle de 3 sur 4 et affiche son aire PUIS son périmètre.
+#  🧰 Outils : class, __init__, self, deux méthodes avec return
 #
 #  👀 Résultat attendu :
 #     12
@@ -57,13 +60,11 @@ EXERCICES — Module 05 : la POO (les classes)
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 3 — L'héritage (réutiliser une classe)
 # ══════════════════════════════════════════════════════════════════════
-#  Un carré EST un rectangle à côtés égaux. Écris  Carre  qui HÉRITE de
-#  Rectangle (celui de l'exercice 2, juste au-dessus) :
-#    class Carre(Rectangle):
-#        def __init__(self, cote):
-#            super().__init__(cote, cote)   # réutilise le constructeur parent
-#  aire() et perimetre() sont hérités : rien à réécrire.
-#  Crée  Carre(5)  et affiche son aire PUIS son périmètre.
+#  Un carré EST un rectangle dont les côtés sont égaux. Écris une classe
+#  Carre  qui HÉRITE de Rectangle (celui de l'exercice 2) et qui se crée
+#  avec UN seul nombre : le côté. N'y réécris ni aire() ni perimetre().
+#  Crée un carré de côté 5 et affiche son aire PUIS son périmètre.
+#  🧰 Outils : class Enfant(Parent), super().__init__
 #
 #  👀 Résultat attendu :
 #     25
@@ -77,16 +78,14 @@ EXERCICES — Module 05 : la POO (les classes)
 #  EXERCICE 4 — Un objet qui garde un état : un compte (le défi)
 # ══════════════════════════════════════════════════════════════════════
 #  Écris  CompteBancaire  avec :
-#    - __init__(self, solde=0) ;
-#    - deposer(self, montant) : ajoute au solde ;
-#    - retirer(self, montant) : retire, SAUF si le montant dépasse le solde
-#      (dans ce cas, ne fait rien).
+#    - un solde de départ (0 si on n'en donne pas) ;
+#    - deposer(montant) : ajoute au solde ;
+#    - retirer(montant) : retire, SAUF si le montant dépasse le solde
+#      (dans ce cas, le compte ne change pas).
 #  Puis joue ce scénario et affiche le solde final :
-#    c = CompteBancaire(100)
-#    c.deposer(50)      # 150
-#    c.retirer(200)     # refusé (200 > 150) -> reste 150
-#    c.retirer(30)      # 120
-#    print(c.solde)
+#    ouvrir un compte avec 100  →  déposer 50  →  retirer 200 (refusé)
+#    →  retirer 30  →  afficher le solde
+#  🧰 Outils : une valeur par défaut dans __init__, self.solde, if
 #
 #  👀 Résultat attendu :
 #     120
@@ -94,3 +93,25 @@ EXERCICES — Module 05 : la POO (les classes)
 # ✏️ ton code ici :
 
 
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  💡 INDICES — à ne lire QUE si tu bloques (cherche d'abord 10 minutes)
+# ══════════════════════════════════════════════════════════════════════
+#
+#  Exercice 1 : __init__(self, nom, taille_mo) RANGE les valeurs dans
+#               l'objet (self.nom = nom, …). description(self) les RELIT
+#               avec self.nom et self.taille_mo. Pour créer l'objet :
+#               f = Fichier("video.mp4", 700), puis print(f.description()).
+#
+#  Exercice 2 : même schéma que l'exercice 1. Chaque méthode fait un return
+#               d'un calcul sur self.largeur et self.hauteur.
+#
+#  Exercice 3 : class Carre(Rectangle): et un seul __init__(self, cote) qui
+#               appelle le constructeur du parent en lui donnant le côté
+#               DEUX fois : super().__init__(cote, cote).
+#
+#  Exercice 4 : def __init__(self, solde=0). deposer fait self.solde += montant.
+#               Dans retirer, teste d'abord si montant > self.solde : si oui,
+#               return tout de suite (rien ne change) ; sinon soustrais.
+#               Le scénario : c = CompteBancaire(100), c.deposer(50), etc.

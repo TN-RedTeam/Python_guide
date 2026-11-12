@@ -12,12 +12,17 @@ EXERCICES — Module 02 : les collections (listes, dictionnaires, sets)
    • Tu lances, tu compares l'affichage au « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
+ La ligne « 🧰 Outils » te dit QUOI utiliser, pas comment l'écrire.
+
+ BLOQUÉ ?  1) relis le cours (README.md)
+           2) lis l'indice de l'exercice, tout EN BAS de ce fichier
+           3) en dernier recours : solutions.py
+
  Les données sont écrites ici en dur pour que ce soit simple à tester.
- Les notes « 💡 Sur ton PC » montrent comment faire pareil pour de vrai
- (tu le feras au module 10 « fichiers & dossiers »).
+ 💡 Sur ton PC : tu obtiendras ces mêmes listes pour de vrai au module 10
+    (os.listdir("mon_dossier") renvoie la liste des fichiers d'un dossier).
 
  Lancer :   python3 exercices.py
- Cours : README.md   •   Corrigé (si bloqué) : solutions.py
 """
 
 
@@ -25,16 +30,14 @@ EXERCICES — Module 02 : les collections (listes, dictionnaires, sets)
 #  EXERCICE 1 — Le 2e fichier de la liste
 # ══════════════════════════════════════════════════════════════════════
 #  fichiers  est la liste des fichiers d'un dossier. Affiche le DEUXIÈME.
-#  Rappel : les positions commencent à 0 (donc le 2e est à l'index 1).
-#
-#  💡 Sur ton PC : cette liste, c'est ce que renvoie os.listdir("mon_dossier").
+#  🧰 Outils : l'accès par index  liste[...]
 #
 #  👀 Résultat attendu :
 #     photo.jpg
 
 fichiers = ["rapport.pdf", "photo.jpg", "notes.txt"]
 
-# ✏️ ton code ici (affiche fichiers[?]) :
+# ✏️ ton code ici :
 
 
 
@@ -43,7 +46,7 @@ fichiers = ["rapport.pdf", "photo.jpg", "notes.txt"]
 # ══════════════════════════════════════════════════════════════════════
 #  tailles_mo  donne la taille (en Mo) de chaque fichier. Affiche la
 #  taille TOTALE du dossier (la somme de toutes les tailles).
-#  Indice :  tailles_mo.values()  donne les tailles  →  sum(...) les additionne.
+#  🧰 Outils : les valeurs d'un dictionnaire, sum
 #
 #  👀 Résultat attendu :
 #     705
@@ -59,8 +62,7 @@ tailles_mo = {"film.mp4": 700, "photo.jpg": 4, "cv.pdf": 1}
 # ══════════════════════════════════════════════════════════════════════
 #  Dans la liste  fichiers, compte combien se terminent par ".jpg",
 #  et affiche ce nombre.
-#  Indice :  "photo.jpg".endswith(".jpg")  vaut True. Pars d'un compteur à 0,
-#            parcours la liste, et +1 à chaque fichier qui finit par ".jpg".
+#  🧰 Outils : une boucle for, un compteur, la méthode .endswith()
 #
 #  👀 Résultat attendu :
 #     3
@@ -76,7 +78,7 @@ fichiers = ["vacances.jpg", "cv.pdf", "chat.jpg", "notes.txt", "profil.jpg"]
 # ══════════════════════════════════════════════════════════════════════
 #  tailles  donne la taille (en octets) de chaque fichier. Affiche le nom
 #  de chaque fichier VIDE (taille 0) — pratique pour faire le ménage.
-#  Indice :  for nom, taille in tailles.items():   puis un if.
+#  🧰 Outils : parcourir un dictionnaire avec .items(), if
 #
 #  👀 Résultat attendu (une ligne par fichier vide) :
 #     vide.txt
@@ -93,7 +95,7 @@ tailles = {"notes.txt": 12, "vide.txt": 0, "temp.log": 0}
 # ══════════════════════════════════════════════════════════════════════
 #  extensions  contient l'extension de chaque fichier (avec des répétitions).
 #  Affiche la liste des extensions DISTINCTES, triées par ordre alphabétique.
-#  Indice :  set(...) enlève les doublons,  sorted(...) trie et renvoie une liste.
+#  🧰 Outils : set, sorted
 #
 #  👀 Résultat attendu :
 #     ['.jpg', '.pdf', '.txt']
@@ -109,9 +111,7 @@ extensions = [".jpg", ".txt", ".jpg", ".pdf", ".txt"]
 # ══════════════════════════════════════════════════════════════════════
 #  À partir de  extensions, construis un dictionnaire qui dit combien de
 #  fichiers il y a de chaque type, puis affiche-le.
-#  Indice : pars d'un dict vide, et pour chaque extension :
-#           compteur[ext] = compteur.get(ext, 0) + 1
-#           (.get(ext, 0) renvoie le compte actuel, ou 0 si c'est un nouveau type)
+#  🧰 Outils : un dictionnaire vide, une boucle for, la méthode .get()
 #
 #  👀 Résultat attendu :
 #     {'.jpg': 2, '.txt': 1}
@@ -121,3 +121,27 @@ extensions = [".jpg", ".txt", ".jpg"]
 # ✏️ ton code ici :
 
 
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  💡 INDICES — à ne lire QUE si tu bloques (cherche d'abord 10 minutes)
+# ══════════════════════════════════════════════════════════════════════
+#
+#  Exercice 1 : les positions commencent à 0. Le 1er élément est à l'index 0,
+#               donc le 2e est à l'index…
+#
+#  Exercice 2 : tailles_mo.values() donne toutes les tailles ; sum(...) sait
+#               additionner une série de nombres.
+#
+#  Exercice 3 : "photo.jpg".endswith(".jpg") vaut True. Pars d'un compteur
+#               à 0 AVANT la boucle, et ajoute 1 à chaque nom qui passe le test.
+#
+#  Exercice 4 : for nom, taille in tailles.items(): te donne les deux à la
+#               fois. Il reste à tester la taille et à afficher le nom.
+#
+#  Exercice 5 : set(...) enlève les doublons (mais sans ordre) ; sorted(...)
+#               trie et renvoie une liste. Enchaîne les deux.
+#
+#  Exercice 6 : pour chaque extension, il faut « l'ancien compte + 1 ».
+#               compteur.get(ext, 0) renvoie le compte actuel, ou 0 si
+#               l'extension n'est pas encore dans le dictionnaire.

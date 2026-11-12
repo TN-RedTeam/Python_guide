@@ -12,22 +12,26 @@ EXERCICES — Module 04 : exceptions & fichiers
    • Tu lances, tu compares l'affichage au « 👀 Résultat attendu ».
 ──────────────────────────────────────────────────────────────────────
 
- Les notes « 💡 Sur ton PC » montrent comment faire la même chose sur tes
- vrais fichiers. Les exercices sur les fichiers créent un petit fichier
- dans le dossier courant (tu peux le supprimer après).
+ La ligne « 🧰 Outils » te dit QUOI utiliser, pas comment l'écrire.
+
+ BLOQUÉ ?  1) relis le cours (README.md)
+           2) lis l'indice de l'exercice, tout EN BAS de ce fichier
+           3) en dernier recours : solutions.py
+
+ Les exercices sur les fichiers créent un petit fichier dans le dossier
+ courant (tu peux le supprimer après).
 
  Lancer :   python3 exercices.py
- Cours : README.md • Corrigé : solutions.py
 """
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 1 — Partager l'addition sans planter (try / except)
+#  EXERCICE 1 — Partager l'addition sans planter
 # ══════════════════════════════════════════════════════════════════════
 #  Une addition de  addition  euros est partagée entre  convives  personnes.
-#  Affiche le prix par personne (addition / convives). Mais si convives vaut 0,
-#  affiche  None  au lieu de laisser le programme planter (division par zéro).
-#  Indice :  try:  ... addition / convives ...   except ZeroDivisionError:  ... None
+#  Affiche le prix par personne. Mais si convives vaut 0, affiche  None
+#  au lieu de laisser le programme planter (division par zéro).
+#  🧰 Outils : try / except, l'exception ZeroDivisionError
 #
 #  👀 Résultat attendu (avec convives = 0) :
 #     None
@@ -41,11 +45,11 @@ convives = 0
 
 
 # ══════════════════════════════════════════════════════════════════════
-#  EXERCICE 2 — Valider une saisie (sans planter)
+#  EXERCICE 2 — Valider une saisie
 # ══════════════════════════════════════════════════════════════════════
 #  Un utilisateur a tapé  saisie  pour son âge. Essaie de la convertir en
-#  entier avec int(saisie). Si ça marche, affiche le nombre ; sinon  None.
-#  Indice :  int("abc")  lève une  ValueError  → attrape-la.
+#  nombre entier. Si ça marche, affiche le nombre ; sinon affiche  None.
+#  🧰 Outils : int(), try / except, l'exception ValueError
 #
 #  👀 Résultat attendu (avec saisie = "abc") :
 #     None
@@ -62,11 +66,7 @@ saisie = "abc"
 # ══════════════════════════════════════════════════════════════════════
 #  Écris le texte  note  dans le fichier  chemin, puis relis le fichier et
 #  affiche son contenu (comme un pense-bête qu'on enregistre).
-#  Indice :
-#     with open(chemin, "w", encoding="utf-8") as f:   # "w" = écrire
-#         f.write(note)
-#     with open(chemin, "r", encoding="utf-8") as f:   # "r" = lire
-#         print(f.read())
+#  🧰 Outils : with open(...) en écriture, puis with open(...) en lecture
 #
 #  💡 Sur ton PC : remplace "journal.txt" par un vrai chemin (ex.
 #     "/home/toi/notes.txt") pour enregistrer tes notes pour de vrai.
@@ -84,10 +84,10 @@ note = "Acheter du pain"
 # ══════════════════════════════════════════════════════════════════════
 #  EXERCICE 4 — Compter les lignes d'un fichier (0 s'il manque)
 # ══════════════════════════════════════════════════════════════════════
-#  Essaie d'ouvrir  chemin  et d'afficher son nombre de lignes. S'il n'existe
-#  pas, affiche  0  (au lieu de planter).
-#  Indice :  try: with open(...) as f: print(len(f.readlines()))
-#            except FileNotFoundError: print(0)
+#  Essaie d'ouvrir  chemin  et d'afficher son nombre de lignes. S'il
+#  n'existe pas, affiche  0  (au lieu de planter).
+#  🧰 Outils : try / except, with open(...), .readlines(), len,
+#              l'exception FileNotFoundError
 #
 #  💡 Sur ton PC : mets le chemin d'un vrai fichier texte (un .log, un .csv…)
 #     pour compter SES lignes.
@@ -100,3 +100,22 @@ chemin = "ce_fichier_nexiste_pas.txt"
 # ✏️ ton code ici :
 
 
+
+
+# ══════════════════════════════════════════════════════════════════════
+#  💡 INDICES — à ne lire QUE si tu bloques (cherche d'abord 10 minutes)
+# ══════════════════════════════════════════════════════════════════════
+#
+#  Exercice 1 : mets le calcul ET son print dans le bloc try. Dans le bloc
+#               except ZeroDivisionError: , affiche None.
+#
+#  Exercice 2 : int("abc") lève une ValueError. Même forme que l'exercice 1 :
+#               on tente dans le try, on rattrape dans le except.
+#
+#  Exercice 3 : deux blocs with à la suite. Le premier ouvre en mode "w"
+#               (écrire) et fait f.write(note). Le second ouvre en mode "r"
+#               (lire) et affiche f.read(). Pense à encoding="utf-8".
+#
+#  Exercice 4 : le with open(...) va DANS le try. f.readlines() renvoie la
+#               liste des lignes : il reste à la compter. Le except
+#               FileNotFoundError: affiche 0.

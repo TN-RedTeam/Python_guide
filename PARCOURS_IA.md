@@ -45,8 +45,9 @@ Fais ces modules **dans l'ordre**, en faisant **tous les exercices** :
 |---|--------|----------|
 | 5 | [05_poo](./05_poo/) | Comprendre les classes — les modèles ML **sont** des classes. |
 | 6 | [10_fichiers_dossiers](./10_fichiers_dossiers/) | CSV, JSON — le format de tes datasets. |
-| 7 | [13_donnees_rapports](./13_donnees_rapports/) | pandas — **l'outil n°1** pour manipuler des données en IA. |
-| 8 | [14_bibliotheques](./14_bibliotheques/) | pip, venv — installer et gérer NumPy, scikit-learn, etc. |
+| 7 | [14_bibliotheques](./14_bibliotheques/) | pip, venv — installer et gérer NumPy, pandas, scikit-learn, etc. |
+| 8 | [16_numpy](./16_numpy/) | NumPy — calculer sur des tableaux de nombres. **La base de tout le reste.** |
+| 9 | [13_donnees_rapports](./13_donnees_rapports/) | pandas — **l'outil n°1** pour manipuler des données : charger un CSV, filtrer, trier, regrouper. |
 
 ### Phase 3 — Ton premier projet IA (dès que la phase 2 est finie)
 
@@ -103,7 +104,7 @@ Installe-les avec `pip install` (module 14) :
 
 | Bibliothèque | À quoi ça sert | Quand l'apprendre |
 |-------------|----------------|-------------------|
-| **NumPy** | Calcul sur des tableaux de nombres | Dès la phase 3 |
+| **NumPy** | Calcul sur des tableaux de nombres | Dès la phase 2 (module 16) |
 | **pandas** | Manipuler des tableaux de données (CSV, Excel) | Dès la phase 2 (module 13) |
 | **matplotlib** | Tracer des graphiques | Dès la phase 3 |
 | **scikit-learn** | Machine Learning classique (classification, régression) | Dès la phase 3 |

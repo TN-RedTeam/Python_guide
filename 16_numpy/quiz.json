@@ -1,0 +1,26 @@
+[
+  {
+    "q": "Que donne `np.array([1, 2, 3]) * 2` ?",
+    "options": ["`[1 2 3 1 2 3]`", "`[2 4 6]`", "une erreur"],
+    "correct": 1,
+    "explanation": "Avec NumPy, l'opération s'applique à chaque case. C'est une liste Python qui serait répétée (`[1, 2, 3, 1, 2, 3]`)."
+  },
+  {
+    "q": "Un tableau a pour forme `(100, 4)`. Qu'est-ce que ça veut dire ?",
+    "options": ["100 colonnes et 4 lignes", "100 lignes et 4 colonnes", "400 valeurs sur une seule dimension"],
+    "correct": 1,
+    "explanation": "`.shape` donne toujours (lignes, colonnes). En IA : 100 exemples, 4 mesures par exemple."
+  },
+  {
+    "q": "Que fait `notes[notes >= 10]` ?",
+    "options": ["il remplace les notes par True/False", "il garde seulement les notes ≥ 10", "il compte les notes ≥ 10"],
+    "correct": 1,
+    "explanation": "`notes >= 10` fabrique un masque de True/False ; placé entre crochets, il ne garde que les cases où c'est True."
+  },
+  {
+    "q": "Sur un tableau (élèves en lignes, matières en colonnes), que donne `.mean(axis=1)` ?",
+    "options": ["une moyenne par élève", "une moyenne par matière", "la moyenne de toutes les notes"],
+    "correct": 0,
+    "explanation": "`axis=1` calcule le long de chaque ligne : un résultat par ligne, donc par élève. `axis=0` donnerait un résultat par colonne (par matière)."
+  }
+]
