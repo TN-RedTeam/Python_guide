@@ -99,6 +99,15 @@ NOTE_LAB = (
 )
 
 
+# Fichiers d'un module qui ont leur propre onglet (donc exclus des « démos »).
+FICHIERS_PEDAGOGIQUES = (
+    "exercices.py",
+    "solutions.py",
+    "entrainement.py",
+    "entrainement_solutions.py",
+)
+
+
 def lire(chemin: Path) -> str:
     return chemin.read_text(encoding="utf-8")
 
@@ -127,7 +136,7 @@ def fichiers_demo(dossier: Path) -> list[dict]:
     """Fichiers .py de démonstration (tout sauf exercices/solutions/tests)."""
     demos = []
     for f in sorted(dossier.glob("*.py")):
-        if f.name in ("exercices.py", "solutions.py") or f.name.startswith("__"):
+        if f.name in FICHIERS_PEDAGOGIQUES or f.name.startswith("__"):
             continue
         demos.append({"name": f.name, "code": lire(f)})
     return demos
@@ -150,6 +159,11 @@ def construire_module(dossier: Path) -> dict:
         module["exercices"] = lire(exercices)
     if solutions.exists():
         module["solutions"] = lire(solutions)
+    # Série 2 : lire / modifier / écrire, avec son propre corrigé.
+    entrainement = dossier / "entrainement.py"
+    if entrainement.exists():
+        module["entrainement"] = lire(entrainement)
+        module["entrainement_solutions"] = lire(dossier / "entrainement_solutions.py")
     quiz = dossier / "quiz.json"
     if quiz.exists():
         module["quiz"] = json.loads(lire(quiz))
@@ -169,6 +183,13 @@ def construire_projets() -> dict:
             "files": fichiers_demo(dossier / "fil_rouge"),
         },
     }
+    # Défis de synthèse : des projets À FAIRE (énoncé + corrigé), pas à lire.
+    defis = dossier / "defis"
+    if defis.is_dir():
+        projets["defis"] = {
+            "readme": lire(defis / "README.md"),
+            "files": fichiers_demo(defis),
+        }
     return projets
 
 
