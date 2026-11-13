@@ -284,6 +284,32 @@ Position 2 : Zoé       ← i = 2, noms[2] = "Zoé"
 > lit plus simplement. Utilise `range(len(...))` **seulement** quand tu as vraiment besoin du
 > numéro `i` (pour l'afficher, ou pour comparer deux listes position par position).
 
+#### Le motif à connaître par cœur : accumuler dans une boucle
+
+Très souvent, une boucle sert à **construire un résultat petit à petit** : un total, un
+compteur… Le motif est toujours le même, en trois temps :
+
+```python
+total = 0                    # 1. AVANT la boucle : on prépare une variable de départ
+for i in range(1, 5):        #    i prend 1, 2, 3, 4
+    total = total + i        # 2. DANS la boucle : on la fait grossir à chaque tour
+print(total)                 # 3. APRÈS la boucle : le résultat est prêt → 10
+```
+
+Ce qui se passe, **tour par tour** (fais ce tableau sur papier quand un code te résiste) :
+
+| Tour | `i` | calcul `total + i` | `total` après |
+|------|-----|--------------------|---------------|
+| avant la boucle | — | — | 0 |
+| 1 | 1 | 0 + 1 | 1 |
+| 2 | 2 | 1 + 2 | 3 |
+| 3 | 3 | 3 + 3 | 6 |
+| 4 | 4 | 6 + 4 | 10 |
+
+> ⚠️ **Les deux erreurs classiques** : mettre `total = 0` **dans** la boucle (il repart de zéro
+> à chaque tour), et mettre le `print(total)` **dans** la boucle (il s'affiche à chaque tour au
+> lieu d'une fois à la fin). Regarde l'**indentation** : ce qui est décalé est *dans* la boucle.
+
 ### La boucle `while` — « tant que… »
 
 On l'utilise quand on **ne sait pas d'avance** combien de fois répéter : on continue **tant
@@ -300,6 +326,24 @@ print("Décollage !")
 > ⚠️ **La boucle infinie** : si tu oublies de faire évoluer la condition (ici `compteur -= 1`),
 > le `while` ne s'arrête **jamais**. Pour interrompre un programme bloqué dans le terminal :
 > **`Ctrl + C`**.
+
+Le même tableau « tour par tour » marche pour un `while`. Ici, on ne sait pas d'avance combien
+de semaines il faudra : c'est la **condition** qui décide quand s'arrêter.
+
+```python
+economies = 20
+semaines = 0
+while economies < 50:              # on continue TANT QUE l'objectif n'est pas atteint
+    economies = economies + 15     # chaque semaine, on ajoute 15 €
+    semaines = semaines + 1        # et on compte la semaine
+print(semaines)                    # 2
+```
+
+| Test `economies < 50` | `economies` après | `semaines` après |
+|-----------------------|-------------------|------------------|
+| 20 < 50 → vrai | 35 | 1 |
+| 35 < 50 → vrai | 50 | 2 |
+| 50 < 50 → **faux** : la boucle s'arrête | — | — |
 
 ### `for` ou `while` : lequel choisir ?
 

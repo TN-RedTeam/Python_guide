@@ -93,6 +93,40 @@ print("pomme" in fruits)     # True/False : l'élément est-il présent ?
 > action que la liste **sait faire sur elle-même**. `len(fruits)` est une **fonction** qui
 > *reçoit* la liste. Les deux formes coexistent — voir [`../LES_SYMBOLES.md`](../LES_SYMBOLES.md).
 
+### Les outils qui reviennent tout le temps : `len`, `sum`, `min`, `max`, `sorted`
+
+Ces cinq fonctions **reçoivent** une liste et **renvoient** un résultat, sans modifier la liste :
+
+```python
+notes = [12, 8, 15]
+
+print(len(notes))                    # 3             le NOMBRE d'éléments
+print(sum(notes))                    # 35            la SOMME
+print(min(notes))                    # 8             le plus petit
+print(max(notes))                    # 15            le plus grand
+print(sorted(notes))                 # [8, 12, 15]   une NOUVELLE liste, triée
+print(sorted(notes, reverse=True))   # [15, 12, 8]   triée du plus grand au plus petit
+print(sum(notes) / len(notes))       # 11.666…       la moyenne = somme / nombre
+```
+
+> 🔑 **`sorted(liste)` ou `liste.sort()` ?** Les deux trient, mais pas pareil :
+> - `sorted(notes)` **renvoie une nouvelle liste** triée et laisse `notes` intacte — à utiliser
+>   quand tu veux afficher ou ranger le résultat : `print(sorted(notes))` ;
+> - `notes.sort()` trie la liste **sur place** et ne renvoie **rien** (`None`). Le piège :
+>   `print(notes.sort())` affiche `None`.
+
+:::piege Le signe = ne copie pas une liste
+```python
+a = [1, 2]
+b = a              # PAS une copie : b est un 2e NOM pour la MÊME liste
+b.append(3)
+print(a)           # [1, 2, 3]  ← a a « changé » aussi !
+```
+Pour une vraie copie indépendante, écris `b = a.copy()`. Alors `b.append(3)` ne touche plus
+`a`. Si un jour « ta liste change toute seule », cherche de ce côté.
+:::
+
+
 ### Parcourir une liste
 
 ```python
@@ -104,6 +138,40 @@ for i, fruit in enumerate(fruits):   # quand tu veux AUSSI l'index
 ```
 
 ---
+
+### Petit détour : interroger et découper un texte
+
+Les listes contiennent souvent du **texte** (des noms de fichiers, des mots…). Un texte sait
+répondre à des questions et se découper, grâce à ses **méthodes** :
+
+```python
+nom = "photo_vacances.jpg"
+
+print(nom.endswith(".jpg"))       # True    le texte FINIT-il par ".jpg" ?
+print(nom.endswith(".png"))       # False
+print(nom.startswith("photo"))    # True    COMMENCE-t-il par "photo" ?
+print(nom.upper())                # "PHOTO_VACANCES.JPG"   tout en majuscules
+print("Rapport.PDF".lower())      # "rapport.pdf"          tout en minuscules
+
+print("le chat dort".split())     # ['le', 'chat', 'dort']  découpe aux espaces → une LISTE
+print("a,b,c".split(","))         # ['a', 'b', 'c']         découpe aux virgules
+```
+
+`.endswith()` répond `True` ou `False` : elle se place donc naturellement dans un `if`. Pour
+compter les photos d'une liste de fichiers, on combine une boucle, un `if` et un compteur :
+
+```python
+fichiers = ["a.jpg", "b.pdf", "c.jpg"]
+
+compteur = 0                      # AVANT la boucle
+for nom in fichiers:
+    if nom.endswith(".jpg"):      # vrai pour "a.jpg" et "c.jpg"
+        compteur = compteur + 1
+print(compteur)                   # 2
+```
+
+---
+
 
 ## 2. Les dictionnaires (`dict`) — associer une clé à une valeur
 
@@ -175,6 +243,36 @@ for produit, quantite in stock.items():
 > `stock["poires"]` te la donne directement (revois `dico[clé]` et `.get()` plus haut).
 
 ---
+
+### Compter avec un dictionnaire : le motif `.get(clé, 0) + 1`
+
+Pour compter « combien de fois chaque chose apparaît », on utilise un dictionnaire dont les
+**clés** sont les choses et les **valeurs** leurs compteurs :
+
+```python
+extensions = [".jpg", ".txt", ".jpg"]
+
+compteur = {}                                    # un dictionnaire VIDE au départ
+for ext in extensions:
+    compteur[ext] = compteur.get(ext, 0) + 1     # ancien compte (ou 0) + 1
+print(compteur)                                  # {'.jpg': 2, '.txt': 1}
+```
+
+La ligne du milieu se lit de **droite à gauche** : `compteur.get(ext, 0)` donne le compte
+actuel de cette extension — ou `0` si on la rencontre pour la première fois —, on ajoute 1, et
+on range le résultat sous la clé `ext`. Tour par tour :
+
+| Tour | `ext` | `compteur.get(ext, 0)` | `compteur` après |
+|------|-------|------------------------|------------------|
+| 1 | `.jpg` | 0 (clé absente) | `{'.jpg': 1}` |
+| 2 | `.txt` | 0 (clé absente) | `{'.jpg': 1, '.txt': 1}` |
+| 3 | `.jpg` | 1 (clé présente) | `{'.jpg': 2, '.txt': 1}` |
+
+> 💡 Et pour additionner **toutes les valeurs** d'un dictionnaire : `sum(d.values())`. Avec
+> `d = {"x": 1, "y": 2}`, `d.values()` contient 1 et 2, donc `sum(d.values())` vaut 3.
+
+---
+
 
 ## 3. Les tuples (`tuple`) — un groupe figé
 

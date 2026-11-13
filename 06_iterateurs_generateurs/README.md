@@ -118,6 +118,35 @@ On lit dans l'ordre : `[` **ce qu'on garde** `for` **chaque élément** `in` **l
 {n % 3 for n in nombres}               # set en compréhension (valeurs uniques)
 ```
 
+### Filtrer ET transformer : dans quel ordre lire ?
+
+Quand une compréhension a les deux, le **filtre** (`if`) s'applique d'abord, la
+**transformation** ensuite :
+
+```python
+print([n * 2 for n in [1, 2, 3, 4] if n > 2])    # [6, 8]
+```
+
+Lis-la en trois temps : *pour chaque `n` de la liste* → *si `n > 2`* (on ne garde que 3 et 4)
+→ *on met `n * 2`* dans le résultat (6 et 8).
+
+### Deux outils de texte utiles ici : `.splitlines()` et `.strip()`
+
+Le contenu d'un fichier est un seul long texte. `.splitlines()` le découpe en **liste de
+lignes**, et `.strip()` retire les espaces et retours à la ligne autour d'un texte :
+
+```python
+texte = "pain\n\nlait\n"                  # 3 lignes, dont une vide au milieu
+
+print(texte.splitlines())                 # ['pain', '', 'lait']
+print([ligne for ligne in texte.splitlines() if ligne.strip()])    # ['pain', 'lait']
+```
+
+Pourquoi `if ligne.strip()` suffit-il à écarter les lignes vides ? Parce qu'un texte **vide**
+compte comme **faux** dans un `if`, et un texte non vide comme **vrai**. `"".strip()` donne
+`""` (faux) ; `"lait".strip()` donne `"lait"` (vrai).
+
+
 ### L'expression génératrice : compréhension paresseuse
 
 Avec des **parenthèses** au lieu de crochets, tu obtiens un **générateur** (rien n'est calculé

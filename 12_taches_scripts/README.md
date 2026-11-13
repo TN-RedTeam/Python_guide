@@ -61,6 +61,50 @@ print(args.source, args.destination)
 
 ---
 
+### Trois réglages d'`add_argument` à connaître
+
+```python
+import argparse
+
+parseur = argparse.ArgumentParser()
+parseur.add_argument("--source", required=True)             # OBLIGATOIRE
+parseur.add_argument("--copies", type=int, default=1)       # un NOMBRE, 1 si on ne dit rien
+parseur.add_argument("--compresser", action="store_true")   # un INTERRUPTEUR, sans valeur
+```
+
+| Réglage | Ce qu'il fait |
+|---------|---------------|
+| `required=True` | le script refuse de démarrer si l'option manque |
+| `default=...` | la valeur utilisée quand l'option n'est pas donnée |
+| `type=int` | convertit la valeur en nombre entier |
+| `action="store_true"` | l'option ne prend pas de valeur : présente → `True`, absente → `False` |
+
+> ⚠️ **Le piège de `type=`** : tout ce qui arrive de la ligne de commande est du **texte**. Sans
+> `type=int`, `--copies 3` te donne `"3"`, et `args.copies + 1` plante (`"3" + 1`). Dès qu'une
+> option sert à **calculer**, précise son type.
+
+### Tester son parseur sans passer par le terminal
+
+`parse_args()` sans rien lit ce que tu as tapé dans le terminal. Mais tu peux aussi lui donner
+**toi-même** la liste des arguments, ce qui est très pratique pour essayer :
+
+```python
+args = parseur.parse_args(["--source", "photos", "--copies", "3"])
+print(args.source)        # photos
+print(args.copies + 1)    # 4       ← un vrai nombre, grâce à type=int
+print(args.compresser)    # False   ← --compresser n'est pas dans la liste
+
+args = parseur.parse_args(["--source", "photos", "--compresser"])
+print(args.copies)        # 1       ← la valeur par défaut
+print(args.compresser)    # True
+```
+
+La liste `["--source", "photos", "--copies", "3"]` est exactement ce qu'argparse reçoit quand
+tu tapes `python3 script.py --source photos --copies 3` : un élément par mot.
+
+---
+
+
 ## 3. Planifier une tâche : la faire tourner toute seule
 
 Automatiser, c'est aussi **ne plus avoir à lancer le script soi-même**. Trois approches,

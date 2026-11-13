@@ -107,6 +107,57 @@ inverse = json.dumps(donnees)      # dumps = "dump string" → re-transforme le 
 
 ---
 
+### Descendre dans une réponse imbriquée
+
+Les vraies réponses d'API sont rarement « à plat » : on y trouve des **listes dans des
+dictionnaires**, des dictionnaires dans des listes… La méthode : descendre **un étage à la
+fois**, en se demandant à chaque étape « là, j'ai un dictionnaire ou une liste ? ».
+
+```python
+import json
+
+texte = '{"ville": "Lyon", "previsions": [{"jour": "lundi", "temp": 12}, {"jour": "mardi", "temp": 15}]}'
+donnees = json.loads(texte)
+
+print(donnees["ville"])                     # Lyon      dictionnaire → on donne une CLÉ
+print(len(donnees["previsions"]))           # 2         « previsions » est une LISTE de 2 éléments
+print(donnees["previsions"][0])             # {'jour': 'lundi', 'temp': 12}   liste → on donne un INDEX
+print(donnees["previsions"][1]["temp"])     # 15        puis une clé dans ce dictionnaire
+```
+
+> 🧠 **La règle de lecture** : entre crochets, un **texte** (`["temp"]`) est une clé de
+> dictionnaire ; un **nombre** (`[1]`) est un index de liste. `donnees["previsions"][1]["temp"]`
+> se lit donc de gauche à droite : *la clé « previsions » → son 2e élément → sa clé « temp »*.
+
+Et pour ramasser la même information dans **tous** les éléments d'une liste, une compréhension :
+
+```python
+print([p["temp"] for p in donnees["previsions"]])    # [12, 15]
+```
+
+### Vérifier que l'appel a réussi
+
+Le **code de réponse** dit si tout s'est bien passé : les codes de **200 à 299** signifient un
+succès, 404 « introuvable », 500 « erreur du serveur ». Python permet d'écrire le test comme en
+maths :
+
+```python
+code = 404
+print(200 <= code <= 299)     # False → ne lis pas la réponse, elle ne contient pas tes données
+```
+
+### Dans l'autre sens : préparer ce qu'on envoie
+
+Pour **envoyer** des données à une API, on fait le chemin inverse de `json.loads` :
+
+```python
+commande = {"produit": "clavier", "quantite": 2}
+print(json.dumps(commande))   # {"produit": "clavier", "quantite": 2}   ← du TEXTE, prêt à partir
+```
+
+---
+
+
 ## 4. Le scraping : lire une page web faite pour les humains
 
 Quand un site **n'a pas d'API**, on peut quand même extraire des infos en lisant

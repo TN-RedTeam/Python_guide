@@ -68,6 +68,34 @@ print(message)                     # "Bienvenue Baba, le Guerrier !"
 - **Paramètre** = le nom dans la définition (`nom`, `role`). C'est la *case à remplir*.
 - **Argument** = la valeur réelle qu'on passe à l'appel (`"Baba"`). C'est ce qu'on *met dans la case*.
 
+### Suivre un appel pas à pas : d'où vient la valeur du paramètre ?
+
+C'est **la** question qui bloque au début : dans `def prix_ttc(prix_ht):`, que vaut `prix_ht` ?
+Réponse : **rien, tant qu'on n'appelle pas la fonction**. Un paramètre est une boîte vide,
+avec juste une étiquette. C'est **l'appel** qui la remplit.
+
+```python
+def prix_ttc(prix_ht):        # prix_ht : une boîte VIDE pour l'instant
+    return prix_ht * 1.2
+
+print(prix_ttc(100))          # 120.0
+print(prix_ttc(50))           # 60.0
+```
+
+Ce que fait Python à la ligne `print(prix_ttc(100))`, dans l'ordre :
+
+1. il voit l'appel `prix_ttc(100)` et **met 100 dans la boîte** `prix_ht` ;
+2. il exécute le corps de la fonction : `100 * 1.2` → `120.0` ;
+3. `return` renvoie `120.0` : à cet endroit, **l'appel est remplacé par sa valeur** — la ligne
+   devient `print(120.0)` ;
+4. la boîte `prix_ht` est jetée. Au 2e appel, elle est recréée et reçoit `50`.
+
+> 🧠 **À retenir** : tu n'écris **jamais** `prix_ht = 100` dans la fonction. Si tu le faisais,
+> elle renverrait toujours 120, quel que soit le nombre qu'on lui donne — elle ne servirait
+> plus à rien. C'est **celui qui appelle** qui choisit la valeur, et il peut en choisir une
+> différente à chaque appel. C'est tout l'intérêt d'une fonction.
+
+
 ### Arguments positionnels vs nommés
 
 ```python
@@ -207,6 +235,42 @@ mots.sort(key=lambda mot: len(mot))   # trie par longueur → ["go", "rust", "py
 > (c'est plus lisible).
 
 ---
+
+### `sorted()` avec `key` : trier selon TON critère
+
+`sorted(liste)` trie dans l'ordre « naturel » (alphabétique ou numérique). Le paramètre `key`
+permet de trier **selon autre chose** : tu lui donnes une fonction, et `sorted` compare les
+éléments d'après **ce que cette fonction renvoie** pour chacun.
+
+```python
+mots = ["python", "go", "rust"]
+
+print(sorted(mots, key=lambda mot: len(mot)))                 # ['go', 'rust', 'python']
+print(sorted(mots, key=lambda mot: len(mot), reverse=True))   # ['python', 'rust', 'go']
+print(mots)                                                   # ['python', 'go', 'rust']  ← intacte
+```
+
+`lambda mot: len(mot)` renvoie 6 pour `"python"`, 2 pour `"go"`, 4 pour `"rust"` : `sorted`
+range donc les mots dans l'ordre 2, 4, 6. Avec `reverse=True`, l'ordre est inversé (du plus
+grand au plus petit).
+
+Le cas le plus utile : trier une liste de **couples** d'après l'un de leurs éléments. Dans un
+couple `(nom, taille)`, l'index 0 est le nom et l'index 1 la taille :
+
+```python
+fichiers = [("film.mp4", 700), ("cv.pdf", 1), ("photo.jpg", 4)]
+
+print(fichiers[0][1])                                # 700  ← 1er couple, puis son 2e élément
+print(sorted(fichiers, key=lambda f: f[1]))          # triés par TAILLE :
+# [('cv.pdf', 1), ('photo.jpg', 4), ('film.mp4', 700)]
+```
+
+> 🔎 `sorted(...)` **renvoie une nouvelle liste** ; `liste.sort(...)` trie **sur place** et ne
+> renvoie rien. Les deux acceptent `key` et `reverse`. Dans une fonction qui doit *renvoyer* une
+> liste triée, c'est `return sorted(...)` qu'il te faut.
+
+---
+
 
 ## 7. Les modules : réutiliser du code entre fichiers
 

@@ -5,7 +5,7 @@
    - CDN (CodeMirror, marked, Pyodide) : cache d'abord (ces URLs sont versionnées).
    NB : Pyodide pèse ~10 Mo ; il n'est mis en cache qu'après une première exécution. */
 
-const VERSION = "pyguide-v8";
+const VERSION = "pyguide-v9";
 const APP_SHELL = [
   "./",
   "./index.html",

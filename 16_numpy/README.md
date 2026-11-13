@@ -157,6 +157,26 @@ print(notes.mean(axis=0))    # [15.  14.5 12.5] une moyenne par COLONNE → par 
 
 ---
 
+## 6. Trois petits outils qui servent tout le temps
+
+```python
+notes = np.array([12, 15, 9, 18])
+
+print(notes.tolist())           # [12, 15, 9, 18]   tableau NumPy → liste Python ordinaire
+print((notes >= 12).sum())      # 3                 COMBIEN de notes sont >= 12 ?
+print(np.round(notes / notes.sum() * 100, 1))    # [22.2 27.8 16.7 33.3]   arrondi à 1 décimale
+```
+
+- **`.tolist()`** redonne une liste classique (avec ses virgules) — pratique pour afficher un
+  résultat ou le passer à du code qui ne connaît pas NumPy.
+- **`(condition).sum()`** compte les cases qui vérifient la condition. Pourquoi ça marche : le
+  masque `notes >= 12` vaut `[True, True, False, True]`, et dans une somme `True` compte pour 1
+  et `False` pour 0. C'est le réflexe NumPy pour répondre à « combien de… ? ».
+- **`np.round(tableau, 1)`** arrondit chaque case à 1 chiffre après la virgule.
+
+---
+
+
 ## 🤖 Pourquoi ce module est essentiel pour l'IA
 
 Un modèle ne reçoit jamais « des maisons » ou « des images » : il reçoit **un tableau de

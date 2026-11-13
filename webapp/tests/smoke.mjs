@@ -32,6 +32,26 @@ function ok(cond, label) {
   if (!cond) failures++;
 }
 
+// Attend que l'éditeur affiche un contenu donné, et dit s'il y est parvenu.
+// Après un clic d'onglet, l'ancien éditeur reste à l'écran un court instant, le
+// temps que la nouvelle vue soit rendue : tester la seule PRÉSENCE d'un éditeur
+// ferait donc lire l'ancien contenu. On attend le contenu lui-même.
+async function editeurContient(page, texte) {
+  try {
+    await page.waitForFunction(
+      (t) => {
+        const el = document.querySelector(".CodeMirror");
+        return !!el && !!el.CodeMirror && el.CodeMirror.getValue().includes(t);
+      },
+      texte,
+      { timeout: 10000 },
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function attendrePort(port, timeoutMs = 15000) {
   const t0 = Date.now();
   return new Promise((resolve, reject) => {
@@ -86,10 +106,11 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
 
   // 3a. Onglet entraînement (série 2) : éditeur monté + bouton Solution fonctionnel
   await page.click('.tab[data-tab="entrainement"]');
-  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
-  ok((await page.locator(".CodeMirror").innerText()).includes("ENTRAÎNEMENT"), "Entraînement : série 2 chargée");
+  ok(await editeurContient(page, "ENTRAÎNEMENT"), "Entraînement : série 2 chargée");
   await page.getByRole("button", { name: /Solution/ }).click();
-  ok((await page.locator(".solution-box").innerText()).includes("CORRIGÉ"), "Entraînement : corrigé affiché");
+  await page.waitForSelector(".solution-box", { timeout: 5000 });
+  ok((await page.locator(".solution-box").innerText()).includes("CORRIGÉ — Entraînement"),
+    "Entraînement : corrigé de la série 2 affiché");
 
   // 3bis. Quiz : questions rendues + correction fonctionnelle
   await page.click('.tab[data-tab="quiz"]');
@@ -111,8 +132,7 @@ const serveur = spawn("python3", ["-m", "http.server", String(PORT)], {
   await page.waitForSelector(".file-pill", { timeout: 10000 });
   ok((await page.locator(".file-pill").count()) >= 10, "Défis : énoncés et corrigés listés");
   await page.locator(".file-pill").first().click();
-  await page.waitForSelector(".CodeMirror", { timeout: 10000 });
-  ok((await page.locator(".CodeMirror").innerText()).includes("DÉFI 1"), "Défis : énoncé chargé");
+  ok(await editeurContient(page, "DÉFI 1"), "Défis : énoncé chargé");
 
   // 5. Bac à sable
   await page.goto(`${BASE}/index.html#/ide`, { waitUntil: "domcontentloaded" });

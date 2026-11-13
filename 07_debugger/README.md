@@ -116,6 +116,49 @@ Un outil ne remplace pas le raisonnement. Face à un bug :
 
 ---
 
+## 5. Les bugs silencieux : le programme tourne, mais le résultat est faux
+
+Une erreur rouge est presque un cadeau : elle donne la ligne. Le bug vraiment pénible est celui
+qui **ne plante pas** et renvoie tranquillement un mauvais chiffre. Trois grands classiques, à
+savoir reconnaître :
+
+**1. Le `return` (ou le `print`) au mauvais niveau d'indentation.**
+
+```python
+def total(prix):
+    somme = 0
+    for p in prix:
+        somme += p
+        return somme        # ← DANS la boucle : la fonction s'arrête au 1er tour
+
+print(total([5, 10, 15]))   # 5 au lieu de 30
+```
+
+Indice typique : le résultat correspond au **premier élément** seulement. Un `print(p)` dans la
+boucle le confirme : il ne s'affiche qu'une fois.
+
+**2. L'erreur de frontière : `>` au lieu de `>=`.** « Au moins 5 lettres » inclut 5.
+
+```python
+print(len("table") > 5)     # False  ← "table" (5 lettres) est oublié
+print(len("table") >= 5)    # True
+```
+
+Indice typique : le résultat est faux **de peu**, et les éléments oubliés sont pile sur la
+limite. Dès qu'un énoncé dit « au moins », « au plus », « jusqu'à », teste la valeur exacte de
+la limite. C'est aussi l'origine des erreurs de `range` (le dernier nombre manque).
+
+**3. Deux noms pour la même liste.** `copie = liste` ne copie rien (voir le
+[module 02](../02_collections/)) : modifier l'une modifie l'autre. Indice typique : une liste
+« change toute seule ». Le remède : `copie = liste.copy()`.
+
+> 🧠 **Le réflexe commun** : devant un résultat faux, demande-toi *de combien* et *dans quel
+> sens* il est faux. « Seulement le premier », « il en manque un », « ça a changé tout seul » :
+> chacun de ces symptômes pointe vers une famille de bugs.
+
+---
+
+
 ## 🏁 S'entraîner
 
 ### 🎯 L'exercice principal — commence par ça

@@ -97,6 +97,33 @@ asyncio.run(main())
 
 ---
 
+### Lancer toute une LISTE de tâches : `gather(*liste)`
+
+`asyncio.gather(a, b, c)` attend ses tâches **une par une, séparées par des virgules**. Quand
+tu en as une liste (fabriquée par une boucle ou une compréhension), il faut la **déballer** avec
+une étoile `*` — celle du [module 03](../03_fonctions_modules/) :
+
+```python
+import asyncio
+
+async def carre(n):
+    await asyncio.sleep(0)
+    return n * n
+
+async def tout():
+    taches = [carre(n) for n in [1, 2, 3]]     # une LISTE de 3 coroutines (pas encore lancées)
+    return await asyncio.gather(*taches)       # * : gather reçoit carre(1), carre(2), carre(3)
+
+print(asyncio.run(tout()))                     # [1, 4, 9]
+```
+
+Deux choses à retenir : `gather` renvoie les résultats **dans l'ordre où tu as donné les
+tâches** (pas dans l'ordre où elles finissent) ; et `await` n'est permis que **dans** un
+`async def` — d'où la petite coroutine `tout()` qu'on lance avec `asyncio.run`.
+
+---
+
+
 ## 4. Quand utiliser asyncio (et quand l'éviter)
 
 | Situation | Asynchrone utile ? |
