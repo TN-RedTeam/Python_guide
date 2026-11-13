@@ -104,6 +104,51 @@ manuelles dans un tableur.
 
 ---
 
+### Créer une colonne, et lire ce que pandas affiche
+
+Un calcul entre colonnes s'applique **à toutes les lignes d'un coup**. Et écrire dans une
+colonne qui n'existe pas encore la **crée** (comme pour une clé de dictionnaire) :
+
+```python
+# df contient :   produit  quantite  prix
+#                 stylo          10     2
+#                 cahier          3     5
+#                 stylo           4     2
+
+df["montant"] = df["quantite"] * df["prix"]     # nouvelle colonne : 10×2, 3×5, 4×2
+print(df["montant"].tolist())                   # [20, 15, 8]
+print(df["montant"].min(), df["montant"].max()) # 8 20
+print(df[df["produit"] != "stylo"]["produit"].tolist())   # ['cahier']   ← != : « différent de »
+```
+
+Quand tu affiches le résultat d'un `groupby`, pandas montre une **Series** : une colonne de
+valeurs, chacune avec son **étiquette**.
+
+```python
+par_produit = df.groupby("produit")["montant"].sum()
+print(par_produit)
+```
+
+```
+produit                         ← le nom des étiquettes (la colonne du groupby)
+cahier    15                    ← étiquette : valeur
+stylo     28
+Name: montant, dtype: int64     ← le nom de la colonne calculée, et le type des valeurs
+```
+
+Les deux dernières informations ne font pas partie des données : c'est pandas qui te décrit ce
+qu'il affiche. Les groupes sont rangés par **ordre alphabétique** des étiquettes. Pour aller
+plus loin avec ce résultat :
+
+```python
+print(par_produit["stylo"])          # 28       une valeur, par son étiquette
+print(par_produit.to_numpy())        # [15 28]  les valeurs seules, en tableau NumPy
+print(df.columns.tolist())           # ['produit', 'quantite', 'prix', 'montant']  les colonnes
+```
+
+---
+
+
 ## 5. Exporter le résultat
 
 Une fois le rapport calculé, on l'enregistre pour le partager :

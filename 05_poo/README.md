@@ -89,6 +89,38 @@ autre = Voiture("Renault", "Bleu")      # un AUTRE objet, indépendant : sa prop
 
 ---
 
+### Un attribut peut être une liste : l'objet qui se remplit
+
+Un attribut n'est pas forcément un nombre ou un texte reçu à la création. Un objet peut
+**démarrer vide** et se remplir au fil des appels de méthodes :
+
+```python
+class Panier:
+    def __init__(self):               # aucun paramètre à part self : rien à fournir
+        self.articles = []            # chaque panier a SA propre liste, vide au départ
+
+    def ajouter(self, article):
+        self.articles.append(article)     # on modifie la liste rangée dans CET objet
+
+    def nombre(self):
+        return len(self.articles)
+
+mon_panier = Panier()
+mon_panier.ajouter("pain")
+mon_panier.ajouter("lait")
+print(mon_panier.nombre())            # 2
+
+autre_panier = Panier()               # un AUTRE objet : sa liste à lui est vide
+print(autre_panier.nombre())          # 0
+```
+
+C'est ce qui fait la force d'un objet : il **se souvient** de son état entre deux appels.
+`mon_panier` garde ses articles ; `autre_panier` a les siens. La classe est le moule, chaque
+objet a ses propres données.
+
+---
+
+
 ## 4. L'héritage : réutiliser et spécialiser
 
 L'**héritage** permet de créer une classe à partir d'une autre : la classe **enfant** récupère

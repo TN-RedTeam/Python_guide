@@ -58,6 +58,43 @@ Tu fais juste `import`. Exemples très courants :
 > déjà.** Très souvent, oui. La liste complète est sur
 > [docs.python.org/fr/3/library](https://docs.python.org/fr/3/library/).
 
+#### Trois modules de la stdlib à avoir essayés au moins une fois
+
+Rappel des trois façons d'importer, vues au [module 03](../03_fonctions_modules/) :
+`import math` (on écrit ensuite `math.sqrt`), `from math import sqrt` (on écrit `sqrt` tout
+court) et `import random as rnd` (on écrit `rnd.randint`).
+
+```python
+import math
+
+print(math.sqrt(16))       # 4.0   la racine carrée
+print(math.ceil(4.2))      # 5     arrondi à l'entier du DESSUS (4 cartons et demi → 5 cartons)
+print(math.floor(4.8))     # 4     arrondi à l'entier du DESSOUS
+print(round(math.pi, 2))   # 3.14  math.pi est une constante, pas une fonction : pas de ()
+```
+
+```python
+import random
+
+random.seed(0)                                       # fixe la « graine » du hasard
+print(random.randint(1, 6))                          # 4   un entier entre 1 et 6 INCLUS
+print(random.choice(["Ada", "Bob", "Zoé", "Léo"]))   # un élément de la liste, au hasard
+```
+
+> 🔎 **À quoi sert `seed` ?** L'ordinateur ne tire pas vraiment au hasard : il calcule une suite
+> de nombres à partir d'une valeur de départ, la *graine*. Avec la **même graine**, on obtient
+> **la même suite** à chaque lancement. C'est indispensable pour vérifier un résultat… et en IA,
+> pour qu'une expérience soit **reproductible** (tu verras souvent `random_state=42`).
+
+```python
+from statistics import mean, median     # deux fonctions importées par leur nom
+
+notes = [8, 12, 19]
+print(mean(notes))       # 13   la moyenne
+print(median(notes))     # 12   la valeur du milieu, une fois les notes triées
+```
+
+
 ### b) Les bibliothèques tierces (*third-party*)
 
 Écrites par la communauté, **pas livrées avec Python** : il faut les **installer** avec

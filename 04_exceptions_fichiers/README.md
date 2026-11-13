@@ -70,6 +70,31 @@ Comment ça se lit :
 > attrape *tout*) est important : un `except:` trop large masque des bugs et rend le débogage
 > impossible. N'attrape que les erreurs que tu sais traiter.
 
+### `pass` : ignorer une erreur, volontairement
+
+Parfois, la bonne réaction à une erreur est… de **ne rien faire** et de continuer. Mais un bloc
+`except:` ne peut pas être vide : on y met `pass`, l'instruction qui ne fait rien.
+
+```python
+saisies = ["12", "abc", "7"]
+
+total = 0
+for saisie in saisies:
+    try:
+        total = total + int(saisie)    # int("abc") lève une ValueError
+    except ValueError:
+        pass                           # on ignore cette saisie et on passe à la suivante
+print(total)                           # 19
+```
+
+Remarque où est placé le `try` : **dans** la boucle. Ainsi, la saisie invalide n'interrompt que
+**son** tour ; les suivantes sont traitées. Si le `try` entourait toute la boucle, la première
+erreur arrêterait tout et on obtiendrait 12.
+
+> ⚠️ `pass` doit rester un choix **réfléchi**. Ignorer une erreur que tu ne comprends pas, c'est
+> cacher un bug. N'ignore que celles dont tu sais **pourquoi** elles arrivent.
+
+
 ### `else` et `finally` (pour aller plus loin)
 
 ```python
@@ -165,6 +190,46 @@ except FileNotFoundError:
 > partout.
 
 ---
+
+## 5. Cas pratique : lire un petit fichier de données à la main
+
+Beaucoup de fichiers de données sont du **texte découpé par des virgules** (le format CSV).
+Avec ce que tu sais déjà, tu peux en lire un. Prenons ce fichier `notes.csv` :
+
+```
+nom,note
+Ada,15
+Bob,9
+```
+
+```python
+with open("notes.csv", "r", encoding="utf-8") as f:
+    lignes = f.readlines()
+
+print(lignes)          # ['nom,note\n', 'Ada,15\n', 'Bob,9\n']
+print(lignes[1:])      # ['Ada,15\n', 'Bob,9\n']   ← tout SAUF la 1re ligne (l'en-tête)
+
+for ligne in lignes[1:]:
+    morceaux = ligne.strip().split(",")     # "Ada,15\n" → "Ada,15" → ['Ada', '15']
+    nom = morceaux[0]                        # 'Ada'
+    note = int(morceaux[1])                  # '15' (du texte) → 15 (un nombre)
+    print(nom, note + 1)                     # Ada 16, puis Bob 10
+```
+
+Les trois gestes à retenir, dans l'ordre :
+
+1. **`lignes[1:]`** — on saute l'en-tête : la tranche `[1:]` va de l'index 1 jusqu'à la fin ;
+2. **`.strip().split(",")`** — on retire le `\n` de fin, puis on découpe aux virgules : on
+   obtient la **liste** des valeurs de la ligne ;
+3. **`int(...)`** — tout ce qui sort d'un fichier est du **texte**. Pour calculer avec, il faut
+   le convertir.
+
+> 🔎 Pour de vrais fichiers CSV (avec des guillemets, des virgules dans les valeurs…), Python a
+> un module `csv`, et surtout **pandas** ([module 13](../13_donnees_rapports/)) qui fait tout
+> cela en une ligne. Mais savoir le faire à la main, c'est comprendre ce que ces outils font.
+
+---
+
 
 ## 🤖 Pourquoi ce module est essentiel pour l'IA
 

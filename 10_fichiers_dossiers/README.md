@@ -131,6 +131,137 @@ L'idée du mini-projet `ranger_dossier.py` : regarder l'**extension** de chaque 
 
 ---
 
+## 6. `pathlib` en détail : ta boîte à outils pour les chemins
+
+Un objet `Path` représente **un chemin** (vers un fichier ou un dossier). Il sait se découper,
+dire si la cible existe, lire, écrire, renommer… C'est l'outil à préférer pour tout ce qui
+touche aux fichiers.
+
+### Découper un chemin
+
+```python
+from pathlib import Path
+
+chemin = Path("documents/2026/rapport_final.pdf")
+
+print(chemin.name)           # rapport_final.pdf   le nom complet du fichier
+print(chemin.stem)           # rapport_final       le nom SANS l'extension
+print(chemin.suffix)         # .pdf                l'extension, avec son point
+print(chemin.parent)         # documents/2026      le dossier qui le contient
+print(chemin.parent.name)    # 2026                …et le nom de ce dossier
+```
+
+Rien n'est lu sur le disque ici : on ne fait qu'**analyser le texte** du chemin. Le fichier n'a
+même pas besoin d'exister.
+
+### Construire un chemin avec `/`
+
+Pour désigner un fichier **dans** un dossier, on « colle » les morceaux avec `/` :
+
+```python
+dossier = Path("photos")
+fichier = dossier / "plage.jpg"      # → photos/plage.jpg   (un nouveau Path)
+```
+
+Cet opérateur `/` fabrique le bon chemin sur tous les systèmes (Windows utilise `\`, Mac et
+Linux `/` : `pathlib` s'en occupe).
+
+### Interroger le disque
+
+```python
+from pathlib import Path
+
+note = Path("note.txt")                           # un fichier dans le dossier courant
+
+print(note.exists())                              # False : ce fichier n'existe pas encore
+note.write_text("Bonjour", encoding="utf-8")      # crée le fichier et écrit dedans
+print(note.exists())                              # True
+print(note.read_text(encoding="utf-8"))           # Bonjour
+print(note.stat().st_size)                        # 7   ← la TAILLE en octets
+print(note.is_file())                             # True  (pour un dossier, ce serait False)
+```
+
+`write_text` et `read_text` sont des raccourcis pour le `with open(...)` du
+[module 04](../04_exceptions_fichiers/) : pratiques quand on écrit ou lit **tout d'un coup**.
+
+### Lister un dossier, trié et filtré
+
+`iterdir()` donne les éléments du dossier **dans un ordre quelconque**. Pour un résultat
+prévisible, on trie ; pour ne garder que certains fichiers, on filtre sur `.suffix` :
+
+```python
+# le dossier contient : note.txt, b.txt, a.csv
+print(sorted(e.name for e in dossier.iterdir()))                        # ['a.csv', 'b.txt', 'note.txt']
+print(sorted(e.name for e in dossier.iterdir() if e.suffix == ".txt"))  # ['b.txt', 'note.txt']
+```
+
+Lis la 2e ligne comme : *« le nom de chaque élément du dossier, s'il a l'extension .txt — le
+tout trié »*. C'est une expression génératrice ([module 06](../06_iterateurs_generateurs/))
+donnée à `sorted`.
+
+### Créer, renommer, copier
+
+```python
+import shutil
+
+archives = dossier / "archives"
+archives.mkdir()                                  # crée le sous-dossier « archives »
+
+note.rename(dossier / "memo.txt")                 # renomme note.txt en memo.txt
+shutil.copy(dossier / "memo.txt", archives / "memo.txt")    # COPIE memo.txt dans archives/
+```
+
+| Geste | Outil |
+|-------|-------|
+| créer un dossier | `chemin.mkdir()` |
+| renommer (ou déplacer) | `chemin.rename(nouveau_chemin)` |
+| copier un fichier | `shutil.copy(source, destination)` |
+| supprimer un fichier | `chemin.unlink()` |
+
+> ⚠️ **Ces gestes modifient ton disque et ne s'annulent pas.** `rename` et `copy` **écrasent**
+> sans prévenir un fichier qui porterait déjà le nouveau nom. Réflexes de pro : vérifier avec
+> `.exists()` avant d'agir, tester sur un dossier d'essai, et **afficher ce qu'on va faire
+> avant de le faire** (c'est tout le sujet du [défi 4](../projets/defis/)).
+
+> 🔎 **Et `tempfile.mkdtemp()` dans les exercices ?** Cette fonction crée un **dossier
+> temporaire vide** quelque part sur ta machine et renvoie son chemin. Les exercices s'en
+> servent pour te fournir un terrain d'essai : tu peux y créer, renommer et supprimer sans
+> aucun risque pour tes vrais fichiers.
+
+---
+
+## 7. Écrire et relire du JSON
+
+La section 4 a présenté le format. Voici le geste complet, dans les deux sens :
+
+```python
+import json
+
+donnees = {"ville": "Paris", "jours": 3}
+
+with open("data.json", "w", encoding="utf-8") as f:
+    json.dump(donnees, f)            # dictionnaire Python → texte JSON, écrit dans le fichier
+# le fichier contient maintenant :  {"ville": "Paris", "jours": 3}
+
+with open("data.json", "r", encoding="utf-8") as f:
+    relu = json.load(f)              # texte JSON du fichier → dictionnaire Python
+
+print(relu)                          # {'ville': 'Paris', 'jours': 3}
+print(relu["jours"] + 1)             # 4  ← un VRAI nombre, on peut calculer
+```
+
+Ce dernier point est tout l'intérêt du JSON par rapport à un fichier texte ordinaire : les
+**types sont conservés**. `3` revient sous forme de nombre, pas du texte `"3"` ; une liste
+revient sous forme de liste. C'est le format idéal pour **sauvegarder l'état d'un programme**
+et le retrouver au lancement suivant.
+
+> 🔎 `json.dump` / `json.load` travaillent avec un **fichier**. Leurs cousins `json.dumps` /
+> `json.loads` (avec un **s**, pour *string*) travaillent avec un **texte** en mémoire — tu les
+> retrouveras au [module 11](../11_web_apis/) pour lire les réponses des APIs.
+
+---
+
+
 ## 🏁 S'entraîner
 
 ### 🎯 Les exercices — commence par ça
